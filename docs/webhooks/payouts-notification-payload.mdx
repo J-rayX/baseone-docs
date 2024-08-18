@@ -1,0 +1,53 @@
+Payouts Notification Payload
+
+## Background Info on Webhook Events
+
+When transactions happen, you receive notifications from BaseOne in the form of events. An event is delivered to you through the pre-configured webhook URL you set in your BaseOne dashboard's **Developer** settings. 
+
+Follow the [steps to configure your Webhook URL](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard) in your developer dashboard.
+
+## Notification Payload
+
+The payload body of a Payouts transaction event that you will receive through a webhook URL looks like the following:
+
+```text Sample event payload
+"payload": {
+	"EventName": "PayoutNotification"
+	"EventTime": "2022-080-15 01:15:30"
+	"EventService": "Notification"
+	"NotificationData": "{JSON Object in String}"
+	"EventId": "2fc5bc14-2e0d-4541-bca7-9082b682243a"
+}
+```
+
+- Each event carries a similar payload structure, as shown above. 
+- The `NotificationData` field in the above code snippet is an object that carries full details about the event. 
+- The `NotificationData` field follows the JSON format to capture several data points about the event service. 
+
+## Payout Notification Events
+
+The following section describes the `NotificationData` data structure for Payouts notification events.
+
+```text Sample Payout Notification Data Object
+{
+  "Currency": "NGN",
+  "Amount": "175",
+  "Charges": "3.00",
+  "TotalAmount": "178.00",
+  "TransactionReference": "VGN50513A9E0DA22045250B9600FFE977942E76",
+  "ClientReference": "ORB 00103",
+  "TransactionStatus": "SUCCESSFUL"
+}
+```
+
+The following table describes the fields of the Payouts `NotificationData`.
+
+| Field                | Description                                                                |
+| :------------------- | :------------------------------------------------------------------------- |
+| Currency             | Currency of funds transferred                                              |
+| Amount               | Amount of sent out                                                         |
+| Charges              | Amount of charges applied on transaction                                   |
+| Total Amount         | Total amount sent out before charges                                       |
+| TransactionReference | Unique ID of the transaction in BaseOne                                    |
+| ClientReference      | Supply your unique identifier for the transaction                          |
+| TransactionStatus    | State of the transaction. It could be `SUCCESSFUL`, `PENDING`, or `FAILED` |

@@ -1,0 +1,65 @@
+VA Notification Payload
+
+## Background Info on Webhook Events
+
+When transactions happen, you receive notifications from BaseOne in the form of events. An event is delivered to you through the pre-configured webhook URL. Follow the steps on how to [register your webhook URL](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard) in your developer dashboard.
+
+The payload body of an event received through a webhook URL looks like the following:
+
+```text Sample event payload
+"payload": {
+	"EventName": "Credit Notification"
+	"EventTime": "2022-080-15 01:15:30"
+	"EventService": "Notification"
+	"NotificationData": "{JSON Object in String}"
+	"EventId": "2fc5bc14-2e0d-4541-bca7-9082b682243a"
+}
+```
+
+- Each event carries a similar payload structure, as shown above.
+- The `NotificationData` field in the above code snippet is an object that carries full details about the event.
+- The `NotificationData` field follows the JSON format to capture several data points about the event service.
+
+## Credit Notification Events
+
+BaseOne Virtual Accounts currently provides notifications for only credit transactions received in your virtual accounts. We are working to offer notification events for other types of transactions in the nearest future.
+
+The following section describes the `NotificationData` data structure for virtual account **credit notification** events.
+
+```text Sample Virtual Account Notification Data Object
+{
+  "TotalAmount": "200.00",
+  "CreditAmount": "175.00",
+  "Charges": "25.00",
+  "BeneficiaryAccount": "0000000048",
+  "BeneficiaryName": "Charles Esumeh",
+  "BeneficiaryBankCode": 599,
+  "SourceBankCode": 588,
+  "SourceBankName": "Winning Bank",
+  "SourceAccount": "2020394434",
+  "SourceAccountName": "Qayyimah Ayandiran,",
+  "TransactionReference": "VGN50513A9E0DA22045250B9600FFE977942E76",
+  "TransactionDate": "2022-07-01",
+  "IsProcessed": true,
+  "Currency": "NGN",
+}
+```
+
+The following table describes the fields of the virtual account credit `NotificationData` received.
+
+| Field                | Description                                |
+| :------------------- | :----------------------------------------- |
+| TotalAmount          | Total amount of money sent by the customer |
+| CreditAmount         | Amount settled post-transaction charging   |
+| Charges              | Amount of charges applied on transaction   |
+| BeneficiaryAccount   | Receiver's account number                  |
+| BeneficiaryName      | Reciever's name                            |
+| BeneficiaryBankCode  | Reciever's bank code                       |
+| SourceBankCode       | Sender's bank code                         |
+| SourceBankName       | Sender's bank name                         |
+| SourceAccount        | Sender's bank account number               |
+| SourceAccountName    | Sender's name                              |
+| TransactionReference | Unique ID of the transaction in BaseOne    |
+| TransactionDate      | Date when the transaction occurred         |
+| IsProcessed          | Status of transaction                      |
+| Currency             | Currency of funds transferred              |

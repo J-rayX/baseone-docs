@@ -1,0 +1,8 @@
+{
+  "label": "Webhook Notification",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn how to configure your webhooks and receive notificaiton payload from BaseOne."
+  }
+}

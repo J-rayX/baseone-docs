@@ -1,0 +1,44 @@
+---
+sidebar_position: 2
+---
+
+
+# Quickstart
+
+Get up and running with your BaseOne integration in the following steps:
+
+1. [Sign up](https://app.baseone.co/signin) for an account if you don't have one yet.
+2. Log in to your dashboard and go to the **Developers** section.
+3. Create new keys and note your [API keys](https://developer.baseone.co/docs/authentication#create-api-keys).
+4. To create digital wallets for your customers, see our [Wallets-as-a-service](https://developer.baseone.co/docs/wallets) offering.
+5. If you need temporary or permanent accounts to collect funds, see our [Virtual Accounts](https://developer.baseone.co/docs/virtualaccounts) offering.
+6. To make fund payouts and disbursements, see our [Payouts API](https://developer.baseone.co/docs/payouts).
+7. You can always use the API sandbox to test your integration before going live.
+8. Launch your integration when you're ready to go live!
+
+## On sandbox and live production mode
+
+Go to the service on the dashboard with the following URL, depending on whether you are testing in the sandbox or want to work in production mode. 
+
+```curl Sandbox UI
+https://sandbox-app.baseone.co/{service_name}
+```
+```curl Live UI
+https://baseone.co/{service_name}
+```
+
+For the API gateway:
+
+```curl API Sandbox
+https://sandbox.baseone.co/{service_name}
+```
+```curl API Live
+https://gateway.baseone.co/{service_name}
+```
+
+`{service_name}` is the name of the service you are integrating. See the following table:
+
+| Name of service  | `{service_name}`   |    |
+| :--------------- | :----------------- | :- |
+| Virtual Accounts | `virtual_accounts` |    |
+| Payouts          | `payouts`          |    |

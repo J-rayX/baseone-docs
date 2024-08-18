@@ -1,0 +1,64 @@
+Cards Notification Payload
+
+## Background Info on Webhook Events
+
+When transactions happen, event notifications are delivered to you through your pre-configured webhook URL.
+
+You can follow the steps on how to [configure the webhook URL](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard) in your BaseOne dashboard **Developer** settings. 
+
+The payload body of an event received through a webhook URL looks like the following:
+
+```text Sample event payload
+"payload": {
+  "EventName": "CardNotification"
+  "EventTime": "2022-080-15 01:15:30"
+  "EventService": "CardTransactionNotification"
+  "NotificationData": "{JSON Object in String}"
+  "EventId": "2fc5bc14-2e0d-4541-bca7-9082b682243a"
+}
+```
+
+- Each event carries a similar payload structure, as shown above. 
+- The `NotificationData` field in the above code snippet is an object that carries full details about the event. 
+- The `NotificationData` field follows the JSON format to capture several data points about the event service. 
+
+## Cards Notification Events
+
+The following section describes the `NotificationData` data structure for **Cards** notification events.
+
+```text Sample Cards Notification Data Object
+{
+    "CardId": "de476ac8-cdad-4b18-64d1-08db6be686d8",
+    "CardName": "James Babatunde",
+    "Currency": "USD",
+    "MaskedPan": "111111******5543",
+    "AvailableBalance": 31.00,
+    "LedgerBalance": 0.0,
+    "Amount": 20.00,
+    "Narration": "Withdrawal card funds in de476ac8-cdad-4b18-64d1-08db6be686d8/DEBF992741A0387804C390AADE0AEFF0B0D3F49",
+    "Reference": "DEBF992741A0387804C390AADE0AEFF0B0D3F49",
+    "TransactionType": "DEBIT",
+    "Status": "Approved",
+    "TransactionStatus": "Success",
+    "TransactionDate": "2/7/2024 12:00:00 AM",
+    "GatewayResponseMessage": "Transaction Successful"
+}
+```
+
+The following table describes the fields of the **Cards** `NotificationData` received.
+
+| Field             | Description                                                                                |
+| :---------------- | :----------------------------------------------------------------------------------------- |
+| CardId            | Unique card identifier                                                                     |
+| CardName          | Name on card                                                                               |
+| Currency          | Card currency                                                                              |
+| MaskedPan         | Card PAN number                                                                            |
+| AvailableBalance  | Amount of funds available in the card after the transaction                                |
+| LedgerBalance     | Amount in the card ledger                                                                  |
+| Amount            | Total amount of money transacted                                                           |
+| Narration         | User description of the transaction                                                        |
+| Reference         | Unique transaction identifier in BaseOne                                                   |
+| TransactionType   | Type of transaction made. It could be `DEBIT`, `CREDIT`, `CARD ISSUANCE`, etc              |
+| Status            | Status of the card transaction from the provider. It could be `APPROVED` or `DECLINED`     |
+| TransactionStatus | State of the card transaction in BaseOne. It could be `SUCCESSFUL`, `PENDING`, or `FAILED` |
+| TransactionDate   | Date when the transaction occurred                                                         |

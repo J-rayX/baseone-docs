@@ -1,0 +1,34 @@
+{
+  "here-first": "Here First!",
+  "index": "Introduction",
+  
+  "authentication": "Authentication",
+  "quickstart": "Quickstart",
+  "webhooks": {
+    "cards-Notification-payload": "Cards",
+    "collect-Notification-payload": "Collect",
+    "payouts-Notification-payload": "Payouts",
+    "va-Notification-payload": "VA"
+  },
+  "cards": "Cards",
+  "collect": {
+      "another": "Another",
+      "onboarding-collect": "Onboarding Collect",
+      "using-collect": "Using Collect"
+  },
+
+  "payouts": "Payouts",
+  "virtual-accounts": "Virtual Accounts",
+  
+  "about": {
+    "title": "About",
+    "type": "page"
+  },
+
+  "contact": {
+    "title": "Contact ↗",
+    "type": "page",
+    "href": "contact@baseone.co",
+    "newWindow": true
+  }
+}

@@ -1,0 +1,55 @@
+Collect Notification Payload
+
+## Background Info on Webhook Events
+
+When transactions happen, you receive notifications from BaseOne in the form of events. An event is delivered to you through your pre-configured webhook URL.
+
+See the steps to [configure the webhook URL](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard) in your BaseOne dashboard **Developer** settings. 
+
+The payload body of an event received through a webhook URL looks like the following:
+
+```text Sample event payload
+"payload": {
+	"EventName": "CollectNotification"
+	"EventTime": "2022-080-15 01:15:30"
+	"EventService": "Notification"
+	"NotificationData": "{JSON Object in String}"
+	"EventId": "2fc5bc14-2e0d-4541-bca7-9082b682243a"
+}
+```
+
+- Each event carries a similar payload structure, as shown above. 
+- The `NotificationData` field in the above code snippet is an object that carries full details about the event. 
+- The `NotificationData` field follows the JSON format to capture several data points about the event service. 
+
+## Collect Notification Events
+
+The following section describes the `NotificationData` data structure for **Collect** notification events.
+
+```text Sample Collect Notification Data Object
+{
+  "Channel": "MobileMoney",
+  "Currency": "NGN",
+  "Amount": "1000",
+  "Charges": "25.00",
+  "TotalAmount": "1975.00",
+  "TransactionReference": "VGN50513A9E0DA22045250B9600FFE977942E76",
+  "ClientReference": "ORB 00103",
+  "TransactionDate": "2022-07-01",
+  "TransactionStatus": "SUCCESSFUL"
+}
+```
+
+The following table describes the fields of the **Collect** `NotificationData` received.
+
+| Field                | Description                                                                                |
+| :------------------- | :----------------------------------------------------------------------------------------- |
+| Channel              | Collect channel used for the collection. It could be `Transafer`, `MobileMoney`, or `Card` |
+| Currency             | Currency of transaction                                                                    |
+| Amount               | Total amount of money collected in the transaction                                         |
+| Charges              | Amount of charges applied on transaction                                                   |
+| Total Amount         | Total balance of collected funds in your integration                                       |
+| TransactionReference | Unique ID of the transaction in BaseOne                                                    |
+| ClientReference      | Your unique transaction ID                                                                 |
+| TransactionDate      | Date when the transaction occurred                                                         |
+| TransactionStatus    | State of the collection transaction. It could be `SUCCESSFUL`, `PENDING`, or `FAILED`      |
