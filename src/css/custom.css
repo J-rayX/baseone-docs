@@ -32,3 +32,36 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+
+/* Ensure the footer itself is a flex container */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* Center the links within the footer */
+.footer__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  /* Add some space between links and copyright */
+}
+
+/* Ensure that individual link items are centered */
+.footer__links a {
+  margin: 0 10px;
+  /* Add spacing between links */
+  text-align: center;
+}
+
+/* Center the copyright text */
+.footer__copyright {
+  text-align: center;
+  margin-top: 10px;
+}

@@ -97,13 +97,13 @@ curl --request POST
               </a>
             </div>
           </div>
-          <div className="w-[50%] md:w-[100%] max-lg:w-[100%] max-lg:px-2">
+          <div className="w-[50%] md:w-[100%] max-lg:w-[100%] max-lg:px-40 max-md:px-20 max-md:text-md max-sm:px-6 max-sm:text-xs">
             <CodeSnippet code={code} />
           </div>
         </Section>
 
-        <section className="flex max-lg:flex-col py-12 justify-center gap-4 px-32 max-lg:px-2 text-white">
-          <div className="max-lg:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
+        <section className="flex max-md:flex-col py-12 justify-center gap-4 px-32 max-lg:px-2 text-white">
+          <div className="max-md:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
             <img
               src={require("/img/baseone-logomark-coloured.png").default}
               alt=""
@@ -114,7 +114,7 @@ curl --request POST
               Effortlessly create beautiful docs with just markdown.
             </p>
           </div>
-          <div className="max-lg:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
+          <div className="max-md:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
             <img
               src={require("/img/baseone-logomark-coloured.png").default}
               alt=""
@@ -125,7 +125,7 @@ curl --request POST
               Effortlessly create beautiful docs with just markdown.
             </p>
           </div>
-          <div className="max-lg:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
+          <div className="max-md:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
             <img
               src={require("/img/baseone-logomark-coloured.png").default}
               alt=""
@@ -136,7 +136,7 @@ curl --request POST
               Effortlessly create beautiful docs with just markdown.
             </p>
           </div>
-          <div className="max-lg:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
+          <div className="max-md:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
             <img
               src={require("/img/baseone-logomark-coloured.png").default}
               alt=""

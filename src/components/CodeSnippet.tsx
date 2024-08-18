@@ -3,7 +3,7 @@ import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 
 const CodeSnippet = ({ code }) => {
   return (
-    <div className="flex flex-col bg-gray-00 border border-orange-950 rounded-lg max-w-xl w-[100%] max-lg:w-[100%] max-lg:mt-6  drop-shadow-lg max-lg:mx-0">
+    <div className="flex flex-col bg-gray-00 border border-orange-950 rounded-lg max-lg:mt-6  drop-shadow-lg max-lg:mx-0">
       <SyntaxHighlighter
         language="bash"
         customStyle={{
