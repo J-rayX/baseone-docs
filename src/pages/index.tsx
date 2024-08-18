@@ -34,10 +34,10 @@ function HomepageHeader() {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
-  const authCode = `// creating a virtual card \n
-curl --request POST \n
-  --url https://sandbox.baseone.co/cards/v1/create-card \n
-  --header 'accept: application/json' \n
+  const code = `// creating a virtual card \n
+curl --request POST 
+  --url https://sandbox.baseone.co/cards/v1/create-card 
+  --header 'accept: application/json' 
   --header 'content-type: application/json'
   `;
 
@@ -55,7 +55,7 @@ curl --request POST \n
           {/* <HomepageHeader /> */}
           <div className="w-[50%] max-lg:w-full flex flex-col items-start max-lg:items-center max-lg:text-center md:w-[90%] sm:w-[90%] mx-auto relative z-1  mb-[4rem] max-lg:mb-[1rem] max-lg:p-2 md:mb-0 lg:mb-[rem] leading-7 ">
             <a href="" className="no-underline">
-              <div className="flex gap-2 justify-center items-center px-2 py-1 border border-[#175fff] rounded-full object-contain text-md max-sm:text-xs">
+              <div className="flex gap-2 justify-center items-center px-2 py-1 border border-[#175fff] rounded-full object-contain text-sm max-sm:text-xs">
                 <span>
                   <img src="" width="" alt="" />
                 </span>
@@ -98,17 +98,14 @@ curl --request POST \n
             </div>
           </div>
           <div className="w-[50%] md:w-[100%] max-lg:w-[100%] max-lg:px-2">
-            <CodeSnippet code={authCode} />
+            <CodeSnippet code={code} />
           </div>
         </Section>
 
         <section className="flex max-lg:flex-col py-12 justify-center gap-4 px-32 max-lg:px-2 text-white">
           <div className="max-lg:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
             <img
-              src={
-                require("/Users/jheikhei/baseone/baseone-docs/static/img/baseone-logomark-coloured.png")
-                  .default
-              }
+              src={require("/img/baseone-logomark-coloured.png").default}
               alt=""
               className="h-8 bg-slate-700 rounded-sm p-1.5 "
             />
@@ -119,10 +116,7 @@ curl --request POST \n
           </div>
           <div className="max-lg:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
             <img
-              src={
-                require("/Users/jheikhei/baseone/baseone-docs/static/img/baseone-logomark-coloured.png")
-                  .default
-              }
+              src={require("/img/baseone-logomark-coloured.png").default}
               alt=""
               className="h-8 bg-slate-700 rounded-sm p-1.5 "
             />
@@ -133,10 +127,7 @@ curl --request POST \n
           </div>
           <div className="max-lg:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
             <img
-              src={
-                require("/Users/jheikhei/baseone/baseone-docs/static/img/baseone-logomark-coloured.png")
-                  .default
-              }
+              src={require("/img/baseone-logomark-coloured.png").default}
               alt=""
               className="h-8 bg-slate-700 rounded-sm p-1.5 "
             />
@@ -147,10 +138,7 @@ curl --request POST \n
           </div>
           <div className="max-lg:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
             <img
-              src={
-                require("/Users/jheikhei/baseone/baseone-docs/static/img/baseone-logomark-coloured.png")
-                  .default
-              }
+              src={require("/img/baseone-logomark-coloured.png").default}
               alt=""
               className="h-8 bg-slate-700 rounded-sm p-1.5 "
             />

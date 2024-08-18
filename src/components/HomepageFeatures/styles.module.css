@@ -9,3 +9,18 @@
   height: 200px;
   width: 200px;
 }
+
+pre {
+  white-space: pre-wrap;
+  /* Preserve whitespace and allow for wrapping */
+  word-wrap: normal;
+  /* Prevent words from breaking mid-word */
+  overflow-x: auto;
+  /* Allow horizontal scrolling if needed */
+  background-color: #2d2d2d;
+  /* Optional: Match your preferred background */
+  padding: 16px;
+  /* Optional: Add some padding */
+  border-radius: 8px;
+  /* Optional: Rounded corners */
+}
