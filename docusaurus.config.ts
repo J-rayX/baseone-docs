@@ -89,19 +89,8 @@ const config: Config = {
     },
     footer: {
       style: "dark",
-      links: [
-        {
-          title: "Community",
-          items: [
-            {
-              label: "Twitter",
-              position: "center",
-              href: "https://twitter.com/docusaurus",
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} BaseOne.co. Built with Docusaurus.`,
+      links: [],
+      copyright: `Copyright © ${new Date().getFullYear()} BaseOne.co.`,
     },
     prism: {
       theme: prismThemes.github,

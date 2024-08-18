@@ -9,6 +9,7 @@ import heroBg from "../components/heroBg.svg";
 import styles from "./index.module.css";
 import CodeSnippet from "../components/CodeSnippet";
 import Section from "../components/Section";
+import HomepageProducts from "../components/HomepageProducts";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -50,7 +51,7 @@ curl --request POST
         <Section
           id="hero"
           bg={heroBg}
-          className="flex max-lg:flex-col gap-1 items-center px-40 max-lg:px-0 py-12 bg-[#E9EFFF]"
+          className="flex max-lg:flex-col gap-1 items-center px-40 max-lg:px-0 py-12 bg-[#E9EFFF] dark:text-white d "
         >
           {/* <HomepageHeader /> */}
           <div className="w-[50%] max-lg:w-full flex flex-col items-start max-lg:items-center max-lg:text-center md:w-[90%] sm:w-[90%] mx-auto relative z-1  mb-[4rem] max-lg:mb-[1rem] max-lg:p-2 md:mb-0 lg:mb-[rem] leading-7 ">
@@ -59,21 +60,21 @@ curl --request POST
                 <span>
                   <img src="" width="" alt="" />
                 </span>
-                <span className="text-[#175fff] no-underline">
+                <span className="text-[#175fff]  no-underline">
                   Reconciliation is here! 🎉
                 </span>
               </div>
             </a>
 
             {/* <p </p> */}
-            <h1 className="flex flex-col mb-6 text-6xl font-bold font-sans, max-sm:text-4xl max-md:text-4xl text-[#0A2540] max-lg:text-4xl">
+            <h1 className="flex flex-col mb-6 text-6xl font-bold font-sans, max-sm:text-4xl max-md:text-4xl text-[#0A2540]  max-lg:text-4xl">
               BaseOne Docs:{" "}
-              <span className="text-[#175fff] text-5xl max-lg:text-3xl">
+              <span className="text-[#175fff] text-5xl max-lg:text-3xl ">
                 Your all-in-one fintech shop
               </span>
             </h1>
 
-            <p className="pb-6  max-lg:pb-3 text-xl font-semibold text-[#0A2540]">
+            <p className="pb-6  max-lg:pb-3 text-xl font-semibold text-[#0A2540] ">
               Idea to Launch in Minutes
             </p>
             {/* <p className="pb-6">
@@ -85,68 +86,40 @@ curl --request POST
             <div className="flex gap-4 text-lg font-bold">
               <a
                 href=""
-                className="rounded-xl py-3 normal-case border-2 border-[#175fff] text-[#175fff] px-6 max-lg:px-4 max-lg:py-1 max-lg:text-md"
+                className="rounded-xl py-3 normal-case border-2 border-[#175fff] text-[#175fff]  px-6 max-lg:px-4 max-lg:py-1 max-lg:text-md"
               >
                 <span>Guides</span>
               </a>
               <a
                 href=""
-                className="rounded-xl py-3 normal-case border-2 border-[#175fff] text-[#175fff] px-6 max-lg:px-4 max-lg:py-1 max-lg:text-md"
+                className="rounded-xl py-3 normal-case border-2 border-[#175fff] text-[#175fff]  px-6 max-lg:px-4 max-lg:py-1 max-lg:text-md"
               >
                 API Reference
               </a>
             </div>
           </div>
-          <div className="w-[50%] md:w-[100%] max-lg:w-[100%] max-lg:px-40 max-md:px-20 max-md:text-md max-sm:px-6 max-sm:text-xs">
+          <div className="w-[50%] md:w-[100%] max-lg:w-[100%] max-lg:px-40 max-md:px-20 max-md:text-md max-sm:px-6 max-sm:text-xs dark:text-[#0A2540]">
             <CodeSnippet code={code} />
           </div>
         </Section>
 
         <section className="flex max-md:flex-col py-12 justify-center gap-4 px-32 max-lg:px-2 text-white">
-          <div className="max-md:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
-            <img
-              src={require("/img/baseone-logomark-coloured.png").default}
-              alt=""
-              className="h-8 bg-slate-700 rounded-sm p-1.5 "
-            />
-            <p className="font-semibold text-base pb-3 pt-2">Accounts</p>
-            <p className="font-medium text-sm  w-full leading-6">
-              Effortlessly create beautiful docs with just markdown.
-            </p>
-          </div>
-          <div className="max-md:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
-            <img
-              src={require("/img/baseone-logomark-coloured.png").default}
-              alt=""
-              className="h-8 bg-slate-700 rounded-sm p-1.5 "
-            />
-            <p className="font-semibold text-base pb-3 pt-2">KYC</p>
-            <p className="font-medium text-sm  w-full leading-6">
-              Effortlessly create beautiful docs with just markdown.
-            </p>
-          </div>
-          <div className="max-md:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
-            <img
-              src={require("/img/baseone-logomark-coloured.png").default}
-              alt=""
-              className="h-8 bg-slate-700 rounded-sm p-1.5 "
-            />
-            <p className="font-semibold text-base pb-3 pt-2">Cards</p>
-            <p className="font-medium text-sm  w-full leading-6">
-              Effortlessly create beautiful docs with just markdown.
-            </p>
-          </div>
-          <div className="max-md:w-full p-6 w-[25%] bg-slate-900 rounded-lg">
-            <img
-              src={require("/img/baseone-logomark-coloured.png").default}
-              alt=""
-              className="h-8 bg-slate-700 rounded-sm p-1.5 "
-            />
-            <p className="font-semibold text-base pb-3 pt-2">Payouts</p>
-            <p className="font-medium text-sm  w-full leading-6">
-              Effortlessly create beautiful docs with just markdown.
-            </p>
-          </div>
+          <HomepageProducts
+            title={"Accounts"}
+            copyText={"Effortlessly create beautiful docs with just markdown."}
+          />
+          <HomepageProducts
+            title={"KYC"}
+            copyText={"Effortlessly create beautiful docs with just markdown."}
+          />
+          <HomepageProducts
+            title={"Cards"}
+            copyText={"Effortlessly create beautiful docs with just markdown."}
+          />
+          <HomepageProducts
+            title={"Payouts"}
+            copyText={"Effortlessly create beautiful docs with just markdown."}
+          />
         </section>
 
         {/* <main><HomepageFeatures /></main> */}
