@@ -5,7 +5,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 const config: Config = {
   title: "BaseOne Documentation",
   tagline: "Dinosaurs are cool",
-  favicon: "img/favicon.ico",
+  favicon: "img/baseone-bg.png",
 
   // Set the production url of your site here
   url: "https://developer.baseone.co",
