@@ -98,7 +98,7 @@ curl --request POST
               </a>
             </div>
           </div>
-          <div className="w-[100%] md:w-[100%] max-lg:w-[100%] max-lg:px-40 max-md:px-20 max-md:text-md max-sm:px-6 max-sm:text-xs dark:text-[#0A2540]">
+          <div className=" max-md:text-md max-sm:px-6 max-sm:text-xs dark:text-[#0A2540]">
             <CodeSnippet code={code} />
           </div>
         </Section>
