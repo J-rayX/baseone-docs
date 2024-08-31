@@ -20,7 +20,7 @@ export const PRODUCT_INFO = {
     copyText:
       "Perform secure and fast identity checks for smooth onboarding and customer verification.",
     productIcon: require("/img/baseone-logomark-coloured.png").default,
-    href: "/docs/kyc",
+    href: "/docs/virtual-accounts",
   },
   Cards: {
     title: "Cards",
