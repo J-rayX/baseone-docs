@@ -1,0 +1,4488 @@
+{
+  "openapi": "3.0.1",
+  "servers": [
+    {
+      "url": "https://sandbox.baseone.co/virtual-accounts"
+    }
+  ],
+  "info": {
+    "title": "Virtual Accounts API ",
+    "description": "API Reference for the BaseOne Virtual Accounts Service API - v1 - 17 08 22",
+    "termsOfService": "http://baseone.co/",
+    "contact": {
+      "name": "VgnCore Engineering Team",
+      "url": "http://baseone.co/",
+      "email": ""
+    },
+    "license": {
+      "name": "Internal Proprietary Product",
+      "url": "http://baseone.co/"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/v1/account/create": {
+      "post": {
+        "tags": ["Account"],
+        "summary": "Create virtual account",
+        "description": "Create a virtual account after onboarding a virtual account provider on your dashboard. BaseOne has 3 types of virtual accounts, DYNAMIC, STATIC-COLLECTION, and STATIC virtual accounts. Use this endpoint to create any of your preferred types of virtual accounts.",
+        "requestBody": {
+          "description": "Expected parameters to be passed in the request body to create a virtual account",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VirtualAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponseResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/account/get-accounts": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "List virtual accounts",
+        "description": "Fetch a list of virtual accounts available in your merchant integration.",
+        "parameters": [
+          {
+            "name": "startDate",
+            "description": "You can filter the list of accounts by the date period they were created. Use the YYYY-MM-DD format.",
+            "in": "query",
+            "example": "2022-07-21",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "description": "You can filter the list of virtual accounts by the date period they were created. Use the YYYY-MM-DD format",
+            "in": "query",
+            "example": "2022-07-21",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isExpired",
+            "description": "You can filter the list of virtual accounts by the state of expiry. You can use this query parameter get a list of dynamic accounts and static-collection accounts. Accepts boolean values.",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "accountType",
+            "description": "You can choose a type of virtual accounts. Any of DYNAMIC, STATIC or STATIC_COLLECTION",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/AccountType"
+            }
+          },
+          {
+            "name": "keyword",
+            "description": "You can filter the list of virtual accounts by a specific keyword. This will help you search through account names by common keywords.",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "description": "View the virtual accounts on a particular page in the list. Supply the page number here.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "description": "Define how many items you want to display in list of accounts page. How many accounts do you want to show per page when viewing the list of virtual accounts?",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "isAscending",
+            "description": "You may arrange the list of virtual accounts in ascending order. Accepts boolean values.",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponsePaginateResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/account/account-details/{accountId}": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "Fetch account",
+        "description": "Use this endpoint to get all the details of a particular virtual account holder in your merchant integration.",
+        "parameters": [
+          {
+            "name": "accountId",
+            "description": "Supply the account ID of the account that you want to fetch its details. You can get the ID at the point of account creation.",
+            "example": "06f0ead5-4cc0-4110-ac51-27dc4ec29a14",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponseResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/account/account-balance/{accountId}": {
+      "get": {
+        "tags": ["Account"],
+        "summary": "View account balance",
+        "description": "Get the balance of funds available in a virtual account. ",
+        "parameters": [
+          {
+            "name": "accountId",
+            "description": "Supply the account ID of the account that you want to fetch its details. You can get the ID at the point of account creation.",
+            "example": "06f0ead5-4cc0-4110-ac51-27dc4ec29a14",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualAccountResponseResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transfer/intra-account-transfer": {
+      "post": {
+        "tags": ["Transfer"],
+        "summary": "Transfer funds between two static virtual accounts",
+        "description": "Move funds from one STATIC virtual account to another STATIC virtual account within your merchant integration. Both accounts would hold the same currency.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IntraTransferRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntraTransferResponseModelResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transfer/account-outward-transfer": {
+      "post": {
+        "tags": ["Transfer"],
+        "summary": "External transfer from static virtual account",
+        "description": "Move funds from a STATIC virtual account in your merchant integration to a bank account outside of BaseOne. We highly recommend doing account name lookup before using this endpoint when making transfers to Nigerian banks.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterTransferRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterTransferResponseModelResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transfer": {
+      "post": {
+        "tags": ["Transfer"],
+        "summary": "Outward transfer from Static-collection virtual account",
+        "description": "Transfer funds from your product level collection holding account to a bank account outside BaseOne.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MerchantInterTransferRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterTransferResponseModelResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transfer/credit": {
+      "post": {
+        "tags": ["Transfer"],
+        "summary": "Credit static virtual account",
+        "description": "Use this endpoint to credit a STATIC virtual account from your corporate wallet or product level collection holding account",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WalletTransferRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntraTransferResponseModelResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transfer/debit": {
+      "post": {
+        "tags": ["Transfer"],
+        "summary": "Debit static virtual account",
+        "description": "Use this endpoint to move funds from a STATIC account in your merchant integration to your corporate wallet or the product level collection holding account.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WalletTransferRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntraTransferResponseModelResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transfer/resolve-bank-account": {
+      "get": {
+        "tags": ["Transfer"],
+        "summary": "Lookup bank account",
+        "description": "Perform a name inquiry on a given virtual account number in your merchant integration. A use case is to confirm the accuracy of account details for payments. ",
+        "parameters": [
+          {
+            "name": "AccountNumber",
+            "description": "The accouunt number of the virtual account that you want to check",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "institutionCode",
+            "description": "The unique bank code of the provider bank",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "countryCode",
+            "description": "The country code of the country where the virtual account is domiciled. NGA for Nigeria.",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transfer/institutions/{countryCode}": {
+      "get": {
+        "tags": ["Transfer"],
+        "summary": "List banks in a country",
+        "description": "Get a list of the available financial institutions that support virtual accounts in a country.",
+        "parameters": [
+          {
+            "name": "countryCode",
+            "description": "The country code of the country where the accounts are domiciled. NGA for Nigeria.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transactions": {
+      "get": {
+        "tags": ["Transaction"],
+        "summary": "List all transactions",
+        "description": "You can use this endpoint to get a list of all transactions in your merchant integration. The list doesn't include external credit transactions.",
+        "parameters": [
+          {
+            "name": "TransferType",
+            "description": "The mode of transaction. It could be an Internal or External transfer. It could also be transferred from the merchant holding account or the Corporate wallet.",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/TransferType"
+            }
+          },
+          {
+            "name": "AccountId",
+            "description": "You can query the list of transactions by a particular virtual account. Supply the account ID of the virtual account that you want to fetch its transaction list. You can get the ID at the point of account creation.",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TransactionStatus",
+            "description": "You can query the list by the status of the transaction",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionStatus"
+            }
+          },
+          {
+            "name": "StartDate",
+            "description": "You can specify a date limit to start fetching the list of transactions from. The date refers to the dates that transactions occured. Use the YYYY-MM-DD format.",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "EndDate",
+            "description": "You can specify the last date to limit the fetching of the list of transactions from. The date refers to the dates that transactions occured. Use the YYYY-MM.",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "Currency",
+            "description": "You can query the list by the currency of transactions",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PageIndex",
+            "description": "View the virtual accounts on a particular page in the list. Supply the page number here.",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "description": "Define how many items you want to display on the list of accounts page. How many accounts would you like to show on each page when viewing the list of virtual accounts?",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransferLogResponseModelPaginateResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transactions/account-transactions/{accountId}": {
+      "get": {
+        "tags": ["Transaction"],
+        "summary": "List transactions on a virtual account",
+        "description": "Get all the transactions made on a single virtual account. Include the account ID as a query parameter.",
+        "parameters": [
+          {
+            "name": "accountId",
+            "description": "The unique ID of the virtual account.  You can get the ID at the point of account creation.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountHistoryResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transactions/get-transaction-details/{transaction_reference}": {
+      "get": {
+        "tags": ["Transaction"],
+        "summary": "Fetch transaction",
+        "description": "Fetch the details of a virtual account transaction on your merchant integration. Pass the transaction reference as an endpoint path parameter. <b>NOTE:</b> This endpoint does not capture external credit transactions.",
+        "parameters": [
+          {
+            "name": "transaction_reference",
+            "description": "An auto-generated reference ID of the transaction.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransferLogResponseModelResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transactions/credit-transactions": {
+      "get": {
+        "tags": ["Transaction"],
+        "summary": "Get all external credit transactions",
+        "description": "Use this endpoint to get a list of all external credit transactions in your merchant integration. It captures all the accounts in your integration.",
+        "parameters": [
+          {
+            "name": "ClientId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "ProviderId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Keyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "StartDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "EndDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "Currency",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsAscending",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditNotificationResponseModelPaginateResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/transactions/credit-transaction-details/{transaction_reference}": {
+      "get": {
+        "tags": ["Transaction"],
+        "summary": "Fetch external credit transaction",
+        "description": "This endpoint provides the full details of a particular external credit transaction.",
+        "parameters": [
+          {
+            "name": "transaction_reference",
+            "in": "path",
+            "description": "An auto-generated reference ID of the transaction",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditNotificationResponseModelResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/credit-account-notification": {
+      "post": {
+        "tags": ["Transaction"],
+        "summary": "Simulate credit transaction of a created virtual account",
+        "description": "This endpoint is used to simulate credit transaction notification of an account in sandbox environment. It works for all providers. <b>NOTE:</b> This endpoint won't work in production.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimCreditRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditNotificationResponseModelResponseModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectResponseModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccountHistory": {
+        "type": "object",
+        "properties": {
+          "transactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionalData"
+            },
+            "description": "Gets or sets the transactions.",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "description": "Gets or sets the account number.",
+            "nullable": true,
+            "example": "1099289290"
+          },
+          "identificationNumber": {
+            "type": "string",
+            "description": "Gets or sets the bank verification number.",
+            "nullable": true,
+            "example": "14568199281"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "Account id of static wallet",
+            "nullable": true,
+            "example": "06f0ead5-4cc0-4110-ac51-27dc4ec29a14"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountHistoryResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/AccountHistory"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountLookUpResponse": {
+        "required": ["accountNumber"],
+        "type": "object",
+        "properties": {
+          "destinationInstitutionCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "channelCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sessionID": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankVerificationNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "kycLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountLookUpResponseResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/AccountLookUpResponse"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccountType": {
+        "enum": ["DYNAMIC", "STATIC", "STATIC_COLLECTION"],
+        "type": "string"
+      },
+      "AdminMerchantResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "merchantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "settlementType": {
+            "$ref": "#/components/schemas/SettlementType"
+          },
+          "providerId": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "tier": {
+            "type": "string",
+            "nullable": true
+          },
+          "a1ClientId": {
+            "type": "integer",
+            "description": "",
+            "format": "int64",
+            "nullable": true
+          },
+          "mifosClientId": {
+            "type": "string",
+            "description": "Mifos client id",
+            "nullable": true
+          },
+          "dynamicMifosWalletId": {
+            "type": "string",
+            "description": "Mifos Wallet Id",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": ""
+          },
+          "createdAt": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Admin Response Model"
+      },
+      "AdminMerchantResponseModelPaginate": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminMerchantResponseModel"
+            },
+            "nullable": true
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNext": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AdminMerchantResponseModelPaginateResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/AdminMerchantResponseModelPaginate"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AdminMerchantResponseModelResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/AdminMerchantResponseModel"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AllocationMethod": {
+        "enum": ["Block", "Generated"],
+        "type": "string",
+        "description": "Virtual account allocation method"
+      },
+      "ApproveMerchantProviderRequest": {
+        "type": "object",
+        "properties": {
+          "merchantProviderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "comments": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/MerchantProviderStatus"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BlockAllocationRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "providerId": {
+            "type": "integer",
+            "description": "Gets or sets the provider identifier.",
+            "format": "int64"
+          },
+          "merchantId": {
+            "type": "integer",
+            "description": "Gets or sets the merchant identifier.",
+            "format": "int64"
+          },
+          "allocatedUnit": {
+            "type": "integer",
+            "description": "Gets or sets theallocated units.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "BlockAllocationResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "providerId": {
+            "type": "integer",
+            "description": "Gets or sets the provider identifier.",
+            "format": "int64"
+          },
+          "merchantId": {
+            "type": "integer",
+            "description": "Gets or sets the merchant identifier.",
+            "format": "int64"
+          },
+          "allocatedUnit": {
+            "type": "integer",
+            "description": "Gets or sets theallocated units.",
+            "format": "int32"
+          },
+          "providerName": {
+            "type": "string",
+            "description": "Gets or sets the name of the provider.",
+            "nullable": true
+          },
+          "merchantName": {
+            "type": "string",
+            "description": "Gets or sets the name of the merchant.",
+            "nullable": true
+          },
+          "startDigit": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "endDigit": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Block allocation response"
+      },
+      "BlockAllocationResponseResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/BlockAllocationResponse"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BooleanResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChargeBackClientRequest": {
+        "required": ["amount", "transactionReference"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "transactionReference": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Transaction reference",
+            "example": "VGN3142565266267"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount",
+            "format": "double",
+            "example": 10
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for charge back",
+            "nullable": true,
+            "example": "Charges accrued for the month"
+          },
+          "chargeType": {
+            "type": "string",
+            "description": "Charge type",
+            "nullable": true,
+            "example": "Fixed"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Charge back Client model request"
+      },
+      "ChargeBackRequest": {
+        "required": ["amount", "transactionReference"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "merchantId": {
+            "type": "integer",
+            "description": "Merchant Id",
+            "format": "int64",
+            "example": 1
+          },
+          "transactionReference": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Transaction reference",
+            "example": "VGN3142565266267"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount",
+            "format": "double",
+            "example": 10
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for charge back",
+            "nullable": true,
+            "example": "Charges accrued for the month"
+          },
+          "chargeType": {
+            "type": "string",
+            "description": "Charge type",
+            "nullable": true,
+            "example": "Fixed"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Charge Back Request"
+      },
+      "ChargeBackResponse": {
+        "required": ["amount", "transactionReference"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "merchantId": {
+            "type": "integer",
+            "description": "Merchant Id",
+            "format": "int64",
+            "example": 1
+          },
+          "transactionReference": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Transaction reference",
+            "example": "VGN3142565266267"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount",
+            "format": "double",
+            "example": 10
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for charge back",
+            "nullable": true,
+            "example": "Charges accrued for the month"
+          },
+          "chargeType": {
+            "type": "string",
+            "description": "Charge type",
+            "nullable": true,
+            "example": "Fixed"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Created at",
+            "format": "date-time",
+            "example": "2022-08-25T01:35:18.9038648+01:00"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Charge Back Response"
+      },
+      "ChargeBackResponsePaginate": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChargeBackResponse"
+            },
+            "nullable": true
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNext": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChargeBackResponsePaginateResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/ChargeBackResponsePaginate"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChargeBackResponseResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/ChargeBackResponse"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChargeBackUpdateRequest": {
+        "required": ["amount", "transactionReference"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "transactionReference": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Transaction reference",
+            "example": "VGN3142565266267"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount",
+            "format": "double",
+            "example": 10
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for charge back",
+            "nullable": true,
+            "example": "Charges accrued for the month"
+          },
+          "chargeType": {
+            "type": "string",
+            "description": "Charge type",
+            "nullable": true,
+            "example": "Fixed"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Charge back update model request"
+      },
+      "ClientAccountUsageStatistics": {
+        "type": "object",
+        "properties": {
+          "totalVirtualAccounts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalProvidersOnboarded": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalCurrencies": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalCountries": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalProviders": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "virtualAccountWalletBalance": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalDynamicAccounts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalStaticAccounts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "creditNotifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreditNotificationReport"
+            },
+            "nullable": true
+          },
+          "totalAmountRecieved": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalCreditedAmountRecieved": {
+            "type": "number",
+            "format": "double"
+          },
+          "dynamicWalletBalance": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientAccountUsageStatisticsResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/ClientAccountUsageStatistics"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreditNotificationEventRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "requestBody": {
+            "$ref": "#/components/schemas/NotificationRequestBody"
+          },
+          "notificationType": {
+            "$ref": "#/components/schemas/NotificationType"
+          },
+          "webhookUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "senderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "destination": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "service": {
+            "type": "string",
+            "nullable": true
+          },
+          "gateway": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionReference": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceType": {
+            "type": "string",
+            "nullable": true
+          },
+          "action": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreditNotificationReport": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "creditAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreditNotificationResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalAmount": {
+            "type": "string",
+            "description": "Total amount is credit amount plsu charge and fees",
+            "nullable": true,
+            "example": "1250"
+          },
+          "creditAmount": {
+            "type": "string",
+            "description": "Amount credited to merchant after charges and fees",
+            "nullable": true
+          },
+          "charges": {
+            "type": "number",
+            "description": "Baseone charges",
+            "format": "double",
+            "example": 25
+          },
+          "beneficiaryAccount": {
+            "type": "string",
+            "description": "Beneficiary account",
+            "nullable": true,
+            "example": "09095689090"
+          },
+          "beneficiaryName": {
+            "type": "string",
+            "description": "Benficiary account name",
+            "nullable": true,
+            "example": "JANE DOE"
+          },
+          "sourceBankName": {
+            "type": "string",
+            "description": "Source debit account bank name",
+            "nullable": true,
+            "example": "WEMA BANK"
+          },
+          "sourceAccount": {
+            "type": "string",
+            "description": "Source debit account number",
+            "nullable": true,
+            "example": "31099875433"
+          },
+          "sourceAccountName": {
+            "type": "string",
+            "description": "Source debit account name",
+            "nullable": true,
+            "example": "JOHN DOE"
+          },
+          "bankVerificationNumber": {
+            "type": "string",
+            "description": "Bank verification number",
+            "nullable": true,
+            "example": null
+          },
+          "transactionReference": {
+            "type": "string",
+            "description": "Base internal transaction reference",
+            "nullable": true
+          },
+          "transactionDate": {
+            "type": "string",
+            "description": "Transaction date",
+            "nullable": true
+          },
+          "isProcessed": {
+            "type": "boolean",
+            "description": "Gets or sets tranbsaction is processed",
+            "example": true
+          },
+          "narration": {
+            "type": "string",
+            "description": "Transaaction narration",
+            "nullable": true,
+            "example": "TRANSFER FROM JOHN DOE"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Transaction Currency",
+            "nullable": true,
+            "example": "NGN"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Credit notification response model"
+      },
+      "CreditNotificationResponseModelPaginate": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreditNotificationResponseModel"
+            },
+            "nullable": true
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNext": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreditNotificationResponseModelPaginateResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/CreditNotificationResponseModelPaginate"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreditNotificationResponseModelResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/CreditNotificationResponseModel"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FundType": {
+        "enum": ["Corporate", "Merchant"],
+        "type": "string"
+      },
+      "GetAllMerchantProviderResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "merchantId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "merchantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "providerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "providerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/MerchantProviderStatus"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetAllMerchantProviderResponsePaginate": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetAllMerchantProviderResponse"
+            },
+            "nullable": true
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNext": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetAllMerchantProviderResponsePaginateResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/GetAllMerchantProviderResponsePaginate"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InfrastructureType": {
+        "enum": ["External", "Internal"],
+        "type": "string",
+        "description": ""
+      },
+      "Institutions": {
+        "type": "object",
+        "properties": {
+          "bankCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InstitutionsListResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Institutions"
+            },
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterTransferRequestModel": {
+        "required": [
+          "amount",
+          "sourceAccountId",
+          "destinationBankCode",
+          "destinationAccount",
+          "destinationAccountName"
+        ],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Transaction amount",
+            "format": "double",
+            "example": 2000
+          },
+          "sourceAccountId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Source account Id",
+            "example": "06f0ead5-4cc0-4110-ac51-27dc4ec29a14"
+          },
+          "destinationBankCode": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Bank code of destination bank",
+            "example": "058"
+          },
+          "destinationAccount": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Destination nuban bank account",
+            "example": "0156799024"
+          },
+          "destinationAccountName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Destination bank account name",
+            "example": "Tim Bradford"
+          },
+          "destinationBankName": {
+            "type": "string",
+            "description": "Destination bank name",
+            "nullable": true,
+            "example": "Guaranty Trust Bank"
+          },
+          "narration": {
+            "type": "string",
+            "description": "Transaction narration",
+            "nullable": true,
+            "example": "Transfer to Tim Bradford"
+          },
+          "clientReference": {
+            "type": "string",
+            "description": "Unique client transaction reference",
+            "nullable": true,
+            "example": "REF45167328899"
+          }
+        },
+        "additionalProperties": false,
+        "description": "External transfer to bank account response model"
+      },
+      "InterTransferResponseModel": {
+        "type": "object",
+        "properties": {
+          "destinationBankCode": {
+            "type": "string",
+            "description": "Destination Bank Code",
+            "nullable": true,
+            "example": "058"
+          },
+          "destinationBankName": {
+            "type": "string",
+            "description": "Detination Bank Name",
+            "nullable": true,
+            "example": "Guaranty Trust Bank"
+          },
+          "sourceAccount": {
+            "type": "string",
+            "description": "Source debit account",
+            "nullable": true,
+            "example": "1023001NGN"
+          },
+          "destinationAccount": {
+            "type": "string",
+            "description": "Destination nuban bank account",
+            "nullable": true,
+            "example": "0156799024"
+          },
+          "clientReference": {
+            "type": "string",
+            "description": "Client transaction reference",
+            "nullable": true,
+            "example": "REF13426561772"
+          },
+          "transactionReference": {
+            "type": "string",
+            "description": "Baseone internal transaction reference number",
+            "nullable": true,
+            "example": "beca34bdd2d44fcb87587cb87e0bbdcd"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Transaction amount",
+            "format": "double",
+            "example": 2000
+          },
+          "charge": {
+            "type": "number",
+            "description": "BaseOne Transaction charge",
+            "format": "double",
+            "example": 10
+          },
+          "totalAmount": {
+            "type": "number",
+            "description": "Total amount is transaction amount plus charges",
+            "format": "double",
+            "example": 2010
+          }
+        },
+        "additionalProperties": false,
+        "description": "External transfer to bank account request model"
+      },
+      "InterTransferResponseModelResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/InterTransferResponseModel"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InternalCallBackRequestModel": {
+        "required": [
+          "accountNumber",
+          "creditAmount",
+          "initiationTranRef",
+          "sessionId",
+          "transactionAmount"
+        ],
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the session identifier."
+          },
+          "accountNumber": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the account number."
+          },
+          "tranRemarks": {
+            "type": "string",
+            "description": "Gets or sets the tran remarks.",
+            "nullable": true
+          },
+          "transactionAmount": {
+            "type": "number",
+            "description": "Gets or sets the transaction amount.",
+            "format": "double"
+          },
+          "settledAmount": {
+            "type": "number",
+            "description": "Gets or sets the settled amount.",
+            "format": "double",
+            "nullable": true
+          },
+          "feeAmount": {
+            "type": "number",
+            "description": "Gets or sets the fee amount.",
+            "format": "double",
+            "nullable": true
+          },
+          "vatAmount": {
+            "type": "number",
+            "description": "Gets or sets the vat amount.",
+            "format": "double",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "description": "Gets or sets the currency.",
+            "nullable": true
+          },
+          "initiationTranRef": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the initiation tran reference."
+          },
+          "sourceAccountNumber": {
+            "type": "string",
+            "description": "Gets or sets the source account number.",
+            "nullable": true
+          },
+          "sourceAccountName": {
+            "type": "string",
+            "description": "Gets or sets the name of the source account.",
+            "nullable": true
+          },
+          "sourceBankName": {
+            "type": "string",
+            "description": "Gets or sets the name of the source bank.",
+            "nullable": true
+          },
+          "channelId": {
+            "type": "string",
+            "description": "Gets or sets the channel identifier.",
+            "nullable": true
+          },
+          "tranDateTime": {
+            "type": "string",
+            "description": "Gets or sets the tran date time.",
+            "nullable": true
+          },
+          "webhookURL": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "Web",
+            "nullable": true
+          },
+          "creditAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "accountId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Call Back Request for internal providers"
+      },
+      "InternalCallBackRequestModelResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/InternalCallBackRequestModel"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InternalNameInquiryRequest": {
+        "required": ["accountNumber"],
+        "type": "object",
+        "properties": {
+          "destinationInstitutionCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "channelCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sessionID": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InternalNameInquiryResponse": {
+        "required": ["accountNumber"],
+        "type": "object",
+        "properties": {
+          "destinationInstitutionCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "channelCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "sessionID": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankVerificationNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "kycLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntraTransferRequestModel": {
+        "required": ["amount", "sourceAccountId", "destinationAccountId"],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Transaction amount",
+            "format": "double",
+            "example": 100
+          },
+          "sourceAccountId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Source account Id",
+            "example": "06f0ead5-4cc0-4110-ac51-27dc4ec29a14"
+          },
+          "destinationAccountId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Destination account Id",
+            "example": "0156ad5-4cc0-4110-bd51-56c4e7189b98"
+          },
+          "clientReference": {
+            "type": "string",
+            "description": "Unique client transaction reference",
+            "nullable": true,
+            "example": "VGN134261909820990"
+          },
+          "narration": {
+            "type": "string",
+            "description": "Transaction narration",
+            "nullable": true,
+            "example": "Wallet Transfer"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Intra account transfer request model"
+      },
+      "IntraTransferResponseModel": {
+        "type": "object",
+        "properties": {
+          "sourceAccount": {
+            "type": "string",
+            "description": "Debit source wallet account",
+            "nullable": true,
+            "example": "9909188283"
+          },
+          "destinationAccount": {
+            "type": "string",
+            "description": "Destination static wallet account",
+            "nullable": true,
+            "example": "1005092NGN"
+          },
+          "clientReference": {
+            "type": "string",
+            "description": "Unique client transaction reference",
+            "nullable": true,
+            "example": "REF12342552667"
+          },
+          "transactionReference": {
+            "type": "string",
+            "description": "Unique baseone transaction reference",
+            "nullable": true,
+            "example": "c961d253e73c42c1a093099b190b1095"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Transaction amount",
+            "format": "double",
+            "example": 200
+          },
+          "charge": {
+            "type": "number",
+            "description": "Baseone transaction charge amount",
+            "format": "double",
+            "example": 10
+          },
+          "totalAmount": {
+            "type": "number",
+            "description": "Total amount is transaction amount plus charges",
+            "format": "double",
+            "example": 210
+          }
+        },
+        "additionalProperties": false,
+        "description": "Intra wallet transfer response model"
+      },
+      "IntraTransferResponseModelResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/IntraTransferResponseModel"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "KYCDto": {
+        "required": [
+          "firstName",
+          "lastName",
+          "phoneNumber",
+          "dateOfBirth",
+          "kycType",
+          "kycValue"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Set the first name for the generated virtual account",
+            "example": "John"
+          },
+          "lastName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Set the last name for the generated virtual account",
+            "example": "Doe"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Date of birth",
+            "nullable": true,
+            "example": "19/05/2001"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Phone number",
+            "nullable": true,
+            "example": "09097712456"
+          },
+          "kycType": {
+            "type": "string",
+            "description": "Gets or sets the KYC type. Use BVN for STATIC account type.",
+            "nullable": true,
+            "example": "BVN"
+          },
+          "kycValue": {
+            "type": "string",
+            "description": "Gets or sets the KYC value. BVN is mandatory for STATIC account type.",
+            "nullable": true,
+            "example": "134256737367"
+          }
+        },
+        "additionalProperties": false,
+        "description": "This KYC data object is MANDATORY for only STATIC virtual accounts."
+      },
+      "KYCLevel": {
+        "enum": ["External", "Internal"],
+        "type": "string",
+        "description": ""
+      },
+      "KycProfileRequestForm": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Gets or sets the first name.",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Gets or sets the last name.",
+            "nullable": true
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Gets or sets the date of birth.",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Gets or sets the phone number.",
+            "nullable": true
+          },
+          "providerId": {
+            "type": "integer",
+            "description": "Gets or sets the provider identifier.",
+            "format": "int64"
+          },
+          "merchantId": {
+            "type": "integer",
+            "description": "Gets or sets the merchan identifier.",
+            "format": "int64"
+          },
+          "kycLevel": {
+            "$ref": "#/components/schemas/KYCLevel"
+          },
+          "docType": {
+            "type": "string",
+            "description": "Gets or sets the type of the document.",
+            "nullable": true
+          },
+          "kycValue": {
+            "type": "string",
+            "description": "Gets or sets the kyc value.",
+            "nullable": true
+          },
+          "document": {
+            "type": "string",
+            "description": "Gets or sets the document.",
+            "format": "binary",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "KycResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Gets or sets the first name.",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Gets or sets the last name.",
+            "nullable": true
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Gets or sets the date of birth.",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Gets or sets the phone number.",
+            "nullable": true
+          },
+          "providerId": {
+            "type": "integer",
+            "description": "Gets or sets the provider identifier.",
+            "format": "int64"
+          },
+          "merchantId": {
+            "type": "integer",
+            "description": "Gets or sets the merchan identifier.",
+            "format": "int64"
+          },
+          "kycLevel": {
+            "$ref": "#/components/schemas/KYCLevel"
+          },
+          "docType": {
+            "type": "string",
+            "description": "Gets or sets the type of the document.",
+            "nullable": true
+          },
+          "kycValue": {
+            "type": "string",
+            "description": "Gets or sets the kyc value.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "KycResponseModelPaginate": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KycResponseModel"
+            },
+            "nullable": true
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNext": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "KycResponseModelPaginateResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/KycResponseModelPaginate"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "KycResponseModelResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/KycResponseModel"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LienRequest": {
+        "required": ["accountId", "amount"],
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Account id of static account",
+            "example": "06f0ead5-4cc0-4110-ac51-27dc4ec29a14"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Transaction lien amount",
+            "format": "double",
+            "example": 800
+          },
+          "clientReference": {
+            "type": "string",
+            "description": "Unique client transaction reference",
+            "nullable": true,
+            "example": "REF1245266309"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Lien request model"
+      },
+      "LienResponse": {
+        "type": "object",
+        "properties": {
+          "lienReference": {
+            "type": "string",
+            "description": "Unique lien reference of lien transaction",
+            "nullable": true,
+            "example": "LI4156627718"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Lien response model"
+      },
+      "LienResponseResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/LienResponse"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MerchantInterTransferRequestModel": {
+        "required": ["amount", "destinationBankCode", "destinationAccount"],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Transaction amount",
+            "format": "double",
+            "example": 2000
+          },
+          "destinationBankCode": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Destination bank code",
+            "example": "058"
+          },
+          "destinationAccount": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Destination NUBAN bank account",
+            "example": "0100894550"
+          },
+          "providerCode": {
+            "type": "string",
+            "description": "BaseOne ID of provider bank or institution",
+            "nullable": true,
+            "example": ""
+          },
+          "narration": {
+            "type": "string",
+            "description": "Transaction narration",
+            "nullable": true,
+            "example": "OUTWARD TRANSFER"
+          },
+          "clientReference": {
+            "type": "string",
+            "description": "You can set your unique transaction reference here",
+            "nullable": true,
+            "example": "REF132425623667"
+          },
+          "destinationAccountName": {
+            "type": "string",
+            "description": "Destination bank account name",
+            "nullable": true,
+            "example": "Jane Doe"
+          },
+          "destinationBankName": {
+            "type": "string",
+            "description": "Destination bank name",
+            "nullable": true,
+            "example": "Guaranty Trust Bank"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Outward transfer request model"
+      },
+      "MerchantProviderRequest": {
+        "type": "object",
+        "properties": {
+          "providerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "comments": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/MerchantProviderStatus"
+          },
+          "merchantId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "MerchantProviderStatus": {
+        "enum": ["PENDING", "APPROVED", "UNAPPROVED"],
+        "type": "string"
+      },
+      "MerchantRequestModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "merchantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "settlementType": {
+            "$ref": "#/components/schemas/SettlementType"
+          },
+          "providerId": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "tier": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MerchantResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "merchantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "settlementType": {
+            "$ref": "#/components/schemas/SettlementType"
+          },
+          "providerId": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "tier": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": ""
+          },
+          "settlementTypeDesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "providerName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MerchantResponseModelResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/MerchantResponseModel"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MerchantUpdateRequestModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "merchantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "settlementType": {
+            "$ref": "#/components/schemas/SettlementType"
+          },
+          "providerId": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "tier": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotificationRequestBody": {
+        "type": "object",
+        "properties": {
+          "eventName": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "eventService": {
+            "type": "string",
+            "nullable": true
+          },
+          "notificationData": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotificationType": {
+        "enum": ["WEBHOOK"],
+        "type": "string"
+      },
+      "ObjectResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProviderRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the name.",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "Gets or sets the provider code",
+            "nullable": true
+          },
+          "allocationMethod": {
+            "$ref": "#/components/schemas/AllocationMethod"
+          },
+          "startingDigit": {
+            "type": "integer",
+            "description": "Gets or sets the starting digit.",
+            "format": "int32"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Gets or sets the currency.",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "Gets or sets the country.",
+            "nullable": true
+          },
+          "infrastructureType": {
+            "$ref": "#/components/schemas/InfrastructureType"
+          },
+          "uploadData": {
+            "$ref": "#/components/schemas/UploadModel"
+          },
+          "status": {
+            "type": "boolean",
+            "description": "Status"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Provider Request"
+      },
+      "ProviderResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or sets the name.",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "Gets or sets the provider code",
+            "nullable": true
+          },
+          "allocationMethod": {
+            "$ref": "#/components/schemas/AllocationMethod"
+          },
+          "startingDigit": {
+            "type": "integer",
+            "description": "Gets or sets the starting digit.",
+            "format": "int32"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Gets or sets the currency.",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "description": "Gets or sets the country.",
+            "nullable": true
+          },
+          "infrastructureType": {
+            "$ref": "#/components/schemas/InfrastructureType"
+          },
+          "uploadData": {
+            "$ref": "#/components/schemas/UploadModel"
+          },
+          "status": {
+            "type": "boolean",
+            "description": "Status"
+          },
+          "allocationMethodDesc": {
+            "type": "string",
+            "description": "Gets or sets the allocation method desc.",
+            "nullable": true
+          },
+          "infrastructureTypeDesc": {
+            "type": "string",
+            "description": "Gets or sets the infrastructure type desc.",
+            "nullable": true
+          },
+          "imageUploadURL": {
+            "type": "string",
+            "description": "Image Upload URL",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": ""
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "ProviderResponsePaginate": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProviderResponse"
+            },
+            "nullable": true
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNext": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProviderResponsePaginateResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/ProviderResponsePaginate"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProviderResponseResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/ProviderResponse"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProvidusCreditNotifcationRequest": {
+        "required": [
+          "accountNumber",
+          "sessionId",
+          "settledAmount",
+          "tranDateTime",
+          "transactionAmount"
+        ],
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the session identifier."
+          },
+          "accountNumber": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the account number."
+          },
+          "tranRemarks": {
+            "type": "string",
+            "description": "Gets or sets the tran remarks.",
+            "nullable": true
+          },
+          "transactionAmount": {
+            "type": "number",
+            "description": "Gets or sets the transaction amount.",
+            "format": "double"
+          },
+          "settledAmount": {
+            "type": "number",
+            "description": "Gets or sets the settled amount.",
+            "format": "double"
+          },
+          "feeAmount": {
+            "type": "number",
+            "description": "Gets or sets the fee amount.",
+            "format": "double",
+            "nullable": true
+          },
+          "vatAmount": {
+            "type": "number",
+            "description": "Gets or sets the vat amount.",
+            "format": "double",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "description": "Gets or sets the currency.",
+            "nullable": true
+          },
+          "initiationTranRef": {
+            "type": "string",
+            "description": "Gets or sets the initiation tran reference.",
+            "nullable": true
+          },
+          "settlementId": {
+            "type": "string",
+            "description": "Gets or sets the settlement identifier.",
+            "nullable": true
+          },
+          "sourceAccountNumber": {
+            "type": "string",
+            "description": "Gets or sets the source account number.",
+            "nullable": true
+          },
+          "sourceAccountName": {
+            "type": "string",
+            "description": "Gets or sets the name of the source account.",
+            "nullable": true
+          },
+          "sourceBankName": {
+            "type": "string",
+            "description": "Gets or sets the name of the source bank.",
+            "nullable": true
+          },
+          "channelId": {
+            "type": "string",
+            "description": "Gets or sets the channel identifier.",
+            "nullable": true
+          },
+          "tranDateTime": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Gets or sets the tran date time."
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "ProvidusCreditNotifcationRequestResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/ProvidusCreditNotifcationRequest"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProvidusCreditNotificationResponse": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "sessionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProvidusCreditNotificationResponseResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/ProvidusCreditNotificationResponse"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SettlementType": {
+        "enum": ["CORPORATEWALLET", "SUBACCOUNT", "BANK"],
+        "type": "string",
+        "description": "Virtual account settlement type"
+      },
+      "SimCreditRequest": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "description": "Account Id of generated account",
+            "nullable": true,
+            "example": "14352367288-16563818821-16377"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount of credited funds",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Status": {
+        "enum": ["PENDING", "RESOLVED", "UNRESOLVED"],
+        "type": "string"
+      },
+      "SterlingCreditNotificationRequest": {
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "type": "string",
+            "description": "Gets or sets the session identifier.",
+            "nullable": true
+          },
+          "nameEnquiryRef": {
+            "type": "string",
+            "description": "Gets or sets the name enquiry reference.",
+            "nullable": true
+          },
+          "destinationInstitutionCode": {
+            "type": "string",
+            "description": "Gets or sets the destination institution code.",
+            "nullable": true
+          },
+          "channelCode": {
+            "type": "string",
+            "description": "Gets or sets the channel code.",
+            "nullable": true
+          },
+          "beneficiaryAccountName": {
+            "type": "string",
+            "description": "Gets or sets the name of the beneficiary account.",
+            "nullable": true
+          },
+          "beneficiaryAccountNumber": {
+            "type": "string",
+            "description": "Gets or sets the beneficiary account number.",
+            "nullable": true
+          },
+          "beneficiaryBankVerificationNumber": {
+            "type": "string",
+            "description": "Gets or sets the beneficiary bank verification number.",
+            "nullable": true
+          },
+          "beneficiaryKycLevel": {
+            "type": "string",
+            "description": "Gets or sets the beneficiary kyc level.",
+            "nullable": true
+          },
+          "originatorAccountName": {
+            "type": "string",
+            "description": "Gets or sets the name of the originator account.",
+            "nullable": true
+          },
+          "originatorAccountNumber": {
+            "type": "string",
+            "description": "Gets or sets the originator account number.",
+            "nullable": true
+          },
+          "originatorBankVerificationNumber": {
+            "type": "string",
+            "description": "Gets or sets the originator bank verification number.",
+            "nullable": true
+          },
+          "originatorKycLevel": {
+            "type": "string",
+            "description": "Gets or sets the originator kyc level.",
+            "nullable": true
+          },
+          "transactionLocation": {
+            "type": "string",
+            "description": "Gets or sets the transaction location.",
+            "nullable": true
+          },
+          "narration": {
+            "type": "string",
+            "description": "Gets or sets the narration.",
+            "nullable": true
+          },
+          "paymentReference": {
+            "type": "string",
+            "description": "Gets or sets the payment reference.",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "description": "Gets or sets the amount.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "SterlingCreditNotificationResponse": {
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "type": "string",
+            "description": "Gets or sets the session identifier.",
+            "nullable": true
+          },
+          "nameEnquiryRef": {
+            "type": "string",
+            "description": "Gets or sets the name enquiry reference.",
+            "nullable": true
+          },
+          "destinationInstitutionCode": {
+            "type": "string",
+            "description": "Gets or sets the destination institution code.",
+            "nullable": true
+          },
+          "channelCode": {
+            "type": "string",
+            "description": "Gets or sets the channel code.",
+            "nullable": true
+          },
+          "beneficiaryAccountName": {
+            "type": "string",
+            "description": "Gets or sets the name of the beneficiary account.",
+            "nullable": true
+          },
+          "beneficiaryAccountNumber": {
+            "type": "string",
+            "description": "Gets or sets the beneficiary account number.",
+            "nullable": true
+          },
+          "beneficiaryBankVerificationNumber": {
+            "type": "string",
+            "description": "Gets or sets the beneficiary bank verification number.",
+            "nullable": true
+          },
+          "beneficiaryKycLevel": {
+            "type": "string",
+            "description": "Gets or sets the beneficiary kyc level.",
+            "nullable": true
+          },
+          "originatorAccountName": {
+            "type": "string",
+            "description": "Gets or sets the name of the originator account.",
+            "nullable": true
+          },
+          "originatorAccountNumber": {
+            "type": "string",
+            "description": "Gets or sets the originator account number.",
+            "nullable": true
+          },
+          "originatorBankVerificationNumber": {
+            "type": "string",
+            "description": "Gets or sets the originator bank verification number.",
+            "nullable": true
+          },
+          "originatorKycLevel": {
+            "type": "string",
+            "description": "Gets or sets the originator kyc level.",
+            "nullable": true
+          },
+          "transactionLocation": {
+            "type": "string",
+            "description": "Gets or sets the transaction location.",
+            "nullable": true
+          },
+          "narration": {
+            "type": "string",
+            "description": "Gets or sets the narration.",
+            "nullable": true
+          },
+          "paymentReference": {
+            "type": "string",
+            "description": "Gets or sets the payment reference.",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "description": "Gets or sets the amount.",
+            "format": "double"
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SterlingCreditNotificationResponseResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/SterlingCreditNotificationResponse"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StringResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionData": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "valueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "debit": {
+            "type": "boolean"
+          },
+          "credit": {
+            "type": "boolean"
+          },
+          "balance": {
+            "type": "string",
+            "nullable": true
+          },
+          "remarks": {
+            "type": "string",
+            "nullable": true
+          },
+          "reference": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "virtualAccountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "mifosAccountRef": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/TransactionStatus"
+          },
+          "statusMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "providerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "merchantId": {
+            "type": "string",
+            "nullable": true
+          },
+          "correlationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "eventType": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionResponseModelPaginate": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransactionResponseModel"
+            },
+            "nullable": true
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNext": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionResponseModelPaginateResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/TransactionResponseModelPaginate"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionStatus": {
+        "enum": ["Processing", "Success", "Failed"],
+        "type": "string"
+      },
+      "TransactionalData": {
+        "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "description": "Gets or sets the transaction date.",
+            "format": "date-time",
+            "example": "2022-07-21T00:22:42.4680958+01:00"
+          },
+          "valueDate": {
+            "type": "string",
+            "description": "Gets or sets the value date.",
+            "format": "date-time",
+            "example": "2022-07-21T00:22:42.4680958+01:00"
+          },
+          "debit": {
+            "type": "boolean",
+            "description": "Gets or sets the debit.",
+            "example": true
+          },
+          "credit": {
+            "type": "boolean",
+            "description": "Gets or sets the credit.",
+            "example": true
+          },
+          "balance": {
+            "type": "string",
+            "description": "Gets or sets the balance.",
+            "nullable": true,
+            "example": "2000"
+          },
+          "remarks": {
+            "type": "string",
+            "description": "Gets or sets the remarks.",
+            "nullable": true,
+            "example": "Wallet Transfer"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Unique transaction reference",
+            "nullable": true,
+            "example": "REF1245177899"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Gets or sets the transaction amount.",
+            "format": "double",
+            "example": 400
+          },
+          "sourceAccountName": {
+            "type": "string",
+            "description": "Source Account Name",
+            "nullable": true,
+            "example": "JANE DOE"
+          },
+          "sourceAccount": {
+            "type": "string",
+            "description": "Source Account number",
+            "nullable": true,
+            "example": "9099345271"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Transaction data for static account"
+      },
+      "TransferLogResponseModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sourceAccount": {
+            "type": "string",
+            "description": "Source account",
+            "nullable": true,
+            "example": "1002901896"
+          },
+          "destinationAccount": {
+            "type": "string",
+            "description": "Destination account",
+            "nullable": true,
+            "example": "1002901896"
+          },
+          "destinationBankCode": {
+            "type": "string",
+            "description": "External destination bank code",
+            "nullable": true,
+            "example": "058"
+          },
+          "destinationBankName": {
+            "type": "string",
+            "description": "External destination bank name",
+            "nullable": true,
+            "example": "Guranty Trust Bank"
+          },
+          "clientReference": {
+            "type": "string",
+            "description": "Unique client transaction reference",
+            "nullable": true,
+            "example": "REF2451773888"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code of transaction",
+            "nullable": true,
+            "example": "NGN"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code of transaction",
+            "nullable": true,
+            "example": "NGA"
+          },
+          "transactionReference": {
+            "type": "string",
+            "description": "Unique baseone transaction reference",
+            "nullable": true,
+            "example": "1314562623738829089"
+          },
+          "transactionStatus": {
+            "$ref": "#/components/schemas/TransactionStatus"
+          },
+          "transactionDate": {
+            "type": "string",
+            "description": "Transaction date time",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2022-07-21T00:22:42.4680958+01:00"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Transaction amount",
+            "format": "double",
+            "example": 500
+          },
+          "chargeAmount": {
+            "type": "number",
+            "description": "BaseOne transaction charge amount",
+            "format": "double",
+            "example": 20
+          },
+          "totalAmount": {
+            "type": "number",
+            "description": "Tota mount is transaction amount plus charge amount",
+            "format": "double",
+            "example": 520
+          },
+          "transferType": {
+            "$ref": "#/components/schemas/TransferType"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Transfer log response model"
+      },
+      "TransferLogResponseModelPaginate": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransferLogResponseModel"
+            },
+            "nullable": true
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNext": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransferLogResponseModelPaginateResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/TransferLogResponseModelPaginate"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransferLogResponseModelResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/TransferLogResponseModel"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransferType": {
+        "enum": ["Intra", "Inter", "Corporate", "Merchant"],
+        "type": "string"
+      },
+      "UnLienRequest": {
+        "required": ["accountId", "lienReference"],
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Account id of static wallet"
+          },
+          "lienReference": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Unique lien transaction reference used in lien request",
+            "example": "LI4156627718"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UploadModel": {
+        "type": "object",
+        "properties": {
+          "base64": {
+            "type": "string",
+            "nullable": true
+          },
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VirtualAccountInternalRequest": {
+        "required": ["accountType", "providerCode"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Gets or sets the TRNX identifier.",
+            "nullable": true,
+            "example": "REF1267829399"
+          },
+          "mifosAccountRef": {
+            "type": "string",
+            "description": "Mifos Ref",
+            "nullable": true,
+            "example": "mifosref"
+          },
+          "clientId": {
+            "type": "integer",
+            "description": "Client Id",
+            "format": "int64"
+          },
+          "providerCode": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Provider code",
+            "example": "PROVIDUSNG"
+          },
+          "accountType": {
+            "$ref": "#/components/schemas/AccountType"
+          },
+          "kyc": {
+            "$ref": "#/components/schemas/KYCDto"
+          },
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VirtualAccountRequest": {
+        "required": ["accountType", "providerCode"],
+        "type": "object",
+        "properties": {
+          "providerCode": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Provider code",
+            "example": "PROVIDUSNG"
+          },
+          "accountType": {
+            "$ref": "#/components/schemas/AccountType"
+          },
+          "kyc": {
+            "$ref": "#/components/schemas/KYCDto"
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Gets or sets the TRNX identifier.",
+            "nullable": true,
+            "example": "REF1267829399"
+          },
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Virtual Account request model"
+      },
+      "VirtualAccountResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of record on database",
+            "format": "int64",
+            "example": 2
+          },
+          "accountName": {
+            "type": "string",
+            "description": "Get the account name of the virtual account created",
+            "nullable": true,
+            "example": "John Doe"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First namne of the account generated",
+            "nullable": true,
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the account generated",
+            "nullable": true,
+            "example": "Doe"
+          },
+          "accountBalance": {
+            "type": "number",
+            "description": "Available Balance of the virtual account created",
+            "format": "double",
+            "example": 0
+          },
+          "ledgerBalance": {
+            "type": "number",
+            "description": "Ledger balance of the virtual account",
+            "format": "double",
+            "example": 0
+          },
+          "accountNo": {
+            "type": "string",
+            "description": "Generated virtual account number",
+            "nullable": true,
+            "example": "9909182938"
+          },
+          "expired": {
+            "type": "boolean",
+            "description": "Indicates whether the account has expired or not. True or false",
+            "example": 0
+          },
+          "providerName": {
+            "type": "string",
+            "description": "Get the name of the provider with which the virtual account is generated from",
+            "nullable": true,
+            "example": "Providus Bank"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code of the generated virtual account",
+            "nullable": true,
+            "example": "NGN"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code of the generated virtual account",
+            "nullable": true,
+            "example": "NGA"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date and time of generated virtual account",
+            "format": "date-time",
+            "example": "2022-07-21T00:22:42.4680958+01:00"
+          },
+          "accountType": {
+            "$ref": "#/components/schemas/AccountType"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "Internal account id assigned to the generated account",
+            "nullable": true,
+            "example": "06f0ead5-4cc0-4110-ac51-27dc4ec29a14"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Virtual Account Response"
+      },
+      "VirtualAccountResponseBaseResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/VirtualAccountResponse"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "isOnboarded": {
+            "type": "boolean",
+            "description": ""
+          }
+        },
+        "additionalProperties": false
+      },
+      "VirtualAccountResponseInternal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id of record on database",
+            "format": "int64",
+            "example": 2
+          },
+          "accountName": {
+            "type": "string",
+            "description": "Get the account name of the virtual account created",
+            "nullable": true,
+            "example": "John Doe"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First namne of the account generated",
+            "nullable": true,
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the account generated",
+            "nullable": true,
+            "example": "Doe"
+          },
+          "accountBalance": {
+            "type": "number",
+            "description": "Available Balance of the virtual account created",
+            "format": "double",
+            "example": 0
+          },
+          "ledgerBalance": {
+            "type": "number",
+            "description": "Ledger balance of the virtual account",
+            "format": "double",
+            "example": 0
+          },
+          "accountNo": {
+            "type": "string",
+            "description": "Generated virtual account number",
+            "nullable": true,
+            "example": "9909182938"
+          },
+          "expired": {
+            "type": "boolean",
+            "description": "Indicates whether the account has expired or not. True or false",
+            "example": 0
+          },
+          "providerName": {
+            "type": "string",
+            "description": "Get the name of the provider with which the virtual account is generated from",
+            "nullable": true,
+            "example": "Providus Bank"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency code of the generated virtual account",
+            "nullable": true,
+            "example": "NGN"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code of the generated virtual account",
+            "nullable": true,
+            "example": "NGA"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date and time of generated virtual account",
+            "format": "date-time",
+            "example": "2022-07-21T00:22:42.4680958+01:00"
+          },
+          "accountType": {
+            "$ref": "#/components/schemas/AccountType"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "Internal account id assigned to the generated account",
+            "nullable": true,
+            "example": "06f0ead5-4cc0-4110-ac51-27dc4ec29a14"
+          },
+          "mifosAccountRef": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VirtualAccountResponseInternalResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/VirtualAccountResponseInternal"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VirtualAccountResponsePaginate": {
+        "type": "object",
+        "properties": {
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VirtualAccountResponse"
+            },
+            "nullable": true
+          },
+          "hasPrevious": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNext": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VirtualAccountResponsePaginateResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/VirtualAccountResponsePaginate"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VirtualAccountResponseResponseModel": {
+        "type": "object",
+        "properties": {
+          "requestSuccessful": {
+            "type": "boolean"
+          },
+          "responseData": {
+            "$ref": "#/components/schemas/VirtualAccountResponse"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "responseCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WalletTransferRequestModel": {
+        "required": ["accountId", "transactionType", "amount"],
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Account Id of the static account",
+            "example": "06f0ead5-4cc0-4110-ac51-27dc4ec29a14"
+          },
+          "transactionType": {
+            "$ref": "#/components/schemas/FundType",
+            "description": "This describes the <b>source of the funds</b> that will be moved into your static account. It could be CORPORATE or MERCHANT. The CORPORATE option <i>debits your corporate wallet and credits your static account</i>. On the other hand, the MERCHANT option <i>debits your collection wallet and credits your static account.</i>"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Transaction amount",
+            "format": "double",
+            "example": 2000
+          },
+          "clientReference": {
+            "type": "string",
+            "description": "Yoiu can set your unique client transaction reference",
+            "nullable": true,
+            "example": "REF13426671882"
+          },
+          "narration": {
+            "type": "string",
+            "description": "Transaction narration",
+            "nullable": true,
+            "example": "Wallet Transfer"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Api-Key": {
+        "type": "apiKey",
+        "description": "Api key needed to access the endpoints. Api-Key: My_API_Key",
+        "name": "Api-Key",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Api-Key": []
+    }
+  ],
+  "x-readme": {
+    "explorer-enabled": true,
+    "proxy-enabled": true,
+    "samples-enabled": true
+  }
+}

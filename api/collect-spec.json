@@ -1,0 +1,2824 @@
+{
+    "openapi": "3.0.1",
+    "servers": [
+        {
+            "url": "https://sandbox.baseone.co/collect"
+        }
+    ],
+    "info": {
+        "title": "Collect API ",
+        "description": "API Reference for the BaseOne Collecion Service API - v1 - 23 04 23",
+        "termsOfService": "http://baseone.co/",
+        "contact": {
+            "name": "BaseOne Engineering Team",
+            "url": "http://baseone.co/",
+            "email": ""
+        },
+        "license": {
+            "name": "Internal Proprietary Product",
+            "url": "http://baseone.co/"
+        },
+        "version": "v1"
+    },
+    "paths": {
+        "/v1/payment/charge": {
+            "post": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Charge",
+                "description": "Make a charge via your preferred collection channel. This endpoint collects the funds from your customer or payer.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentChargeRequestDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StringObjectDictionaryResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/payment/validate": {
+            "post": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Validate",
+                "description": "Authorize the transaction from the <b>Charge</b> endpoint by supplying the OTP sent to the customer or payer who's making the payment.",
+                "parameters": [
+                    {
+                        "name": "transactionReference",
+                        "description": "Unique ID of the payment transaction",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "otp",
+                        "description": "One-time-password recieved to authorize payment",
+                        "required": true,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionResponseDtoResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/payment/status": {
+            "get": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Get status",
+                "description": "This endpoint returns the status of a transaction made via the Collect API",
+                "parameters": [
+                    {
+                        "name": "transactionReference",
+                        "required": true,
+                        "in": "query",
+                        "description": "Unique ID of the payment transaction",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TransactionResponseDtoResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AdminMerchantResponseModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "merchantName": {
+                        "type": "string",
+                        "description": "Merchant Name",
+                        "nullable": true,
+                        "example": "Nuno Limited"
+                    },
+                    "clientId": {
+                        "type": "integer",
+                        "description": "",
+                        "format": "int64",
+                        "nullable": true
+                    },
+                    "mifosClientId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Creation Date",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "AdminMerchantResponseModelPaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AdminMerchantResponseModel"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "AdminMerchantResponseModelPaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/AdminMerchantResponseModelPaginate"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "AdminMerchantResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/AdminMerchantResponseModel"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ApprovalStatus": {
+                "enum": [
+                    "Pending",
+                    "Approved",
+                    "Rejected"
+                ],
+                "type": "string"
+            },
+            "Channel": {
+                "enum": [
+                    "Cards",
+                    "Transfer",
+                    "VisaQR",
+                    "NQR",
+                    "Bank",
+                    "USSD",
+                    "MobileMoney",
+                    "Remita"
+                ],
+                "description": "Collection channel through which the funds will be collected",
+                "type": "string"
+            },
+            "ChannelRequestDto": {
+                "required": [
+                    "channel",
+                    "channelName",
+                    "country",
+                    "currency"
+                ],
+                "type": "object",
+                "properties": {
+                    "country": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "currency": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "channel": {
+                        "$ref": "#/components/schemas/Channel"
+                    },
+                    "channelName": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ChannelResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "currency": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "channel": {
+                        "$ref": "#/components/schemas/Channel"
+                    },
+                    "channelName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "deletedBy": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "lastUpdatedBy": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ChannelResponseDtoArrayResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChannelResponseDto"
+                        },
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ChannelResponseDtoResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/ChannelResponseDto"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ChargeBackApprovalRequest": {
+                "type": "object",
+                "properties": {
+                    "approvalStatus": {
+                        "$ref": "#/components/schemas/ApprovalStatus"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ChargeBackProcessingStatus": {
+                "enum": [
+                    "Pending",
+                    "Processing",
+                    "Settled",
+                    "Rejected"
+                ],
+                "type": "string"
+            },
+            "ChargeBackRequest": {
+                "required": [
+                    "chargeType",
+                    "transactionReference"
+                ],
+                "type": "object",
+                "properties": {
+                    "transactionReference": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "Transaction reference",
+                        "example": "VGN3142565266267"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "description": "Amount",
+                        "format": "double",
+                        "example": 10
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "Reason for charge back",
+                        "nullable": true,
+                        "example": "Charges accrued for the month"
+                    },
+                    "chargeType": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "Charge type",
+                        "example": "Percentage"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Charge Back Request"
+            },
+            "ChargeBackResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "transactionReference": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "amount": {
+                        "type": "number",
+                        "description": "Amount",
+                        "format": "double",
+                        "example": 10
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "Reason for charge back",
+                        "nullable": true
+                    },
+                    "chargeType": {
+                        "type": "string",
+                        "description": "Charge type",
+                        "nullable": true,
+                        "example": "Fixed"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/ChargeBackProcessingStatus"
+                    },
+                    "approvalStatus": {
+                        "$ref": "#/components/schemas/ApprovalStatus"
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "clientId": {
+                        "type": "integer",
+                        "description": "Client Id",
+                        "format": "int64",
+                        "nullable": true
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "description": "Response message from charge back debit service",
+                        "nullable": true
+                    },
+                    "retryNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchant": {
+                        "$ref": "#/components/schemas/MerchantResponseModel"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Charge Back Response"
+            },
+            "ChargeBackResponsePageDto": {
+                "type": "object",
+                "properties": {
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChargeBackResponse"
+                        },
+                        "nullable": true
+                    },
+                    "totalItems": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ChargeBackResponsePageDtoResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/ChargeBackResponsePageDto"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ChargeBackResponseResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/ChargeBackResponse"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ChargeBackUpdateRequest": {
+                "required": [
+                    "amount",
+                    "chargeType"
+                ],
+                "type": "object",
+                "properties": {
+                    "amount": {
+                        "type": "number",
+                        "description": "Amount",
+                        "format": "double",
+                        "example": 10
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "Reason for charge back",
+                        "nullable": true,
+                        "example": "Charges accrued for the month"
+                    },
+                    "chargeType": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "Charge type",
+                        "example": "Fixed"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ChargeResponseDto": {
+                "required": [
+                    "channel",
+                    "country",
+                    "currency"
+                ],
+                "type": "object",
+                "properties": {
+                    "currency": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "country": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "channel": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "settlementProfile": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "amount": {
+                        "minimum": 1,
+                        "type": "number",
+                        "format": "currency"
+                    },
+                    "clientReference": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "customerInformation": {
+                        "$ref": "#/components/schemas/CustomerRequestDto"
+                    },
+                    "meta": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string",
+                            "nullable": true
+                        },
+                        "nullable": true
+                    },
+                    "transactionMeta": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string",
+                            "nullable": true
+                        },
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ChargeResponseDtoPageDto": {
+                "type": "object",
+                "properties": {
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChargeResponseDto"
+                        },
+                        "nullable": true
+                    },
+                    "totalItems": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CountryConfigRequestDto": {
+                "required": [
+                    "countryCode",
+                    "currencyCode"
+                ],
+                "type": "object",
+                "properties": {
+                    "countryCode": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "pricingFlat": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingPercentage": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueFlat": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenuePercentage": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "minimumSettlementAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyCode": {
+                        "minLength": 1,
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CountryConfigResponseDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "pricingFlat": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingPercentage": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueFlat": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenuePercentage": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "minimumSettlementAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CountryConfigResponseDtoResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/CountryConfigResponseDto"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CustomerRequestDto": {
+                "required": [
+                    "email",
+                    "firstName",
+                    "lastName"
+                ],
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "email": {
+                        "minLength": 1,
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "city": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "postCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "state": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "billToInformation": {
+                        "$ref": "#/components/schemas/OtherDetailsRequestDto"
+                    },
+                    "shipToInformation": {
+                        "$ref": "#/components/schemas/OtherDetailsRequestDto"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Merchant": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "isDeleted": {
+                        "type": "boolean"
+                    },
+                    "deletedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "merchantName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchantWebhook": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "clientId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "mifosClientId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "walletId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "approvalStatus": {
+                        "$ref": "#/components/schemas/ApprovalStatus"
+                    },
+                    "approvedBy": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "approvalComments": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchantConfigs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantCountryConfiguration"
+                        },
+                        "nullable": true
+                    },
+                    "defaultAccount": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantChannelConfigDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "channelCode": {
+                        "$ref": "#/components/schemas/Channel"
+                    },
+                    "pricingFlat": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingPercentage": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueFlat": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenuePercentage": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "status": {
+                        "type": "boolean"
+                    },
+                    "chargePaidBy": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchant": {
+                        "$ref": "#/components/schemas/MerchantResponseModel"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantChannelConfigDtoArrayResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantChannelConfigDto"
+                        },
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantChannelConfigDtoPaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantChannelConfigDto"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantChannelConfigDtoPaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/MerchantChannelConfigDtoPaginate"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantChannelConfigDtoResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/MerchantChannelConfigDto"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantChannelConfigRequestDto": {
+                "type": "object",
+                "properties": {
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "channelCode": {
+                        "$ref": "#/components/schemas/Channel"
+                    },
+                    "pricingFlat": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingPercentage": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueFlat": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenuePercentage": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantConfigRequest": {
+                "required": [
+                    "countryCode"
+                ],
+                "type": "object",
+                "properties": {
+                    "countryCode": {
+                        "minLength": 1,
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantConfigurationResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "channel": {
+                        "$ref": "#/components/schemas/Channel"
+                    },
+                    "pricingType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "pricingValue": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "revenueValue": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "collectionWalletId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "isApproved": {
+                        "type": "boolean"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantCountryConfigApprovalRequestDto": {
+                "required": [
+                    "comment"
+                ],
+                "type": "object",
+                "properties": {
+                    "comment": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/ApprovalStatus"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantCountryConfigDto": {
+                "required": [
+                    "countryCode"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "collectionWalletId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "pricingType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "pricingValue": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "revenueValue": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "countryName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "approvalStatus": {
+                        "$ref": "#/components/schemas/ApprovalStatus"
+                    },
+                    "approvedBy": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "approvalComments": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchant": {
+                        "$ref": "#/components/schemas/MerchantResponseModel"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantCountryConfigDtoArrayResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantCountryConfigDto"
+                        },
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantCountryConfigDtoPaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantCountryConfigDto"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantCountryConfigDtoPaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/MerchantCountryConfigDtoPaginate"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantCountryConfigDtoResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/MerchantCountryConfigDto"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantCountryConfigRequestDto": {
+                "required": [
+                    "countryCode",
+                    "currency"
+                ],
+                "type": "object",
+                "properties": {
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "currency": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "pricingType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "pricingValue": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "revenueValue": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "countryCode": {
+                        "minLength": 1,
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantCountryConfiguration": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "isDeleted": {
+                        "type": "boolean"
+                    },
+                    "deletedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "collectionWalletId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "pricingType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "pricingValue": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "revenueValue": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "revenueCap": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "countryName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "approvalStatus": {
+                        "$ref": "#/components/schemas/ApprovalStatus"
+                    },
+                    "approvedBy": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "deletedBy": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "approvalComments": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchant": {
+                        "$ref": "#/components/schemas/Merchant"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantCountryResponseDto": {
+                "type": "object",
+                "properties": {
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "isApproved": {
+                        "type": "boolean"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantOnboardedResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "merchantName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/ApprovalStatus"
+                    },
+                    "countries": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantCountryResponseDto"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantOnboardedResponseResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/MerchantOnboardedResponse"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantResponseModel": {
+                "type": "object",
+                "properties": {
+                    "merchantName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "merchantConfigs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantConfigurationResponse"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/MerchantResponseModel"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantUpdateRequestModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "merchantName": {
+                        "type": "string",
+                        "description": "Merchant Name",
+                        "nullable": true,
+                        "example": "Nuno Limited"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ObjectResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "OtherDetailsRequestDto": {
+                "type": "object",
+                "properties": {
+                    "city": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "address": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "postCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "state": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "email": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Payer": {
+                "enum": [
+                    "MERCHANT",
+                    "CUSTOMER"
+                ],
+                "type": "string"
+            },
+            "PaymentChargeRequestDto": {
+                "required": [
+                    "clientReference",
+                    "country",
+                    "currency",
+                    "channel",
+                    "amount"
+                ],
+                "type": "object",
+                "properties": {
+                    "currency": {
+                        "description": "Currency of funds to be received",
+                        "maxLength": 3,
+                        "minLength": 3,
+                        "type": "string"
+                    },
+                    "country": {
+                        "description": "Country from which payment is to be received",
+                        "maxLength": 3,
+                        "minLength": 3,
+                        "type": "string"
+                    },
+                    "channel": {
+                        "$ref": "#/components/schemas/Channel",
+                        "description": "Collection channel, it could be <code>Transfer</code>, <code>Cards</code>, or other channels"
+                    },
+                    "settlementProfile": {
+                        "description": "Profile setup for merchant settement",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "amount": {
+                        "description": "Amount to be received",
+                        "minimum": 1,
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "clientReference": {
+                        "description": "Add your optional ID to identify the transaction",
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "customerInformation": {
+                        "$ref": "#/components/schemas/CustomerRequestDto"
+                    },
+                    "tokenizeType": {
+                        "description": "determines if a customer wants the card tokenized with PIN authorization or not",
+                        "$ref": "#/components/schemas/TokenizeTypeEnum"
+                    },
+                    "chargeParameter": {
+                        "description": "Pass in the charge parameter key-value pairs for the transaction if any. It could be the card details such as <code>cardNumber</code>, <code>cardPin</code>, <code>cardCvv</code>, <code>cardExpiredYear</code>, and <code>cardExpiredMonth</code>",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string",
+                            "nullable": true
+                        },
+                        "nullable": true
+                    },
+                    "transactionMeta": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string",
+                            "nullable": true
+                        },
+                        "description": "Information about payment like product name etc",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "PaymentRequestDto": {
+                "required": [
+                    "country",
+                    "currency"
+                ],
+                "type": "object",
+                "properties": {
+                    "currency": {
+                        "description": "Currency of funds to be received",
+                        "maxLength": 3,
+                        "minLength": 3,
+                        "type": "string"
+                    },
+                    "country": {
+                        "description": "Country from which payment is to be received",
+                        "maxLength": 3,
+                        "minLength": 3,
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "PaymentResponseDto": {
+                "type": "object",
+                "properties": {
+                    "channels": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Channel"
+                        },
+                        "nullable": true
+                    },
+                    "merchantName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "priceingConfigs": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/components/schemas/PricingConfig"
+                        },
+                        "nullable": true
+                    },
+                    "reference": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "PaymentResponseDtoResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/PaymentResponseDto"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Period": {
+                "enum": [
+                    "Daily",
+                    "Weekly",
+                    "Monthly"
+                ],
+                "type": "string"
+            },
+            "PricingConfig": {
+                "type": "object",
+                "properties": {
+                    "flatRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "percentage": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingCap": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "PricingType": {
+                "enum": [
+                    "Flat",
+                    "Percentage"
+                ],
+                "type": "string"
+            },
+            "SettlementProfile": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "deletedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "profileId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "clientId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "profileName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isDefault": {
+                        "type": "boolean"
+                    },
+                    "isDeleted": {
+                        "type": "boolean"
+                    },
+                    "deletedDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "deletedBy": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchant": {
+                        "$ref": "#/components/schemas/Merchant"
+                    },
+                    "merchantSubAccounts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SettlementSubAccount"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementProfileRequestDto": {
+                "required": [
+                    "mainAccountId",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "mainAccountId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "mainAccountRatio": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ratioType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "name": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "subAccounts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SettlementProfileSubAccountDto"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementProfileResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "profileId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "profileName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "accountCount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "mainAccountName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "sharedRatio": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "mainAccountCountry": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "mainAccountId": {
+                        "type": "integer",
+                        "format": "int64",
+                        "nullable": true
+                    },
+                    "ratioType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "subAccounts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SettlementSubAccountResponse"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementProfileResponsePageDto": {
+                "type": "object",
+                "properties": {
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SettlementProfileResponse"
+                        },
+                        "nullable": true
+                    },
+                    "totalItems": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementProfileResponsePageDtoResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/SettlementProfileResponsePageDto"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementProfileResponseResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/SettlementProfileResponse"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementProfileSubAccountDto": {
+                "type": "object",
+                "properties": {
+                    "subAccountId": {
+                        "minimum": 1,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "ratio": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ratioType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementSubAccount": {
+                "type": "object",
+                "properties": {
+                    "subAccountId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "settlementProfileId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "subAccount": {
+                        "$ref": "#/components/schemas/SubAccount"
+                    },
+                    "settlementProfile": {
+                        "$ref": "#/components/schemas/SettlementProfile"
+                    },
+                    "isMainAccount": {
+                        "type": "boolean"
+                    },
+                    "ratio": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ratioType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    },
+                    "isDeleted": {
+                        "type": "boolean"
+                    },
+                    "deletedBy": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "deletedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "lastModifiedBy": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "modifiedDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementSubAccountCreateRequestDto": {
+                "required": [
+                    "ratio",
+                    "settlementProfileId",
+                    "subAccountId"
+                ],
+                "type": "object",
+                "properties": {
+                    "subAccountId": {
+                        "minimum": 1,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "settlementProfileId": {
+                        "minimum": 1,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "isMainAccount": {
+                        "type": "boolean"
+                    },
+                    "ratio": {
+                        "minimum": 1,
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ratioType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementSubAccountResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "settlementProfileId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "countryName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bankName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "accountNumber": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bankCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "accountName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "ratio": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "subAccountId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "ratioType": {
+                        "$ref": "#/components/schemas/PricingType"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementSubAccountResponseArrayResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SettlementSubAccountResponse"
+                        },
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementSubAccountResponseResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/SettlementSubAccountResponse"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementTransactions": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "isDeleted": {
+                        "type": "boolean"
+                    },
+                    "deletedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "settlementProfile": {
+                        "$ref": "#/components/schemas/SettlementProfile"
+                    },
+                    "settlementProfileId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "batchId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "currency": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bankName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "accountNumber": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bankCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "accountName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ratio": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "clientId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "postedDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementTransactionsPageDto": {
+                "type": "object",
+                "properties": {
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SettlementTransactions"
+                        },
+                        "nullable": true
+                    },
+                    "totalItems": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "StringObjectDictionaryResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "nullable": true
+                        },
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "StringResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SubAccount": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "isDeleted": {
+                        "type": "boolean"
+                    },
+                    "deletedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "countryName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bankName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "accountNumber": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bankCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "accountName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "deletedBy": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchant": {
+                        "$ref": "#/components/schemas/Merchant"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SubAccountDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "countryName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bankName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "accountNumber": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bankCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "accountName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SubAccountDtoPageDto": {
+                "type": "object",
+                "properties": {
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubAccountDto"
+                        },
+                        "nullable": true
+                    },
+                    "totalItems": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SubAccountDtoPageDtoResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/SubAccountDtoPageDto"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SubAccountDtoResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/SubAccountDto"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SubAccountRequestDto": {
+                "required": [
+                    "accountName",
+                    "accountNumber",
+                    "bankCode",
+                    "countryCode",
+                    "currencyCode"
+                ],
+                "type": "object",
+                "properties": {
+                    "countryCode": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "accountNumber": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "bankCode": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "accountName": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "currencyCode": {
+                        "minLength": 1,
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "TokenizeTypeEnum": {
+                "enum": [
+                    "None",
+                    "Customer",
+                    "Payment"
+                ],
+                "type": "string"
+            },
+            "TransactionResponseDto": {
+                "type": "object",
+                "properties": {
+                    "currency": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "channel": {
+                        "$ref": "#/components/schemas/Channel",
+                        "description": "Channel"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "charges": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "chargeIncluded": {
+                        "type": "boolean"
+                    },
+                    "totalAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "chargePayer": {
+                        "$ref": "#/components/schemas/Payer"
+                    },
+                    "clientReference": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "transactionReference": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "clientId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "transactionStatus": {
+                        "$ref": "#/components/schemas/TransactionStatus"
+                    },
+                    "settlementStatus": {
+                        "$ref": "#/components/schemas/TransactionStatus"
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "widgetUrl": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "TransactionResponseDtoResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/TransactionResponseDto"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "TransactionStatus": {
+                "enum": [
+                    "Pending",
+                    "Processing",
+                    "Success",
+                    "Failed"
+                ],
+                "type": "string"
+            }
+        },
+        "securitySchemes": {
+            "Api-Key": {
+                "type": "apiKey",
+                "description": "Api key needed to access the endpoints. Api-Key: My_API_Key",
+                "name": "Api-Key",
+                "in": "header"
+            },
+            "Public-Key": {
+                "type": "apiKey",
+                "description": "Api key needed to access the endpoints. Public-Key: My_Public_Key",
+                "name": "Public-Key",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "Api-Key": []
+        }
+    ],
+    "x-readme": {
+        "explorer-enabled": true,
+        "proxy-enabled": true,
+        "samples-enabled": true
+    }
+}

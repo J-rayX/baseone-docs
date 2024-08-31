@@ -1,0 +1,2000 @@
+{
+    "openapi": "3.0.1",
+    "servers": [
+        {
+            "url": "https://sandbox.baseone.co/cards"
+        }
+    ],
+    "info": {
+        "title": "Cards API ",
+        "description": "API Reference for the BaseOne Card Service API - v1 - 23 04 23",
+        "termsOfService": "http://baseone.co/",
+        "contact": {
+            "name": "VgnCore Engineering Team",
+            "url": "http://baseone.co/",
+            "email": ""
+        },
+        "license": {
+            "name": "Internal Proprietary Product",
+            "url": "http://baseone.co/"
+        },
+        "version": "v1"
+    },
+    "paths": {
+        "/v1/create-card": {
+            "post": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Create card",
+                "description": "Use this endpoint to create a card",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CardRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateCardResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateCardResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/add-funds": {
+            "post": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Load card",
+                "description": "Deposit funds to a card using the <code>cardId</code>.",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DepositFundRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FundsTransactionResponseResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FundsTransactionResponseResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/withdraw-funds": {
+            "post": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Withdraw funds",
+                "description": "Withdraw fund from a card",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DepositFundRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FundsTransactionResponseResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FundsTransactionResponseResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/delete-card/{cardId}": {
+            "delete": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Delete Card",
+                "description": "Delete a card using the Card Id",
+                "parameters": [
+                    {
+                        "name": "cardId",
+                        "in": "path",
+                        "description": "The unique card Id generated for you upon the successful creation of a card.",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BooleanResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BooleanResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/get-card-details/{cardId}": {
+            "get": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Get card details",
+                "description": "Use the <code>cardId</code> of a card to fetch the details of the card including the information and balance.",
+                "parameters": [
+                    {
+                        "name": "cardId",
+                        "in": "path",
+                        "description": "The unique card Id generated for you upon the successful creation of a card.",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CardResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CardResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/get-card-balance/{cardId}": {
+            "get": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Get card balance",
+                "description": "Fetch the balance of a card.",
+                "parameters": [
+                    {
+                        "name": "cardId",
+                        "in": "path",
+                        "description": "The unique card Id generated for you upon the successful creation of a card.",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CardBalanceResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CardBalanceResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/toggle-card/{cardId}": {
+            "put": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Toggle card",
+                "description": "Use this endpoint to activate or deactivate a card.",
+                "parameters": [
+                    {
+                        "name": "cardId",
+                        "in": "path",
+                        "description": "The unique card Id generated for you upon the successful creation of a card.",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BooleanResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BooleanResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/get-card-transactions/{cardId}": {
+            "get": {
+                "tags": [
+                    ""
+                ],
+                "summary": "Get card transactions",
+                "description": "Get a list of transactions on a card within your specified period.",
+                "parameters": [
+                    {
+                        "name": "cardId",
+                        "in": "path",
+                        "description": "The unique card Id generated for you upon the successful creation of a card.",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "StartDate",
+                        "in": "query",
+                        "description": "Datetime vale of when you want the transaction list to begin",
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "EndDate",
+                        "in": "query",
+                        "description": "Datetime value of when you want the transaction list to end. ",
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isActive",
+                        "in": "query",
+                        "description": "This accepts a boolean value. TRUE if the act is activated. FALSE if the card is deactivated",
+                        "style": "form",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "pageNumber",
+                        "in": "query",
+                        "description": "Indicate the particular page in the transaction list that you want to be returned.",
+                        "style": "form",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "Indicate the number of pages of the transaction list you want to be returned.",
+                        "style": "form",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "isAscending",
+                        "in": "query",
+                        "description": "Takes a boolean value. TRUE if you want to order the transaction list in ascending order. FALSE if you want to order the list in descending order.",
+                        "style": "form",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "keyword",
+                        "in": "query",
+                        "description": "Specify a keyword or phrase to search by in the list of transactions and return all results matching the searched keyword.",
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CardTransactionResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CardTransactionResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AccountType": {
+                "enum": [
+                    "DYNAMIC",
+                    "STATIC",
+                    "STATIC_COLLECTION",
+                    "INTERNAL"
+                ],
+                "type": "string"
+            },
+            "BooleanResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CardBalanceResponseModel": {
+                "type": "object",
+                "properties": {
+                    "accountBalance": {
+                        "type": "number",
+                        "description": "Available Balance of the virtual account created",
+                        "format": "double",
+                        "example": 0
+                    },
+                    "ledgerBalance": {
+                        "type": "number",
+                        "description": "Ledger balance of the virtual account",
+                        "format": "double",
+                        "example": 0
+                    },
+                    "transactionDate": {
+                        "type": "string",
+                        "description": "Transaction Date",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Card balance response model."
+            },
+            "CardBalanceResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/CardBalanceResponseModel"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CardKYCRequest": {
+                "required": [
+                    "firstName",
+                    "lastName",
+                    "country",
+                    "type",
+                    "value",
+                    "phoneNumber",
+                    "email"
+                ],
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "description": "First name of the intended card holder",
+                        "nullable": true,
+                        "example": "Chinaza"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last name of the intended card holder",
+                        "nullable": true,
+                        "example": "Ndumma"
+                    },
+                    "country": {
+                        "type": "string",
+                        "description": "Country of residence of the intended card holder",
+                        "nullable": true,
+                        "example": "NGN"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of KYC identity. For instance, you can use BVN in Nigeria.",
+                        "nullable": true,
+                        "example": "BVN"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "The value of the KYC identity",
+                        "nullable": true,
+                        "example": "22222222261"
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "description": "Phone number of the intended card holder",
+                        "nullable": true,
+                        "example": "08135901117"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the intended card holder",
+                        "nullable": true,
+                        "example": "name@gmail.com"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Card KYC Request"
+            },
+            "CardReportResponse": {
+                "type": "object",
+                "properties": {
+                    "totalCardsIssued": {
+                        "type": "integer",
+                        "description": "Total Cards Issued",
+                        "format": "int32"
+                    },
+                    "totalActiveCards": {
+                        "type": "integer",
+                        "description": "Total Active Cards",
+                        "format": "int32"
+                    },
+                    "totalBlockedCards": {
+                        "type": "integer",
+                        "description": "Total Blocked Cards",
+                        "format": "int32"
+                    },
+                    "totalFrozenCards": {
+                        "type": "integer",
+                        "description": "Total Frozen Cards",
+                        "format": "int32"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/CardTransactionResponseModelPaginate"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Card Report Response"
+            },
+            "CardReportResponseResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/CardReportResponse"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CardRequest": {
+                "required": [
+                    "ledgerType",
+                    "currency",
+                    "cardType"
+                ],
+                "type": "object",
+                "properties": {
+                    "currency": {
+                        "type": "string",
+                        "description": "3-letter code of the currency of the card",
+                        "nullable": true,
+                        "example": "NGN"
+                    },
+                    "serviceCode": {
+                        "type": "string",
+                        "description": "This applies to INTERNAL cards. Indicate the service whose ledger will be used as the source of value for the card. For example, <code>VA</code> for Virtual Account.",
+                        "nullable": true,
+                        "example": "VA"
+                    },
+                    "accountId": {
+                        "type": "string",
+                        "description": "Account Id",
+                        "nullable": true
+                    },
+                    "cardType": {
+                        "description": "This could be a PHYSICAL or VORTUAL card.",
+                        "$ref": "#/components/schemas/CardType"
+                    },
+                    "ledgerType": {
+                        "description": "This is the source of value of the card. INTRACARD sources its value from the main Card ledger. INTERNAL sources its value from other non-Card services in BaseOne like virtual accounts, etc. EXTERNAL sources its value from the merchant settlement account while the merchant maintains an independent ledger.",
+                        "$ref": "#/components/schemas/LedgerType"
+                    },
+                    "debitWallet": {
+                        "type": "string",
+                        "description": "Debit Wallet.",
+                        "nullable": true,
+                        "example": "NGN"
+                    },
+                    "cardKYC": {
+                        "description": "This object consists of the KYC verification details for the intended card holder.",
+                        "$ref": "#/components/schemas/CardKYCRequest"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Card Request."
+            },
+            "CardResponse": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name on the card",
+                        "nullable": true,
+                        "example": "Fred Jerry"
+                    },
+                    "earnedRevenue": {
+                        "type": "string",
+                        "description": "Earned Revenue",
+                        "nullable": true
+                    },
+                    "transactionAmount": {
+                        "type": "string",
+                        "description": "Transaction Amount",
+                        "nullable": true,
+                        "example": "40,000.00"
+                    },
+                    "cardBalance": {
+                        "type": "string",
+                        "description": "Card Balance",
+                        "nullable": true,
+                        "example": "30000"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "description": "Currency of the card",
+                        "nullable": true,
+                        "example": "NGN"
+                    },
+                    "maskedPan": {
+                        "type": "string",
+                        "description": "Masked Pan Number of the Card",
+                        "nullable": true,
+                        "example": "5339********435678"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Card creation date",
+                        "format": "date-time",
+                        "example": "2022-10-10"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/Status"
+                    },
+                    "statusDescription": {
+                        "type": "string",
+                        "description": "Transaction Status Description",
+                        "nullable": true,
+                        "example": "Success"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Card response"
+            },
+            "CardResponseModel": {
+                "type": "object",
+                "properties": {
+                    "merchantId": {
+                        "type": "integer",
+                        "description": "Foreign key to the ID merchant table",
+                        "format": "int32"
+                    },
+                    "externalMifosAccountId": {
+                        "type": "string",
+                        "description": "External Account Id on Mifos",
+                        "nullable": true
+                    },
+                    "cardId": {
+                        "type": "string",
+                        "description": "User friendly GUID to use to refer to the card",
+                        "format": "uuid"
+                    },
+                    "kycId": {
+                        "type": "string",
+                        "description": "Foreign key to KYC this card belongs to",
+                        "nullable": true
+                    },
+                    "currency": {
+                        "type": "string",
+                        "description": "ISO code for the currency the card is issued in",
+                        "nullable": true
+                    },
+                    "maskedPan": {
+                        "type": "string",
+                        "description": "Masked PAN for created cards",
+                        "nullable": true
+                    },
+                    "ledgerType": {
+                        "type": "string",
+                        "description": "Ledger type whether internal, intracard or external",
+                        "nullable": true
+                    },
+                    "debitWallet": {
+                        "type": "string",
+                        "description": "The corporate wallet where the card creation fee was debited from",
+                        "nullable": true
+                    },
+                    "serviceCode": {
+                        "type": "string",
+                        "description": "Nullable field, and only used if LedgerType is internal. \r\nThis maps to the service within the Baseone the card was issued for. \r\nExample of services could be static virtual account, banking as a service etc",
+                        "nullable": true
+                    },
+                    "externalCardRef": {
+                        "type": "string",
+                        "description": "Nullable field, and only used if LedgerType is external. \r\nThis maps to the card within an external system within the merchant’s system",
+                        "nullable": true
+                    },
+                    "issuerRef": {
+                        "type": "string",
+                        "description": "Card reference from the issuer processor",
+                        "nullable": true
+                    },
+                    "internalRef": {
+                        "type": "string",
+                        "description": "Card reference from the Baseone system",
+                        "nullable": true
+                    },
+                    "accountID": {
+                        "type": "string",
+                        "description": "Only used if the created card is internal or intracard. \r\nThis maps to the wallet account where the ledger is kept.",
+                        "nullable": true
+                    },
+                    "accountNumber": {
+                        "type": "string",
+                        "description": "Account Number, applicable mostly for the internal ledger type",
+                        "nullable": true
+                    },
+                    "cardStatus": {
+                        "$ref": "#/components/schemas/CardStatus"
+                    },
+                    "expiryStatus": {
+                        "type": "string",
+                        "description": "Active | Expired",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Card Response Model"
+            },
+            "CardResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/CardResponseModel"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CardResponsePaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CardResponse"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CardResponsePaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/CardResponsePaginate"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CardStatus": {
+                "enum": [
+                    "ACTIVE",
+                    "BLOCKED",
+                    "FROZEN"
+                ],
+                "type": "string"
+            },
+            "CardTransactionResponseModel": {
+                "type": "object",
+                "properties": {
+                    "cardId": {
+                        "type": "string",
+                        "description": "Foreign key to card",
+                        "nullable": true
+                    },
+                    "merchantID": {
+                        "type": "integer",
+                        "description": "Foreign key to the merchant table. The merchant the card is under",
+                        "format": "int32"
+                    },
+                    "cardName": {
+                        "type": "string",
+                        "description": "Name on Card.",
+                        "nullable": true
+                    },
+                    "currency": {
+                        "type": "string",
+                        "description": "ISO currency code for the currency the transaction was processed in",
+                        "nullable": true
+                    },
+                    "maskedPan": {
+                        "type": "string",
+                        "description": "Masked PAN for created cards",
+                        "nullable": true
+                    },
+                    "availableBalance": {
+                        "type": "number",
+                        "description": "Available balance",
+                        "format": "double"
+                    },
+                    "ledgerBalance": {
+                        "type": "number",
+                        "description": "Ledger balance",
+                        "format": "double"
+                    },
+                    "totalRevenue": {
+                        "type": "number",
+                        "description": "This is the total Baseone interchange revenue that came from the processed transaction",
+                        "format": "double"
+                    },
+                    "internalRevenue": {
+                        "type": "number",
+                        "description": "This is the portion of the total revenue that belongs to Baseone",
+                        "format": "double"
+                    },
+                    "merchantRevenue": {
+                        "type": "number",
+                        "description": "This is the portion of the total interchange revenue shared with the merchant",
+                        "format": "double"
+                    },
+                    "appliedMerchantPercentage": {
+                        "type": "number",
+                        "description": "This is the percentage applied to arrive at the MerchantRevenue value, frozen. \r\nThis value is gotten from MerchantConfig if available. If not available, use the currencyConfig",
+                        "format": "double"
+                    },
+                    "merchantSettlementStatus": {
+                        "type": "boolean",
+                        "description": "This flag indicates whether the revenue earned by merchant \r\nfrom this transaction has been settled to merchant."
+                    },
+                    "amount": {
+                        "type": "number",
+                        "description": "Amount to be authorized on the card",
+                        "format": "double"
+                    },
+                    "processorRef": {
+                        "type": "string",
+                        "description": "Stitch reference on the transaction authorization",
+                        "nullable": true
+                    },
+                    "internalRef": {
+                        "type": "string",
+                        "description": "Baseone internal reference",
+                        "nullable": true
+                    },
+                    "transactionType": {
+                        "$ref": "#/components/schemas/CardTransactionType"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/Status"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Transaction Time and Date.",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CardTransactionResponseModelPaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CardTransactionResponseModel"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CardTransactionResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/CardTransactionResponseModel"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CardTransactionType": {
+                "enum": [
+                    0,
+                    1
+                ],
+                "type": "integer",
+                "format": "int32"
+            },
+            "CardType": {
+                "enum": [
+                    "PHYSICAL",
+                    "VIRTUAL"
+                ],
+                "type": "string"
+            },
+            "CreateCardResponseModel": {
+                "type": "object",
+                "properties": {
+                    "cardId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "cardPAN": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "cvv": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "expiryDate": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "nameOnCard": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "brand": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "balance": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/CardStatus"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Created card response object"
+            },
+            "CreateCardResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/CreateCardResponseModel"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CurrencyConfigReqModel": {
+                "type": "object",
+                "properties": {
+                    "currency": {
+                        "type": "string",
+                        "description": "ISO currency code. \r\nCards created in the currency mapped here will have fees structured by data described here.",
+                        "nullable": true
+                    },
+                    "merchantRevenuePercentage": {
+                        "type": "string",
+                        "description": "Global config for the share of revenue that goes to the merchant per transaction.",
+                        "nullable": true
+                    },
+                    "revenuePercentage": {
+                        "type": "string",
+                        "description": "Revenue percentage of interchange fee that goes to BaseOne",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CurrencyConfigResponseModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Id of the record",
+                        "nullable": true
+                    },
+                    "currency": {
+                        "type": "string",
+                        "description": "ISO currency code. \r\nCards created in the currency mapped here will have fees structured by data described here.",
+                        "nullable": true
+                    },
+                    "merchantRevenuePercentage": {
+                        "type": "string",
+                        "description": "Global config for the share of revenue that goes to the merchant per transaction.",
+                        "nullable": true
+                    },
+                    "revenuePercentage": {
+                        "type": "string",
+                        "description": "Revenue percentage of interchange fee that goes to BaseOne",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CurrencyConfigResponseModelPaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CurrencyConfigResponseModel"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CurrencyConfigResponseModelPaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/CurrencyConfigResponseModelPaginate"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CurrencyConfigResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/CurrencyConfigResponseModel"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CurrencyConfigUpdateModel": {
+                "type": "object",
+                "properties": {
+                    "merchantRevenuePercentage": {
+                        "type": "number",
+                        "description": "Global config for the share of revenue that goes to the merchant per transaction.",
+                        "format": "double"
+                    },
+                    "revenuePercentage": {
+                        "type": "number",
+                        "description": "Revenue percentage of interchange fee that goes to BaseOne",
+                        "format": "double"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DashboardResponse": {
+                "type": "object",
+                "properties": {
+                    "totalTransactionVolume": {
+                        "type": "string",
+                        "description": "Total Transaction Volume",
+                        "nullable": true,
+                        "example": "2,090,099"
+                    },
+                    "availableBalance": {
+                        "type": "string",
+                        "description": "Available Balance of merchant on all cards",
+                        "nullable": true,
+                        "example": "450,000"
+                    },
+                    "totalIssuedCards": {
+                        "type": "integer",
+                        "description": "Total Number of Issued cards",
+                        "format": "int32"
+                    },
+                    "totalCurrencies": {
+                        "type": "integer",
+                        "description": "Total Number of Supported meetings",
+                        "format": "int32"
+                    },
+                    "transactions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DashboardSummary"
+                        },
+                        "description": "Transaction list over certain period",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Dashboard Overview Response model"
+            },
+            "DashboardResponsePaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DashboardResponse"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DashboardResponsePaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/DashboardResponsePaginate"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DashboardSummary": {
+                "type": "object",
+                "properties": {
+                    "amount": {
+                        "type": "number",
+                        "description": "Card amounts",
+                        "format": "double"
+                    },
+                    "transactionDate": {
+                        "type": "string",
+                        "description": "Transaction Date",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false,
+                "description": ""
+            },
+            "DepositFundRequest": {
+                "required": [
+                    "amount",
+                    "cardId"
+                ],
+                "type": "object",
+                "properties": {
+                    "cardId": {
+                        "type": "string",
+                        "description": "The unique card Id generated for you upon the successful creation of a card.",
+                        "example": "142adc3-13425ff2e-1aff47eb"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "description": "Amount of money to be deposited in the card",
+                        "format": "double",
+                        "example": 100
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Deposit funds request model"
+            },
+            "FundsTransactionResponse": {
+                "type": "object",
+                "properties": {
+                    "transactionStatus": {
+                        "$ref": "#/components/schemas/TransactionStatus"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "description": "Credit or Debit amount.",
+                        "format": "double"
+                    },
+                    "balance": {
+                        "type": "number",
+                        "description": "Account balance after transaction.",
+                        "format": "double"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "description": "Transaction reference.",
+                        "nullable": true
+                    },
+                    "transactionDate": {
+                        "type": "string",
+                        "description": "Time and Date of transaction.",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false,
+                "description": "Add and withdraw funds response"
+            },
+            "FundsTransactionResponseResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/FundsTransactionResponse"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCDto": {
+                "required": [
+                    "firstName",
+                    "lastName"
+                ],
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "description": "Set the first name for the generated virtual account",
+                        "example": "John"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Set the last name for the generated virtual account",
+                        "example": "Doe"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth",
+                        "nullable": true,
+                        "example": "19/05/2001"
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "description": "Phone number",
+                        "nullable": true,
+                        "example": "09097712456"
+                    },
+                    "kycType": {
+                        "type": "string",
+                        "description": "Gets or sets the kyc type",
+                        "nullable": true,
+                        "example": "BVN"
+                    },
+                    "kycValue": {
+                        "type": "string",
+                        "description": "Gets or sets the kyc value",
+                        "nullable": true,
+                        "example": "134256737367"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "LedgerType": {
+                "enum": [
+                    "INTERNAL",
+                    "INTRACARD",
+                    "EXTERNAL"
+                ],
+                "type": "string"
+            },
+            "MerchantConfigResponseModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Primary Key to the Merchant Config table",
+                        "format": "int64"
+                    },
+                    "merchantId": {
+                        "type": "integer",
+                        "description": "Foreign Key to the Merchant table",
+                        "format": "int64"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "description": "ISO currency code, specifying the card currency rail the merchant has onboarded on.",
+                        "nullable": true
+                    },
+                    "defaultDebitWallet": {
+                        "type": "string",
+                        "description": "This is the corporate wallet to be used when a new card is created,\r\nwhen it is not passed in the request object during creation.",
+                        "nullable": true
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/Status"
+                    },
+                    "merchantRevenuePercentage": {
+                        "type": "number",
+                        "description": "This is the share of the interchange revenue that goes to the merchant.",
+                        "format": "double"
+                    },
+                    "externalAuthorizationEndpoint": {
+                        "type": "string",
+                        "description": "Maps to URL to be used to interact with Merchant’s service whose cards are on EXTRNAL ledger type. \r\nSerialized JSON model. E.g. http://merchant.com/authorize_cards/::card_id .",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantConfigResponseModelListResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantConfigResponseModel"
+                        },
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantConfigResponseModelPaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantConfigResponseModel"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantConfigResponseModelPaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/MerchantConfigResponseModelPaginate"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantConfigUpdateModel": {
+                "required": [
+                    "merchantRevenuePercentage"
+                ],
+                "type": "object",
+                "properties": {
+                    "merchantRevenuePercentage": {
+                        "type": "number",
+                        "description": "This is the share of the interchange revenue that goes to the merchant.",
+                        "format": "double"
+                    },
+                    "externalAuthorizationEndpoint": {
+                        "type": "string",
+                        "description": "Maps to URL to be used to interact with Merchant’s service whose cards are on EXTRNAL ledger type. \r\nSerialized JSON model. E.g. http://merchant.com/authorize_cards/::card_id .",
+                        "nullable": true
+                    },
+                    "currency": {
+                        "type": "string",
+                        "description": "Currency code. ISO# Standrad",
+                        "nullable": true,
+                        "example": "NGN"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantResponseModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "ID in Guid",
+                        "format": "int64"
+                    },
+                    "merchantId": {
+                        "type": "string",
+                        "description": "Merchant ID in Guid",
+                        "nullable": true,
+                        "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                    },
+                    "merchantName": {
+                        "type": "string",
+                        "description": "Merchant's Name",
+                        "nullable": true,
+                        "example": "RenMoney"
+                    },
+                    "defaultWallet": {
+                        "type": "string",
+                        "description": "Default Wallet associated with Merchant",
+                        "nullable": true,
+                        "example": "NGN"
+                    },
+                    "globalClientId": {
+                        "type": "integer",
+                        "description": "Baseone ClientId",
+                        "format": "int64",
+                        "example": 212
+                    },
+                    "mifosClientId": {
+                        "type": "integer",
+                        "description": "Mifos ClientId",
+                        "format": "int64",
+                        "example": 212
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Merchant Active State",
+                        "example": false
+                    },
+                    "externalId": {
+                        "type": "string",
+                        "description": "ID to identify the product/service the client subscribe to",
+                        "nullable": true,
+                        "example": "21CARDS"
+                    },
+                    "currency": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantConfigResponseModel"
+                        },
+                        "description": "",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/MerchantResponseModel"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantStatusUpdate": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/Status"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantTransactionResponseModel": {
+                "type": "object",
+                "properties": {
+                    "cardName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "transactionAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/TransactionStatus"
+                    },
+                    "transactionTime": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantTransactionResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/MerchantTransactionResponseModel"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ObjectPaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {},
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ObjectPaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/ObjectPaginate"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ObjectResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementResponse": {
+                "type": "object",
+                "properties": {
+                    "batchId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "settlementAmount": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "transactionSettled": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "settlementTime": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementResponsePaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SettlementResponse"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SettlementResponsePaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "requestSuccessful": {
+                        "type": "boolean"
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/SettlementResponsePaginate"
+                    },
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Status": {
+                "enum": [
+                    "PENDING",
+                    "APPROVED",
+                    "SUSPENDED"
+                ],
+                "type": "string"
+            },
+            "TransactionStatus": {
+                "enum": [
+                    1,
+                    2,
+                    3
+                ],
+                "type": "integer",
+                "format": "int32"
+            },
+            "VirtualAccountRequest": {
+                "required": [
+                    "accountType",
+                    "providerCode"
+                ],
+                "type": "object",
+                "properties": {
+                    "transactionId": {
+                        "type": "string",
+                        "description": "Gets or sets the TRNX identifier.",
+                        "nullable": true,
+                        "example": "REF1267829399"
+                    },
+                    "providerCode": {
+                        "type": "string",
+                        "description": "Provider code",
+                        "example": "PROVIDUSNG"
+                    },
+                    "accountType": {
+                        "$ref": "#/components/schemas/AccountType"
+                    },
+                    "kyc": {
+                        "$ref": "#/components/schemas/KYCDto"
+                    },
+                    "accountName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true,
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "securitySchemes": {
+            "Api-Key": {
+                "type": "apiKey",
+                "description": "Api key needed to access the endpoints. Api-Key: My_API_Key",
+                "name": "Api-Key",
+                "in": "header"
+            },
+            "Service": {
+                "type": "apiKey",
+                "description": "Api key needed to access the endpoints. Authorization: Basic >",
+                "name": "Api-Key",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "Api-Key": []
+        },
+        {
+            "ServiceAuth": []
+        }
+    ],
+    "x-readme": {
+        "explorer-enabled": true,
+        "proxy-enabled": true,
+        "samples-enabled": true
+    }
+}

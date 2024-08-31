@@ -1,0 +1,2527 @@
+{
+    "openapi": "3.0.1",
+    "servers": [
+        {
+            "url": "https://sandbox.baseone.co/kyc-service"
+        }
+    ],
+    "info": {
+        "title": "KYC API ",
+        "description": "API Reference for the BaseOne Know-Your-Customers Service API - v1 - 13 02 24",
+        "termsOfService": "http://baseone.co/",
+        "contact": {
+            "name": "BaseOne Engineering Team",
+            "url": "http://baseone.co/",
+            "email": ""
+        },
+        "license": {
+            "name": "Internal Proprietary Product",
+            "url": "http://baseone.co/"
+        },
+        "version": "v1"
+    },
+    "paths": {
+        "/v1/bvn-legacy/basic": {
+            "get": {
+                "tags": [
+                    "Legacy BVN-Lookup"
+                ],
+                "summary": "Basic BVN Lookup",
+                "description": "This endpoint verifies the supplied identity of your customer and returns a <b>short</b> response to confirm the status of the verification.\n\n For the KYC <b>service</b> you want to validate, use the right JSON object in the body params. Then, set the other services to null or remove them.\nFor example if you want to validate only BVN, send only the BVN object and remove the rest of the object.\n <br>Use the <a href='https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes'>alpha-3</a> ISO standard for country code in the <b>countryCode</b> parameter.</br>",
+                "parameters": [
+                    {
+                        "name": "bvn",
+                        "in": "query",
+                        "description": "Bank Verification Number (BVN) is a unique 11-digit number used for verification of customers on financial platforms in Nigeria. The customer needs to walk-in and apply for the BVN at their commercial bank.",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BVNBasicResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/bvn-legacy/full": {
+            "get": {
+                "tags": [
+                    "Legacy BVN-Lookup"
+                ],
+                "summary": "Full BVN Lookup",
+                "description": "This endpoint verifies the supplied identity of your customer and returns a <b>detailed</b> response of the verification request. The response includes the customer's full details.\n\n For the KYC <b>service</b> you want to validate, use the right JSON object in the body params. Then, set the other services to null or remove them.\nFor example if you want to validate only BVN, send only the BVN object and remove the rest of the object.\n <br>Use the <a href='https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes'>alpha-3</a> ISO standard for country code in the <b>countryCode</b> parameter.</br>",
+                "parameters": [
+                    {
+                        "name": "bvn",
+                        "in": "query",
+                        "description": "Bank Verification Number (BVN) is a unique 11-digit number used for verification of customers on financial platforms in Nigeria. The customer needs to walk-in and apply for the BVN at their commercial bank.",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BVNBasicResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/bvn-inquiry": {
+            "get": {
+                "tags": [
+                    "IGree (Consent) BVN-Lookup"
+                ],
+                "summary": "BVN Inquiry",
+                "description": "This BVN inquiry service is based on the new BVN Consent implementation. When you supply the correct 11-digit Nigerian BVN number, BaseOne returns a <code>sessionID</code>. The <b>sessionID</b> tracks your BVN verification journey",
+                "parameters": [
+                    {
+                        "name": "bvn",
+                        "in": "query",
+                        "description": "11-digit bank verification number for account holders in Nigeria.",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BVNResponseResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/receipt-mode": {
+            "post": {
+                "tags": [
+                    "IGree (Consent) BVN-Lookup"
+                ],
+                "summary": "OTP Receipt",
+                "description": "Mode of receipt of OTP for Consent to share BVN information. here, <b>you are to select where the BVN holder will recieve the OTP, be it via SMS text or email message</b>. You can recieve the OTP from your customer who has the BVN through an interface in your website or app.",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DojahModeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OTPResponseResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/verify-otp": {
+            "post": {
+                "tags": [
+                    "IGree (Consent) BVN-Lookup"
+                ],
+                "summary": "Verify OTP",
+                "description": "Verification of OTP for BVN Consent. Here, you supply the OTP code sent to the BVN owner and you have receeived it via your web/app interface. You also need to supply the <b>sessionID</b> to this endpoint. ",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DojahOtpRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OTPResponseResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/bvn": {
+            "get": {
+                "tags": [
+                    "IGree (Consent) BVN-Lookup"
+                ],
+                "summary": "Get BVN details",
+                "description": "Get BVN details based on sessionID. This endpoint allows you to fetch the BVN details of your customer after verifying the OTP received from the same customer. You can choose to get basic or full details of the BVN owner.",
+                "parameters": [
+                    {
+                        "name": "sessionId",
+                        "in": "query",
+                        "description": "This is the unique ID generated by BaseOne when you make a successful request with the <b>bvn-inquiry</b> endpoint. It is valid for 5 minutes after it has been created.",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "IsBasic",
+                        "in": "query",
+                        "description": "True or False. Either get basic or full information of the BVN respectively. Defaults to <code>True</code>",
+                        "style": "form",
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KycRecordResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{countryCode}/{service}-basic": {
+            "get": {
+                "tags": [
+                    "CAC-Lookup "
+                ],
+                "summary": "Basic CAC Lookup",
+                "description": "This endpoint gives the <b>basic</b> details to help you to verify a customer with a registered <b>Nigerian</b> company RC Number, <code>rcNumber</code>.<br /> - RC number is the business/company registration number.<br /> - CAC is the Corporate Affairs Commission for company registration in Nigeria.",
+                "parameters": [
+                    {
+                        "name": "countryCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "ISO-2 or ISO-3 code of the country. For instance, <code>NG</code> or <code>NGA</code> for Nigeria",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service",
+                        "in": "path",
+                        "required": true,
+                        "description": "The KYC method used. Pass in <code>CAC</code> here",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KYCRequestObject"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KycRecordResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{countryCode}/{service}-full": {
+            "get": {
+                "tags": [
+                    "CAC-Lookup "
+                ],
+                "summary": "Full CAC Lookup",
+                "description": "This endpoint gives the <b>full</b> details to help you to verify a customer with a registered <b>Nigerian</b> company RC Number, <code>rcNumber</code>.<br /> - RC number is the business/company registration number.<br /> - CAC is the Corporate Affairs Commission for company registration in Nigeria.",
+                "parameters": [
+                    {
+                        "name": "countryCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "ISO-2 or ISO-3 code of the country. For instance, <code>NG</code> or <code>NGA</code> for Nigeria",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service",
+                        "in": "path",
+                        "required": true,
+                        "description": "The KYC method used. Pass in <code>CAC</code> here",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KYCRequestObject"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BVNBasicResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{countryCode}/{service}-basic": {
+            "get": {
+                "tags": [
+                    "International Passport-Lookup"
+                ],
+                "summary": "Basic Passport - Lookup",
+                "description": "This endpoint helps you to verify a customer with the <b>Nigerian</b> international passport and obtain brief details about their identity.",
+                "parameters": [
+                    {
+                        "name": "countryCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "ISO-2 or ISO-3 code of the country. For instance, <code>NG</code> or <code>NGA</code> for Nigeria",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service",
+                        "in": "path",
+                        "required": true,
+                        "description": "The KYC method used. Pass in <code>PASSPORT</code> here",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KYCPassportRequestObject"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BVNBasicResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{countryCode}/{service}-full": {
+            "get": {
+                "tags": [
+                    "International Passport-Lookup"
+                ],
+                "summary": "Full Passport-Lookup",
+                "description": "Use this endpoint to verify and get the full KYC details of an <b>Nigerian</b> international passport holder.",
+                "parameters": [
+                    {
+                        "name": "countryCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "ISO-2 or ISO-3 code of the country. For instance, <code>NG</code> or <code>NGA</code> for Nigeria",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service",
+                        "in": "path",
+                        "required": true,
+                        "description": "The KYC method used. Pass in <code>PASSPORT</code> here",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KYCPassportRequestObject"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BVNFullResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{countryCode}/{service}-basic": {
+            "get": {
+                "tags": [
+                    "NIN-Lookup"
+                ],
+                "summary": "Basic NIN - Lookup",
+                "description": "This endpoint helps you to verify a customer with the <b>Nigerian</b> National  Identity Number and obtain brief details about their identity.",
+                "parameters": [
+                    {
+                        "name": "countryCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "ISO-2 or ISO-3 code of the country. For instance, <code>NG</code> or <code>NGA</code> for Nigeria",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service",
+                        "in": "path",
+                        "required": true,
+                        "description": "The KYC method used. Pass in <code>NIN</code> here",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KYCNINRequestObject"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BVNBasicResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/{countryCode}/{service}-full": {
+            "get": {
+                "tags": [
+                    "International Passport-Lookup"
+                ],
+                "summary": "Full International Passport Lookup",
+                "description": "Use this endpoint to verify and get the full KYC details of an <b>Nigerian</b> international passport holder.",
+                "parameters": [
+                    {
+                        "name": "countryCode",
+                        "in": "path",
+                        "required": true,
+                        "description": "ISO-2 or ISO-3 code of the country. For instance, <code>NG</code> or <code>NGA</code> for Nigeria",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service",
+                        "in": "path",
+                        "required": true,
+                        "description": "The KYC method used. Pass in <code>PASSPORT</code> here",
+                        "style": "simple",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/KYCNINRequestObject"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BVNFullResponseModelResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectResponseModel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ActivateProviderServiceRequestDTO": {
+                "required": [
+                    "providerId",
+                    "serviceId"
+                ],
+                "type": "object",
+                "properties": {
+                    "providerId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "serviceId": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ApiResponseCode": {
+                "enum": [
+                    200,
+                    201,
+                    400,
+                    401,
+                    404,
+                    500
+                ],
+                "type": "integer",
+                "format": "int32"
+            },
+            "BVNBasicResponseModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "kycInstanceId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "kycCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "identityType": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchantName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseObject": {
+                        "$ref": "#/components/schemas/KycBvnBasicResponse"
+                    },
+                    "isSuccessful": {
+                        "type": "boolean"
+                    },
+                    "cost": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "BVNBasicResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/BVNBasicResponseModel"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "BVNFullResponseModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "kycInstanceId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "kycCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "identityType": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchantName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseObject": {
+                        "$ref": "#/components/schemas/KycBvnResponseDTO"
+                    },
+                    "isSuccessful": {
+                        "type": "boolean"
+                    },
+                    "cost": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "BVNFullResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/BVNFullResponseModel"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "BVNResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "sms": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "email": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "sessionId": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "BVNResponseResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/BVNResponse"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "BooleanResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "type": "boolean"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DojahModeRequest": {
+                "required": [
+                    "mode",
+                    "sessionId"
+                ],
+                "type": "object",
+                "properties": {
+                    "mode": {
+                        "type": "string"
+                    },
+                    "sessionId": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DojahOtpRequest": {
+                "required": [
+                    "code",
+                    "sessionId"
+                ],
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "sessionId": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCConfigurationRequest": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "kycName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "kycCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "costPerCall": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "identityType": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCConfigurationResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "kycName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "kycCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "costPerCall": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "identityType": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCConfigurationResponseListResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/KYCConfigurationResponse"
+                        },
+                        "nullable": true
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCConfigurationResponsePaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/KYCConfigurationResponse"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCConfigurationResponsePaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/KYCConfigurationResponsePaginate"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCConfigurationResponseResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/KYCConfigurationResponse"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCConfigurationUpdate": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "kycName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "kycCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "costPerCall": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "identityType": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCDailyRecord": {
+                "type": "object",
+                "properties": {
+                    "cost": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "transactionDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCRequestObject": {
+                "type": "object",
+                "properties": {
+                  "bvn": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "rcNumber": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "companyName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "dob": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "licenseNumber": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "nin": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "passportNumber": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "surname": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "state": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "vin": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "bankCode": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "kidNumber": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "frontImage": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "backImage": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "issuer": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "documentNumber": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "middleName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "dateOfBirth": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "voterId": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "fullName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "socialSecurityNumber": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "additionalProperties": false
+            },
+            "KYCNINRequestObject": {
+                "type": "object",
+                "properties": {
+                  "nin": {
+                    "type": "string",
+                    "nullable": true
+                }
+                },
+                "additionalProperties": false
+            },
+
+            "KYCPassportRequestObject": {
+                "type": "object",
+                "required": [
+                    "passportNumber",
+                    "surname"
+                ],
+                "properties": {
+                    "passportNumber": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "surname": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCCACRequestObject": {
+                "type": "object",
+                "required": [
+                    "rcNumber",
+                    "companyName"
+                ],
+                "properties": {
+                    "rcNumber": {
+                        "type": "string"
+                    },
+                    "companyName": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KYCStatus": {
+                "enum": [
+                    0,
+                    1,
+                    2
+                ],
+                "type": "integer",
+                "format": "int32"
+            },
+            "KycBvnBasicResponse": {
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "dob": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bvn": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "gender": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "state": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycBvnResponseDTO": {
+                "type": "object",
+                "properties": {
+                    "responseCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bvn": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "dob": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "registrationDate": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "enrollmentBank": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "enrollmentBranch": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "email": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "gender": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "phoneNumber2": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "levelOfAccount": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "lgaOfOrigin": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "lgaOfResidence": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "maritalStatus": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "nin": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "nameOnCard": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "residentialAddress": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "stateOfOrigin": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "stateOfResidence": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "title": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "watchListed": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "base64Image": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycMerchantModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "wallet": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "enabledInstance": {
+                        "type": "boolean"
+                    },
+                    "afClientId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/KYCStatus"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycMerchantModelPaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/KycMerchantModel"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycMerchantModelPaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/KycMerchantModelPaginate"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycMerchantRecordStats": {
+                "type": "object",
+                "properties": {
+                    "totalCost": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "afClientId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "records": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/KYCDailyRecord"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycMerchantRecordStatsResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/KycMerchantRecordStats"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycRecordResponseModel": {
+                "type": "object",
+                "properties": {
+                    "kycCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "identityType": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "merchantName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseObject": {
+                        "nullable": true
+                    },
+                    "isSuccessful": {
+                        "type": "boolean"
+                    },
+                    "cost": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycRecordResponseModelPaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/KycRecordResponseModel"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycRecordResponseModelPaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/KycRecordResponseModelPaginate"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycRecordResponseModelResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/KycRecordResponseModel"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "KycValidateRequestModel": {
+                "required": [
+                    "identityCode",
+                    "identityRequest",
+                    "webhookUrl"
+                ],
+                "type": "object",
+                "properties": {
+                    "identityCode": {
+                        "type": "string"
+                    },
+                    "identityRequest": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string",
+                            "nullable": true
+                        }
+                    },
+                    "webhookUrl": {
+                        "type": "string"
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantKycConfigRequest": {
+                "required": [
+                    "merchantID"
+                ],
+                "type": "object",
+                "properties": {
+                    "merchantID": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "kycCountry": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "kycCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "pricing": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantKycConfigResponse": {
+                "type": "object",
+                "properties": {
+                    "merchantName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "merchantID": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "kycCountry": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "kycCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "pricing": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "pricingCurrency": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantKycConfigResponseListResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantKycConfigResponse"
+                        },
+                        "nullable": true
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantKycConfigResponsePaginate": {
+                "type": "object",
+                "properties": {
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MerchantKycConfigResponse"
+                        },
+                        "nullable": true
+                    },
+                    "hasPrevious": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "hasNext": {
+                        "type": "boolean",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantKycConfigResponsePaginateResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/MerchantKycConfigResponsePaginate"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MerchantKycConfigResponseResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/MerchantKycConfigResponse"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "OTPResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "sessionId": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "OTPResponseResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/OTPResponse"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ObjectResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "nullable": true
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ProviderRequest": {
+                "required": [
+                    "classPath",
+                    "providerName"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "providerName": {
+                        "type": "string"
+                    },
+                    "classPath": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/T"
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ServiceDTO": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "StringListResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "StringResponseModel": {
+                "type": "object",
+                "properties": {
+                    "hasError": {
+                        "type": "boolean",
+                        "readOnly": true
+                    },
+                    "data": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseMessage": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "responseCode": {
+                        "$ref": "#/components/schemas/ApiResponseCode"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "T": {
+                "type": "object",
+                "additionalProperties": false
+            },
+            "UpdateWalletRequest": {
+                "required": [
+                    "currency"
+                ],
+                "type": "object",
+                "properties": {
+                    "currency": {
+                        "maxLength": 3,
+                        "pattern": "^[A-Za-z]+$",
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "VerifyBvnRequestDTO": {
+                "required": [
+                    "bvn"
+                ],
+                "type": "object",
+                "properties": {
+                    "bvn": {
+                        "maxLength": 11,
+                        "minLength": 11,
+                        "pattern": "^[0-9]*$",
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "VerifyCacRequestDTO": {
+                "required": [
+                    "companyName",
+                    "rcNumber"
+                ],
+                "type": "object",
+                "properties": {
+                    "rcNumber": {
+                        "pattern": "^[a-zA-Z0-9]*$",
+                        "type": "string"
+                    },
+                    "companyName": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "VerifyDriversLicenseRequestDTO": {
+                "required": [
+                    "dob",
+                    "firstName",
+                    "lastName",
+                    "licenseNumber"
+                ],
+                "type": "object",
+                "properties": {
+                    "dob": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "pattern": "^[a-zA-Z-]*$",
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "pattern": "^[a-zA-Z-]*$",
+                        "type": "string"
+                    },
+                    "licenseNumber": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "VerifyNinRequestDTO": {
+                "required": [
+                    "nin"
+                ],
+                "type": "object",
+                "properties": {
+                    "nin": {
+                        "maxLength": 11,
+                        "pattern": "^[0-9]*$",
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "VerifyNubanRequestDTO": {
+                "type": "object",
+                "properties": {
+                    "accountNumber": {
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[0-9]*$",
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "bankCode": {
+                        "maxLength": 3,
+                        "minLength": 3,
+                        "pattern": "^[0-9]*$",
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "VerifyPhoneNumberRequestDTO": {
+                "required": [
+                    "phoneNumber"
+                ],
+                "type": "object",
+                "properties": {
+                    "phoneNumber": {
+                        "maxLength": 14,
+                        "minLength": 11,
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "VerifyVinRequestDTO": {
+                "required": [
+                    "lastName",
+                    "state",
+                    "vin"
+                ],
+                "type": "object",
+                "properties": {
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "vin": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "kycInstanceStatusUpdateModel": {
+                "type": "object",
+                "properties": {
+                    "comment": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "securitySchemes": {
+            "Bearer": {
+                "type": "apiKey",
+                "description": "JWT Authorization header using the Bearer scheme.\r\n                      Enter 'Bearer' [space] and then your token in the text input below.\r\n                      Example: 'Bearer 12345abcdef'",
+                "name": "Authorization",
+                "in": "header"
+            },
+            "Api-Key": {
+                "type": "apiKey",
+                "description": "Api key needed to access the endpoints. Api-Key: My_API_Key",
+                "name": "Api-Key",
+                "in": "header"
+            }
+        }
+    },
+    "x-readme": {
+        "explorer-enabled": true,
+        "proxy-enabled": true,
+        "samples-enabled": true
+    }
+}

@@ -12,13 +12,17 @@
 :root {
   --ifm-color-primary: #2c6eec;
   --ifm-color-primary-dark: #275fd1;
-  --ifm-color-primary-darker: #2457c0;
+  --ifm-color-primary-darker: #14429f;
   --ifm-color-primary-darkest: #1e49a0;
   --ifm-color-primary-light: #3379ff;
   --ifm-color-primary-lighter: #4589ff;
   --ifm-color-primary-lightest: #6ea3ff;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-link-decoration: none;
+  --ifm-link-hover-decoration: none;
+  --ifm-link-hover-color: #0A2540;
+
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -31,6 +35,9 @@
   --ifm-color-primary-lighter: #85adff;
   --ifm-color-primary-lightest: #a3c1ff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-link-decoration: none;
+  --ifm-link-hover-decoration: none;
+  --ifm-link-hover-color: #0A2540;
 }
 
 /* Ensure the footer itself is a flex container */
@@ -116,4 +123,8 @@ h6 {
   margin-bottom: 0.75em;
   color: #2c6eec;
   /* Darkest shade */
+}
+
+a {
+  text-decoration: none;
 }
