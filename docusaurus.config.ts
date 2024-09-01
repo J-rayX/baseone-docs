@@ -5,7 +5,7 @@ import type * as Redocusaurus from "redocusaurus";
 
 const config: Config = {
   title: "BaseOne Documentation",
-  tagline: "Dinosaurs are cool",
+  tagline: "Idea to Fintech in minutes",
   favicon: "img/baseone-bg.png",
 
   // Set the production url of your site here
@@ -41,6 +41,7 @@ const config: Config = {
           editUrl:
             "https://github.com/vgg/baseone/tree/main/packages/baseone-docs/templates/shared/",
         },
+
         blog: {
           showReadingTime: true,
           feedOptions: {
@@ -68,29 +69,62 @@ const config: Config = {
       {
         specs: [
           {
+            id: "va",
+            route: "/api/va",
             spec: "api/va-yaml.yaml",
-            route: "/api/",
           },
           {
+            id: "collect",
             spec: "api/collect-yaml.yaml",
-            route: "/api/secondary",
+            route: "/api/collect",
           },
           {
+            id: "card",
+            route: "/api/card",
             spec: "api/card-yaml.yaml",
-            route: "/api/tertiary",
           },
           {
+            id: "kyc",
+            route: "/api/kyc",
             spec: "api/kyc-yaml.yaml",
-            route: "/api/another",
           },
         ],
         // Theme Options for modifying how redoc renders them
         theme: {
-          // Change with your site colors
+          // site colors
           primaryColor: "#1890ff",
         },
+        // Options for ReDoc's scroll settings
+        // options: {
+        //   disableSearch: true,
+        //   sideNavStyle: 'path-only',
+        // },
       },
     ] satisfies Redocusaurus.PresetEntry,
+  ],
+
+  plugins: [
+    async function myPlugin(context, options) {
+      return {
+        name: "docusaurus-tailwindcss",
+        configurePostCss(postcssOptions) {
+          // Appends TailwindCSS and AutoPrefixer.
+          postcssOptions.plugins.push(require("tailwindcss"));
+          postcssOptions.plugins.push(require("autoprefixer"));
+          return postcssOptions;
+        },
+      };
+    },
+
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "api-docs",
+        path: "api",
+        routeBasePath: "api",
+        sidebarPath: "./sidebars.ts",
+      },
+    ],
   ],
 
   themeConfig: {
@@ -106,17 +140,14 @@ const config: Config = {
         {
           type: "docSidebar",
           sidebarId: "tutorialSidebar",
-          position: "right",
+          // position: "right",
           label: "Guides",
           to: "/docs",
         },
         {
-          type: "docSidebar",
-          sidebarId: "tutorialSidebar",
-          position: "right",
           label: "API Reference",
+          position: "left",
           to: "/api",
-          route: "/api",
         },
       ],
     },
@@ -130,20 +161,6 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
-
-  plugins: [
-    async function myPlugin(context, options) {
-      return {
-        name: "docusaurus-tailwindcss",
-        configurePostCss(postcssOptions) {
-          // Appends TailwindCSS and AutoPrefixer.
-          postcssOptions.plugins.push(require("tailwindcss"));
-          postcssOptions.plugins.push(require("autoprefixer"));
-          return postcssOptions;
-        },
-      };
-    },
-  ],
 };
 
 export default config;
