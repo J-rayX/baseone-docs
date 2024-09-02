@@ -1,34 +1,58 @@
 {
-  "here-first": "Here First!",
-  "index": "Introduction",
-
-  "authentication": "Authentication",
-  "quickstart": "Quickstart",
+  "index": {
+    "title": "Introduction",
+    "order": 1
+  },
+  "here-first": {
+    "title": "Here First!",
+    "order": 2
+  },
+  "authentication": {
+    "title": "Authentication",
+    "order": 3
+  },
+  "quickstart": {
+    "title": "Quickstart",
+    "order": 4
+  },
   "webhooks": {
+    "title": "Webhooks",
+    "order": 5,
     "cards-Notification-payload": "Cards",
     "collect-Notification-payload": "Collect",
     "payouts-Notification-payload": "Payouts",
     "va-Notification-payload": "VA"
   },
-  "cards": "Cards",
+  "cards": {
+    "title": "Cards",
+    "order": 6
+  },
+
+  "payouts": {
+    "title": "Payouts",
+    "order": 8
+  },
+
+  "virtual-accounts": {
+    "title": "Virtual Accounts",
+    "order": 9
+  },
   "collect": {
-    "another": "Another",
+    "title": "Collect",
+    "order": 7,
     "onboarding-collect": "Onboarding Collect",
     "using-collect": "Using Collect"
   },
-
-  "payouts": "Payouts",
-  "virtual-accounts": "Virtual Accounts",
-
   "about": {
     "title": "About",
-    "type": "page"
+    "type": "page",
+    "order": 10
   },
-
   "contact": {
     "title": "Contact ↗",
     "type": "page",
     "href": "contact@baseone.co",
-    "newWindow": true
+    "newWindow": true,
+    "order": 11
   }
 }

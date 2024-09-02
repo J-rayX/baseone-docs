@@ -89,7 +89,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: 2.0rem;
   font-weight: bold;
   margin-top: 1em;
   margin-bottom: 0.75em;
@@ -98,7 +98,7 @@ h2 {
 }
 
 h3 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-top: 1em;
   margin-bottom: 0.75em;
@@ -107,7 +107,7 @@ h3 {
 }
 
 h4 {
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   font-weight: bold;
   margin-top: 1em;
   margin-bottom: 0.75em;
@@ -117,7 +117,7 @@ h4 {
 
 h5,
 h6 {
-  font-size: 1.5rem;
+  font-size: 1.0rem;
   font-weight: bold;
   margin-top: 1em;
   margin-bottom: 0.75em;
@@ -127,4 +127,40 @@ h6 {
 
 a {
   text-decoration: none;
+}
+
+
+ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+ol li {
+  margin-bottom: 0.5em;
+}
+
+/* Unordered List Styles */
+ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+ul li {
+  margin-bottom: 0.5em;
+}
+
+/* Nested list styles */
+ul ul,
+ol ul {
+  list-style-type: circle;
+  margin-top: 0.5em;
+}
+
+ul ul ul,
+ol ul ul,
+ul ol ul,
+ol ol ul {
+  list-style-type: square;
 }

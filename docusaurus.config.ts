@@ -67,10 +67,6 @@ const config: Config = {
     [
       "redocusaurus",
       {
-        // openapi: {
-        //   path: "openapi",
-        //   routeBasePath: "/api",
-        // },
         specs: [
           {
             id: "virtual-accounts",
@@ -98,7 +94,6 @@ const config: Config = {
             spec: "api/payout-yaml.yaml",
           },
         ],
-        // Theme Options for modifying how redoc renders them
         theme: {
           // site colors
           primaryColor: "#1890ff",
