@@ -75,7 +75,7 @@ curl --request POST
                   <img src="" width="" alt="" />
                 </span>
                 <span className="text-[#175fff] group-hover:text-white">
-                  Reconciliation is here! 🎉
+                  Reconciliation is coming! 🎉
                 </span>
               </div>
             </a>
