@@ -1,0 +1,40 @@
+---
+sidebar_position: 2
+---
+
+API authentication
+How to handle authentication and authorization of requests in the BaseOne APIs.
+
+The BaseOne API uses API keys to authenticate requests. You can view and manage your API keys in the Developers section of the Settings menu of the BaseOne dashboard. Each API Key is configured to work with any BaseOne service, including payouts, virtual accounts, etc.
+
+⚠️
+API Keys Support Update
+
+Existing customers can maintain the use of public keys for authenticating API calls till January 2023. After January 2023, we will only support secret keys for API calls.
+
+NOTE: You may need to generate a new pair of keys if your previous keys are not working.
+
+The keys you create in the sandbox environment are meant to be used for testing purposes. Use your live keys only in production mode.
+
+Be sure to keep your API keys secure! They are very sensitive and contain several crucial privileges. Do not share them publicly; never make them available on platforms like GitHub, client-side application code, etc.
+
+How to get API Keys
+Go to the Settings menu on the left-side navigation menu bar.
+Navigate to the Developers tab.
+Copy and use the secret API key for authenticating your API requests.
+There is a Generate Keys button under the key pair; use the button to create new key pairs.
+2773
+A walkthrough of how to create an API key for a service in BaseOne
+
+How to use your API keys
+Follow these steps to see how to use your API keys.
+
+Firstly, copy the secret key of your API key pair.
+Supply it as api-key in the request headers when making API requests to BaseOne APIs.
+The following screenshot describes how you can input the api-key in the Headers tab of a Request in Postman.
+
+1810
+🚧
+Note
+
+Make all your API calls over HTTPS, as plain HTTP requests will not be fulfilled. Additionally, note that any API request made without authentication will not be fulfilled.

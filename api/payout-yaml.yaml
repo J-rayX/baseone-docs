@@ -1,0 +1,2305 @@
+---
+openapi: 3.0.1
+servers:
+  - url: https://sandbox.baseone.co/payouts
+info:
+  title: Payouts API
+  description: API Reference for the BaseOne Payouts API - v1.0
+  termsOfService: http://baseone.co/
+  contact:
+    name: BaseOne Engineering Team
+    url: http://baseone.co/
+    email: ""
+  license:
+    name: Internal Proprietary Product
+    url: http://baseone.co/
+  version: v1
+paths:
+  "/v1/institutions/{countryCode}":
+    get:
+      tags:
+        - ""
+      summary: Get list of financial institutions
+      description:
+        Use this endpoint to get the financial  institions that support
+        Payouts in a country and the respective <code>institutionCode</code>.
+      parameters:
+        - name: countryCode
+          in: path
+          description:
+            3-letter code for the country. For instance, NGA for Nigeria
+            or KEN for Kenya.
+          required: true
+          schema:
+            type: string
+            default: NGA
+        - name: channel
+          in: query
+          schema:
+            "$ref": "#/components/schemas/PayoutType"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InstitutionsListResponseModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+  "/v1/pay":
+    post:
+      tags:
+        - ""
+      summary: Make single payout
+      description: Use this endpoint to make payment to a single account.
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/NewPayoutRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TransactionsResponseModelResponseModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+  "/v1/bulk-pay":
+    post:
+      tags:
+        - ""
+      summary: Make bulk payout
+      description: This endpoint lets you payment to multiple accounts at once.
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PayoutRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TransactionResponseResponseModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+  "/v1/status":
+    get:
+      tags:
+        - ""
+      summary: Fetch transaction status
+      description: Use this endpoint to inquire for the status of a transaction
+      parameters:
+        - name: transactionReference
+          in: query
+          description:
+            The transaction reference of the particular transaction you want
+            to check. It is auto-generated unique ID created when the transaction was
+            made.
+          schema:
+            type: string
+            example: VGN14537728827778
+          example: VGN14537728827778
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TransactionsResponseModelResponseModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+  "/v1/transactiondetail/{transactionReference}":
+    get:
+      tags:
+        - ""
+      summary: Fetch transaction detail
+      description:
+        You can fetch the details of a particular payout transaction by
+        supplying the transaction reference as a parameter
+      parameters:
+        - name: transactionReference
+          in: path
+          description:
+            An auto-generated unique ID created when the transaction was
+            made.
+          required: true
+          schema:
+            type: string
+            example: VGN14537728827778
+          example: VGN14537728827778
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TransactionResponseModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+  "/v1/transactions":
+    get:
+      tags:
+        - ""
+      summary: Get transaction list
+      description:
+        This endpoint allows you to fetch a list of transactions. It also
+        allows you to sort and filter the returned list.
+      parameters:
+        - name: Currency
+          in: query
+          description: Filter transactions by currency
+          schema:
+            maxLength: 3
+            type: string
+            example: NGN
+          example: NGN
+        - name: Keyword
+          in: query
+          description: The keyword to filter and narrow down a search.
+          schema:
+            type: string
+        - name: StartDate
+          in: query
+          description: The start date to provide.
+          schema:
+            type: string
+            example: "2020-12-30"
+          example: "2020-12-30"
+        - name: EndDate
+          in: query
+          description: The end date to provide.
+          schema:
+            type: string
+            example: "2020-12-30"
+          example: "2020-12-30"
+        - name: PageNumber
+          in: query
+          description: The page number to provide.
+          schema:
+            type: integer
+            format: int32
+            example: 1
+          example: 1
+        - name: PageSize
+          in: query
+          description: The size of the page to provide.
+          schema:
+            type: integer
+            format: int32
+        - name: IsAscending
+          in: query
+          description: Whether the search result is returned in ascending order
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/TransactionsResponseModelPaginateResponseModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+  "/v1/get-rate":
+    get:
+      tags:
+        - FX Service
+      summary: Get Currency Rate
+      description: Use this endpoint to get the real-time exchange rate of two currencies.
+      parameters:
+        - name: From
+          in: query
+          description: Source wallet currency
+          required: true
+          schema:
+            maxLength: 3
+            minLength: 3
+            pattern: "^[a-zA-Z]*$"
+            type: string
+            example: NGN
+          example: NGN
+        - name: To
+          in: query
+          description: Destination wallet currency
+          required: true
+          schema:
+            maxLength: 3
+            minLength: 3
+            pattern: "^[a-zA-Z]*$"
+            type: string
+            example: USD
+          example: USD
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CurrencyPairResponseResponseModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+  "/v1/convert":
+    post:
+      tags:
+        - FX Service
+      summary: Convert Currency
+      description:
+        This endpoint converts and moves specified amount of funds from
+        a source wallet to the receiving wallet in another currency.
+      requestBody:
+        description: The query param.
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ConvertConfirmDTO"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ConvertConfirmResponseResponseModel"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ObjectResponseModel"
+components:
+  schemas:
+    BooleanResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          type: boolean
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ChargeType:
+      enum:
+        - 1
+        - 2
+      type: integer
+      description: Charge Type
+      format: int32
+    ConfirmationState:
+      enum:
+        - 0
+        - 1
+        - -1
+      type: integer
+      format: int32
+    ConvertConfirmDTO:
+      required:
+        - receivingWallet
+        - sourceAmount
+        - sourceWallet
+      type: object
+      properties:
+        sourceWallet:
+          maxLength: 3
+          minLength: 3
+          pattern: "^[a-zA-Z]*$"
+          type: string
+          description: Source wallet or currency.
+          example: KES
+        receivingWallet:
+          maxLength: 3
+          minLength: 3
+          pattern: "^[a-zA-Z]*$"
+          type: string
+          description: Destination wallet or currency.
+          example: USD
+        sourceAmount:
+          pattern: "^[1-9]*$"
+          type: number
+          description: Source amount.
+          format: double
+          example: 40
+      additionalProperties: false
+      description: For conversion and confirmation to customers
+    ConvertConfirmResponse:
+      type: object
+      properties:
+        fxRate:
+          type: string
+          description: Fx Rate
+          nullable: true
+          example: "0.56"
+        sourceAmount:
+          type: string
+          description: Source Amount
+          nullable: true
+          example: "40"
+        receivingAmount:
+          type: string
+          description: Receiving Wallet Balance
+          nullable: true
+          example: "21.2"
+        sourceWalletBalance:
+          type: string
+          description: Source Wallet Balance
+          nullable: true
+          example: "1440"
+        receivingWalletBalance:
+          type: string
+          description: Receiving wallet Balance
+          nullable: true
+          example: "3330"
+      additionalProperties: false
+      description: Convert Confirm
+    ConvertConfirmResponseResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/ConvertConfirmResponse"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CurrencyPairResponse:
+      type: object
+      properties:
+        sourceDestinationPair:
+          type: string
+          nullable: true
+        isActive:
+          type: boolean
+        rate:
+          type: number
+          format: double
+        sourceCurrencyCode:
+          type: string
+          nullable: true
+        destinationCurrencyCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    CurrencyPairResponseResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/CurrencyPairResponse"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DailyTransactionResponse:
+      type: object
+      properties:
+        amount:
+          type: number
+          description:
+            Gets the total amount of transactions that happened in a specific
+            period of time
+          format: double
+        transactionDate:
+          type: string
+          description: Date of transaction
+          format: date-time
+          example: YYYY-MM-DD
+      additionalProperties: false
+      description: Daily payout transaction response
+    DailyTransactionResponseListResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DailyTransactionResponse"
+          nullable: true
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DestinationInformation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        destinationCountry:
+          type: string
+          nullable: true
+        destinationGatewayCode:
+          type: string
+          nullable: true
+        destinationCurrency:
+          type: string
+          nullable: true
+        destinationGatewayId:
+          type: string
+          nullable: true
+        useDefaultDestination:
+          type: boolean
+        isVerified:
+          type: boolean
+      additionalProperties: false
+    DestinationInformationRequest:
+      type: object
+      properties:
+        destinationCountry:
+          type: string
+          nullable: true
+        destinationGatewayCode:
+          type: string
+          nullable: true
+        destinationCurrency:
+          type: string
+          nullable: true
+        useDefaultDestination:
+          type: boolean
+      additionalProperties: false
+    DestinationInstitutionCacheModel:
+      type: object
+      properties:
+        gatewayId:
+          type: integer
+          format: int64
+        currencyId:
+          type: integer
+          format: int32
+        countryId:
+          type: integer
+          format: int32
+        bankId:
+          type: integer
+          format: int32
+        uniqueCode:
+          type: string
+          nullable: true
+        institutionCode:
+          type: string
+          nullable: true
+        currencyCode:
+          type: string
+          nullable: true
+        currencyName:
+          type: string
+          nullable: true
+        countryCode:
+          type: string
+          nullable: true
+        countryName:
+          type: string
+          nullable: true
+        institutionName:
+          type: string
+          nullable: true
+        iBanCode:
+          type: string
+          nullable: true
+        swiftCode:
+          type: string
+          nullable: true
+        sortCode:
+          type: string
+          nullable: true
+        isEnabled:
+          type: boolean
+        sla:
+          type: string
+          nullable: true
+        bankName:
+          type: string
+          nullable: true
+        bankCode:
+          type: string
+          nullable: true
+        gatewayName:
+          type: string
+          nullable: true
+        gatewayCode:
+          type: string
+          nullable: true
+        platformFee:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DestinationInstitutionCacheModelIListResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DestinationInstitutionCacheModel"
+          nullable: true
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DisbursementInstanceFilterListResponse:
+      type: object
+      properties:
+        sourceName:
+          type: array
+          items:
+            type: string
+          nullable: true
+        destinationName:
+          type: array
+          items:
+            type: string
+          nullable: true
+      additionalProperties: false
+    DisbursementInstanceFilterListResponseResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/DisbursementInstanceFilterListResponse"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DisbursementInstanceListResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        sourceName:
+          type: string
+          nullable: true
+        destinationName:
+          type: string
+          nullable: true
+        status:
+          type: boolean
+        fundingType:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DisbursementInstanceListResponseReportResponse:
+      type: object
+      properties:
+        currentPage:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        pages:
+          type: integer
+          format: int32
+        totalCount:
+          type: integer
+          format: int32
+        result:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DisbursementInstanceListResponse"
+          nullable: true
+        isSuccessful:
+          type: boolean
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DisbursementInstanceListResponseReportResponseResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/DisbursementInstanceListResponseReportResponse"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DisbursementInstanceRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        useAml:
+          type: boolean
+        fundingType:
+          "$ref": "#/components/schemas/FundingType"
+        useDefaultCredentials:
+          type: boolean
+        sourceInformation:
+          "$ref": "#/components/schemas/SourceInformationRequest"
+        destinationInformation:
+          "$ref": "#/components/schemas/DestinationInformationRequest"
+        isActive:
+          type: boolean
+        useConfimration:
+          type: boolean
+        overdraftLimit:
+          type: number
+          format: double
+          nullable: true
+        repaymentCycle:
+          "$ref": "#/components/schemas/RepaymentCycle"
+      additionalProperties: false
+    DisbursementInstanceResponse:
+      type: object
+      properties:
+        rate:
+          type: string
+          nullable: true
+        instanceId:
+          type: string
+          nullable: true
+        sourceVerified:
+          type: boolean
+      additionalProperties: false
+    DisbursementInstanceResponseResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/DisbursementInstanceResponse"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DisbursmentInstance:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          nullable: true
+        instanceId:
+          type: string
+          nullable: true
+        useAml:
+          type: boolean
+        clientId:
+          type: integer
+          format: int64
+        fundingType:
+          "$ref": "#/components/schemas/FundingType"
+        useDefaultCredentials:
+          type: boolean
+        sourceInformation:
+          "$ref": "#/components/schemas/SourceInformation"
+        sourceInformationId:
+          type: integer
+          format: int64
+        destinationInformation:
+          "$ref": "#/components/schemas/DestinationInformation"
+        destinationInformationId:
+          type: integer
+          format: int64
+        approvalStatus:
+          type: string
+          nullable: true
+        isActive:
+          type: boolean
+        useConfimration:
+          type: boolean
+        overdraftLimit:
+          type: number
+          format: double
+          nullable: true
+        repaymentCycle:
+          "$ref": "#/components/schemas/RepaymentCycle"
+      additionalProperties: false
+    DisbursmentTransaction:
+      type: object
+      properties:
+        sourceGatwayCode:
+          type: string
+          nullable: true
+        transactionReference:
+          type: string
+          nullable: true
+        useAml:
+          type: boolean
+        sourceCurrency:
+          type: string
+          nullable: true
+        destinationCurrency:
+          type: string
+          nullable: true
+        debitAccountName:
+          type: string
+          nullable: true
+        debitAccountNumber:
+          type: string
+          nullable: true
+        debitAccountId:
+          type: string
+          nullable: true
+        debitAccountCIF:
+          type: string
+          nullable: true
+        processingGatewayCode:
+          type: string
+          nullable: true
+        transactionDate:
+          type: string
+          format: date-time
+        gatewayInformation:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        lienReference:
+          type: string
+          nullable: true
+        isLienPlaced:
+          type: boolean
+        transactionDetails:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DisbursmentTransactionDetails"
+          nullable: true
+        amount:
+          type: number
+          format: double
+        totalAmount:
+          type: number
+          format: double
+        isChargeable:
+          type: boolean
+        isNoDebit:
+          type: boolean
+        country:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DisbursmentTransactionDetails:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+        beneficiaryAccount:
+          type: string
+          nullable: true
+        beneficiaryAddress:
+          type: string
+          nullable: true
+        beneficiaryInstitutionCode:
+          type: string
+          nullable: true
+        beneficiaryName:
+          type: string
+          nullable: true
+        beneficiaryPhone:
+          type: string
+          nullable: true
+        narration:
+          type: string
+          nullable: true
+      additionalProperties: false
+    FundingType:
+      enum:
+        - 1
+        - 2
+      type: integer
+      format: int32
+    GatewayConfigurationRequest:
+      required:
+        - chargeCurrency
+        - chargeValue
+        - countryCode
+        - countryName
+        - destinationCurrency
+        - gatewayCode
+        - localCharge
+        - sourceCurrency
+      type: object
+      properties:
+        gatewayCode:
+          type: string
+          description: Gateway code
+          example: PROVIDUS
+        countryCode:
+          maxLength: 3
+          minLength: 3
+          pattern: "^[A-Za-z]+$"
+          type: string
+          description: Country Code
+          example: NGA
+        countryName:
+          type: string
+          description: Country Name
+          example: Nigeria
+        sourceCurrency:
+          maxLength: 3
+          minLength: 3
+          pattern: "^[A-Za-z]+$"
+          type: string
+          description: Source currency code
+          example: NGN
+        destinationCurrency:
+          maxLength: 3
+          minLength: 3
+          pattern: "^[A-Za-z]+$"
+          type: string
+          description: Destination Currency code
+          example: NGN
+        chargeValue:
+          type: number
+          description: Charge value for configuration
+          format: double
+          example: 5
+        chargeType:
+          "$ref": "#/components/schemas/ChargeType"
+        chargeCurrency:
+          maxLength: 3
+          minLength: 3
+          type: string
+          description: Charge Currency code
+          example: NGN
+        payoutType:
+          "$ref": "#/components/schemas/PayoutType"
+        paymentTypeId:
+          type: string
+          description: Payment type id from Mifos corebanking
+          nullable: true
+          example: "2"
+        useConfirmation:
+          type: boolean
+          description: Use confirmation for payout transaction
+          example: true
+        supportsLookup:
+          type: boolean
+          description: Configuration supports account lookup
+          example: true
+        supportsInstutionList:
+          type: boolean
+          description: Configuration supports financial institution list
+          example: true
+        supportsNameEnquiry:
+          type: boolean
+          description: Configuration supports account name enquiry
+          example: true
+        platformChargeId:
+          type: integer
+          description: Platform Charge Id
+          format: int64
+          example: 3
+        localCharge:
+          type: number
+          description: Local charge
+          format: double
+        localChargeCurrency:
+          type: string
+          description: Local charge currency
+          nullable: true
+          example: NGN
+        localChargeType:
+          "$ref": "#/components/schemas/ChargeType"
+      additionalProperties: false
+      description: Country configuartion request model
+    GatewayConfigurationResponse:
+      required:
+        - destinationCurrency
+      type: object
+      properties:
+        id:
+          type: integer
+          description: id of record in database
+          format: int64
+        gatewayCode:
+          type: string
+          description: Gateway Code
+          nullable: true
+          example: PROVIDUS
+        countryCode:
+          type: string
+          description: Country Code
+          nullable: true
+          example: NGN
+        countryName:
+          type: string
+          description: Country Name
+          nullable: true
+          example: Nigeria
+        sourceCurrency:
+          type: string
+          description: Source  currency code
+          nullable: true
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: Destination currency code
+          example: NGN
+        chargeType:
+          "$ref": "#/components/schemas/ChargeType"
+        chargeValue:
+          type: number
+          description: Charge value
+          format: double
+          example: 5
+        chargeCurrency:
+          type: string
+          description: Charge currency code
+          nullable: true
+          example: NGN
+        payoutType:
+          "$ref": "#/components/schemas/PayoutType"
+        isActive:
+          type: boolean
+          description: If Configuartion is active
+          example: true
+        localCharge:
+          type: number
+          format: double
+        localChargeCurrency:
+          type: string
+          nullable: true
+        localChargeType:
+          "$ref": "#/components/schemas/ChargeType"
+      additionalProperties: false
+      description: Country Configuration response
+    GatewayConfigurationResponseListResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          type: array
+          items:
+            "$ref": "#/components/schemas/GatewayConfigurationResponse"
+          nullable: true
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    GatewayConfigurationResponsePaginate:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        pages:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        items:
+          type: array
+          items:
+            "$ref": "#/components/schemas/GatewayConfigurationResponse"
+          nullable: true
+        hasPrevious:
+          type: boolean
+          readOnly: true
+        hasNext:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    GatewayConfigurationResponsePaginateResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/GatewayConfigurationResponsePaginate"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    GatewayConfigurationResponseResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/GatewayConfigurationResponse"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    GatewayConfigurationUpdate:
+      required:
+        - chargeCurrency
+        - chargeValue
+        - countryCode
+        - countryName
+        - destinationCurrency
+        - gatewayCode
+        - localCharge
+        - sourceCurrency
+      type: object
+      properties:
+        gatewayCode:
+          type: string
+          description: Gateway code
+          example: PROVIDUS
+        countryCode:
+          maxLength: 3
+          minLength: 3
+          pattern: "^[A-Za-z]+$"
+          type: string
+          description: Country Code
+          example: NGA
+        countryName:
+          type: string
+          description: Country Name
+          example: Nigeria
+        sourceCurrency:
+          maxLength: 3
+          minLength: 3
+          pattern: "^[A-Za-z]+$"
+          type: string
+          description: Source currency code
+          example: NGN
+        destinationCurrency:
+          maxLength: 3
+          minLength: 3
+          pattern: "^[A-Za-z]+$"
+          type: string
+          description: Destination Currency code
+          example: NGN
+        chargeValue:
+          type: number
+          description: Charge value for configuration
+          format: double
+          example: 5
+        chargeType:
+          "$ref": "#/components/schemas/ChargeType"
+        chargeCurrency:
+          maxLength: 3
+          minLength: 3
+          type: string
+          description: Charge Currency code
+          example: NGN
+        payoutType:
+          "$ref": "#/components/schemas/PayoutType"
+        paymentTypeId:
+          type: string
+          description: Payment type id from Mifos corebanking
+          nullable: true
+          example: "2"
+        useConfirmation:
+          type: boolean
+          description: Use confirmation for payout transaction
+          example: true
+        supportsLookup:
+          type: boolean
+          description: Configuration supports account lookup
+          example: true
+        supportsInstutionList:
+          type: boolean
+          description: Configuration supports financial institution list
+          example: true
+        supportsNameEnquiry:
+          type: boolean
+          description: Configuration supports account name enquiry
+          example: true
+        platformChargeId:
+          type: integer
+          description: Platform Charge Id
+          format: int64
+          example: 3
+        localCharge:
+          type: number
+          description: Local charge
+          format: double
+        localChargeCurrency:
+          type: string
+          description: Local charge currency
+          nullable: true
+          example: NGN
+        localChargeType:
+          "$ref": "#/components/schemas/ChargeType"
+        id:
+          type: integer
+          description: Id of record in database
+          format: int64
+      additionalProperties: false
+      description: Country configuration update request model
+    Institutions:
+      type: object
+      properties:
+        bankCode:
+          type: string
+          nullable: true
+        bankName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    InstitutionsListResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Institutions"
+          nullable: true
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    InternalPayoutRequest:
+      type: object
+      properties:
+        productInstance:
+          type: string
+          nullable: true
+        transactionReference:
+          type: string
+          nullable: true
+        destination:
+          type: array
+          items:
+            "$ref": "#/components/schemas/PaymentDestinationRequest"
+          nullable: true
+      additionalProperties: false
+    MerchantActionModel:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Gets or sets the identifier.
+          format: int64
+        comment:
+          type: string
+          description: Gets or sets the comment.
+          nullable: true
+          example: I should take action
+      additionalProperties: false
+    MerchantAdminResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Id of record in database
+          format: int64
+        merchantName:
+          type: string
+          description: BaseOne client merchant name
+          nullable: true
+        a1ClientId:
+          type: integer
+          description: Baseone client id
+          format: int64
+        currency:
+          type: string
+          description: Merchant's wallet currency
+          nullable: true
+        mifosClientId:
+          type: string
+          description: Merchant's Mifos core banking client id
+          nullable: true
+        mifosWalletId:
+          type: string
+          description: Merchant's Mifos core banking wallet Id
+          nullable: true
+        status:
+          "$ref": "#/components/schemas/MerchantStatus"
+        country:
+          type: string
+          description: Gets or sets the country.
+          nullable: true
+        isActive:
+          type: boolean
+          description:
+            Gets or sets a value indicating whether this VgnCore.DisbursementAggregator.Core.Models.MerchantAdminResponse
+            is active.
+      additionalProperties: false
+      description: ""
+    MerchantAdminResponsePaginate:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        pages:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        items:
+          type: array
+          items:
+            "$ref": "#/components/schemas/MerchantAdminResponse"
+          nullable: true
+        hasPrevious:
+          type: boolean
+          readOnly: true
+        hasNext:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    MerchantAdminResponsePaginateResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/MerchantAdminResponsePaginate"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MerchantAdminResponseResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/MerchantAdminResponse"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MerchantOnboarded:
+      type: object
+      properties:
+        isOnboarded:
+          type: boolean
+          description:
+            Check if the merchant has onboarded or registered on the disbusrement
+            payout service
+        isOnboardedAndActive:
+          type: boolean
+          description: ""
+      additionalProperties: false
+      description:
+        Model to help check if merchant is onboarded on the payout or disbursement
+        service
+    MerchantOnboardedResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/MerchantOnboarded"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MerchantResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Id of record in database
+          format: int64
+        merchantName:
+          type: string
+          description: BaseOne client merchant name
+          nullable: true
+          example: John Doe
+        currency:
+          type: string
+          description: Merchant's wallet currency
+          nullable: true
+      additionalProperties: false
+      description: Merchant response for payout service
+    MerchantResponseResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/MerchantResponse"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    MerchantStatus:
+      enum:
+        - 0
+        - 1
+        - 2
+      type: integer
+      format: int32
+    MerchantToggleRequestModel:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Gets or sets the identifier.
+          format: int64
+      additionalProperties: false
+      description: ""
+    NewPayoutRequest:
+      required:
+        - country
+        - destinationAccount
+        - destinationAmount
+        - institutionCode
+        - channel
+      type: object
+      properties:
+        country:
+          maxLength: 3
+          minLength: 3
+          type: string
+          description: Country of the transaction
+          example: NGA
+        destinationAccount:
+          type: string
+          description: Recipient destination account number
+          example: "0990644523"
+        destinationAmount:
+          type: number
+          description: Transaction amount
+          format: double
+          example: 50
+        channel:
+          "$ref": "#/components/schemas/PayoutType"
+        debitWallet:
+          maxLength: 3
+          minLength: 3
+          type: string
+          description: Default wallet of the merchant
+          nullable: true
+          example: NGN
+        metaData:
+          type: object
+          additionalProperties:
+            type: string
+          description: Additional meta data
+          nullable: true
+        institutionCode:
+          type: string
+          description: Recipient financial institution code
+          example: "000013"
+        narration:
+          type: string
+          description: You may include a short description of the transaction here.
+          nullable: true
+          example: Transfer from Wallet to Jane Doe
+      additionalProperties: false
+      description: New Payout request
+    ObjectResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          nullable: true
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PaymentDestinationRequest:
+      type: object
+      required:
+        - amount
+        - institutionCode
+        - destinationAccount
+      properties:
+        amount:
+          type: number
+          format: double
+        institutionCode:
+          type: string
+        destinationAccount:
+          type: string
+          description: Recipient destination account number
+        narration:
+          type: string
+          nullable: true
+          description: You may include a short description of the transaction here.
+        metaData:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    PayoutRequest:
+      required:
+        - country
+        - destination
+        - channel
+      type: object
+      properties:
+        destination:
+          type: array
+          items:
+            "$ref": "#/components/schemas/PaymentDestinationRequest"
+          description: A list of accounts where the payout goes into
+          nullable: true
+        channel:
+          "$ref": "#/components/schemas/PayoutType"
+        debitWallet:
+          maxLength: 3
+          minLength: 3
+          type: string
+          description: Default wallet of the merchant
+          nullable: true
+          example: NGN
+        country:
+          maxLength: 3
+          minLength: 3
+          type: string
+          description: Country of the transaction
+          example: NGA
+        transactionReference:
+          type: string
+          description: Unique transaction reference
+          nullable: true
+          example: VGN315562672773671
+      additionalProperties: false
+      description: ""
+    PayoutTransactionResponse:
+      type: object
+      properties:
+        recepientName:
+          type: string
+          description: Name of recepient of transaction
+          nullable: true
+        sourceCurrency:
+          type: string
+          description: Source currency of debit account
+          nullable: true
+        destinationCurrency:
+          type: string
+          description: Destination currency of recepient
+          nullable: true
+        sourceAccount:
+          type: string
+          description: Source account or debit transaction source
+          nullable: true
+        benficiaryAccount:
+          type: string
+          description: Beneficiary account of recepient
+          nullable: true
+        amount:
+          type: string
+          description:
+            Total amount of transactions. Total amount indicates the total
+            of one transaction or multiple transactions done within that period of
+            time
+          nullable: true
+        status:
+          "$ref": "#/components/schemas/TransactionStatus"
+        transactionDate:
+          type: string
+          description: Date of transaction
+          nullable: true
+          example: "2022-10-10"
+        transactionReference:
+          type: string
+          description: Unique transaction reference
+          nullable: true
+          example: VGN34156267627
+      additionalProperties: false
+      description: Transaction log response
+    PayoutTransactionResponsePaginate:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        pages:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        items:
+          type: array
+          items:
+            "$ref": "#/components/schemas/PayoutTransactionResponse"
+          nullable: true
+        hasPrevious:
+          type: boolean
+          readOnly: true
+        hasNext:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    PayoutTransactionResponsePaginateResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/PayoutTransactionResponsePaginate"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayoutType:
+      enum:
+        - 1
+        - 2
+      type: integer
+      description:
+        Payout Type. Accepts integer value. Either 1 or 2.  1 for Bank,
+        2 for Mobile Money.
+      format: int32
+    ProcessingStatus:
+      enum:
+        - 0
+        - 1
+        - 2
+        - -1
+      type: integer
+      format: int32
+    RepaymentCycle:
+      enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+      type: integer
+      format: int32
+    RequestType:
+      enum:
+        - 0
+        - 1
+        - 2
+      type: integer
+      format: int32
+    SourceInformation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        sourceAccountNumber:
+          type: string
+          nullable: true
+        sourceAccountName:
+          type: string
+          nullable: true
+        sourceGatewayCode:
+          type: string
+          nullable: true
+        sourceCountry:
+          type: string
+          nullable: true
+        sourceCurrency:
+          type: string
+          nullable: true
+        sourceGatewayId:
+          type: string
+          nullable: true
+        credentials:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+        isVerified:
+          type: boolean
+      additionalProperties: false
+    SourceInformationRequest:
+      type: object
+      properties:
+        sourceAccountNumber:
+          type: string
+          nullable: true
+        sourceAccountName:
+          type: string
+          nullable: true
+        sourceGatewayCode:
+          type: string
+          nullable: true
+        sourceCountry:
+          type: string
+          nullable: true
+        sourceCurrency:
+          type: string
+          nullable: true
+        credentials:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    StatusRequest:
+      type: object
+      properties:
+        transactionReference:
+          type: string
+          description: The transaction reference to provide.
+          nullable: true
+          example: 111producersCount00002222000
+      additionalProperties: false
+    ToggleInstance:
+      type: object
+      properties:
+        instanceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Transaction:
+      type: object
+      properties:
+        clientTransactionRef:
+          type: string
+          nullable: true
+        processingStatus:
+          "$ref": "#/components/schemas/ProcessingStatus"
+        useAml:
+          type: boolean
+        productInstanceId:
+          type: integer
+          format: int64
+          nullable: true
+        productInstance:
+          "$ref": "#/components/schemas/DisbursmentInstance"
+        sessionElapsedTime:
+          type: string
+          format: date-time
+        transactionState:
+          "$ref": "#/components/schemas/TransactionState"
+        chargeApplied:
+          type: boolean
+        gatewayDebitReference:
+          type: string
+          nullable: true
+        responseMessage:
+          type: string
+          nullable: true
+        sourceCurrency:
+          type: string
+          nullable: true
+        destinationCurrency:
+          type: string
+          nullable: true
+        transactionStatusDescription:
+          type: string
+          nullable: true
+        confirmationStatus:
+          "$ref": "#/components/schemas/ConfirmationState"
+        rate:
+          type: number
+          format: double
+        paymentTypeId:
+          type: string
+          nullable: true
+        clientId:
+          type: integer
+          format: int64
+          nullable: true
+        vgnTransactionReference:
+          type: string
+          nullable: true
+        debitAccountName:
+          type: string
+          nullable: true
+        debitAccount:
+          type: string
+          nullable: true
+        processingGatewayCode:
+          type: string
+          nullable: true
+        transactionStatus:
+          "$ref": "#/components/schemas/TransactionStatus"
+        transactionDate:
+          type: string
+          format: date-time
+        transactionDetails:
+          type: array
+          items:
+            "$ref": "#/components/schemas/TransactionDetails"
+          nullable: true
+        amount:
+          type: number
+          format: double
+        chargeAmount:
+          type: number
+          format: double
+        totalAmount:
+          type: number
+          format: double
+        isChargeable:
+          type: boolean
+        platformChargeId:
+          type: integer
+          format: int64
+          nullable: true
+        serviceCode:
+          type: string
+          nullable: true
+        isServiceTransaction:
+          type: boolean
+        accountCIF:
+          type: string
+          nullable: true
+        accountId:
+          type: string
+          nullable: true
+        sourceGatewayCode:
+          type: string
+          nullable: true
+        requestType:
+          "$ref": "#/components/schemas/RequestType"
+        gatewayResponseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TransactionDetails:
+      type: object
+      properties:
+        useAml:
+          type: boolean
+        amlStatus:
+          type: boolean
+          nullable: true
+        processingStatus:
+          type: string
+          nullable: true
+        requestString:
+          type: string
+          nullable: true
+        responseString:
+          type: string
+          nullable: true
+        transactionStatus:
+          type: string
+          nullable: true
+        currency:
+          type: string
+          nullable: true
+        chargeAmount:
+          type: number
+          format: double
+        amount:
+          type: number
+          format: double
+        vgnTransactionReference:
+          type: string
+          nullable: true
+        beneficiaryAccount:
+          type: string
+          nullable: true
+        narration:
+          type: string
+          nullable: true
+        beneficiaryInstitutionCode:
+          type: string
+          nullable: true
+        processingGatewayCode:
+          type: string
+          nullable: true
+        beneficiaryName:
+          type: string
+          nullable: true
+        beneficiaryPhone:
+          type: string
+          nullable: true
+        responseMessage:
+          type: string
+          nullable: true
+        gatewayResponseCode:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+        metaData:
+          type: object
+          additionalProperties:
+            type: string
+          nullable: true
+      additionalProperties: false
+    TransactionDetailsResponse:
+      type: object
+      properties:
+        transactionStatus:
+          "$ref": "#/components/schemas/TransactionStatus"
+        transactionState:
+          "$ref": "#/components/schemas/TransactionState"
+        narration:
+          type: string
+          nullable: true
+        beneficiaryPhone:
+          type: string
+          nullable: true
+        vgnTransactionReference:
+          type: string
+          nullable: true
+        beneficiaryName:
+          type: string
+          nullable: true
+        beneficiaryAddress:
+          type: string
+          nullable: true
+        beneficiaryAccount:
+          type: string
+          nullable: true
+        currency:
+          type: string
+          nullable: true
+        myProperty:
+          type: string
+          nullable: true
+        amount:
+          type: number
+          format: double
+        chargeAmount:
+          type: number
+          format: double
+          nullable: true
+        transactionDate:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TransactionDetailsResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/TransactionDetails"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TransactionResponse:
+      type: object
+      properties:
+        transactionReference:
+          type: string
+          nullable: true
+        transactionDetails:
+          type: array
+          items:
+            "$ref": "#/components/schemas/TransactionDetailsResponse"
+          nullable: true
+        serviceCode:
+          type: string
+          nullable: true
+        debitAccount:
+          type: string
+          nullable: true
+        debitAccountName:
+          type: string
+          nullable: true
+        transactionDate:
+          type: string
+          format: date-time
+          nullable: true
+        transactionStatus:
+          "$ref": "#/components/schemas/TransactionStatus"
+        transactionStatusDescription:
+          type: string
+          nullable: true
+        vgnTransactionReference:
+          type: string
+          nullable: true
+        amount:
+          type: number
+          format: double
+        totalAmount:
+          type: number
+          format: double
+        chargeAmount:
+          type: number
+          format: double
+          nullable: true
+        destinationAmount:
+          type: number
+          format: double
+        destinationTotalAmount:
+          type: number
+          format: double
+        destinationChargeAmount:
+          type: number
+          format: double
+          nullable: true
+        sourceCurrency:
+          type: string
+          nullable: true
+        destinationCurrency:
+          type: string
+          nullable: true
+        responseMessage:
+          type: string
+          nullable: true
+        rate:
+          type: number
+          format: double
+        chargeApplied:
+          type: boolean
+      additionalProperties: false
+    TransactionResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/Transaction"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TransactionResponseResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/TransactionResponse"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TransactionsResponseModel:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: Transaction status
+          nullable: true
+          example: SUCCESSFUL
+        narration:
+          type: string
+          description: Narration
+          nullable: true
+          example: Transfer to John Doe
+        transactionReference:
+          type: string
+          description: Unique alphnumeric transaction reference
+          nullable: true
+          example: VGN14537728827778
+        beneficiaryName:
+          type: string
+          description: Beneficiary account name
+          nullable: true
+          example: John Doe
+        beneficiaryAccount:
+          type: string
+          description: Beneficiary account number.
+          nullable: true
+          example: "0771345678"
+        beneficiaryBank:
+          type: string
+          description: Beneficiary bank or finacial institution
+          nullable: true
+          example: Guaranty Trust Bank
+        sourceCurrency:
+          type: string
+          description: Source Currency
+          nullable: true
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: Destination Currency
+          nullable: true
+          example: NGN
+        sourceAmount:
+          type: number
+          description: Transaction Source amount
+          format: double
+          example: 1500
+        destinationAmount:
+          type: number
+          description: Destination amount
+          format: double
+          example: 1475
+        responseMessage:
+          type: string
+          description: Response Message
+          nullable: true
+          example: Transaction Successful
+        rate:
+          type: number
+          description: Transaction Rate
+          format: double
+          example: 1
+        chargeAmount:
+          type: number
+          description: Transaction charge amount
+          format: double
+          example: 25
+        chargeCurrency:
+          type: string
+          description: Transaction Charge Currency
+          nullable: true
+          example: NGN
+        transactionDate:
+          type: string
+          description: Transaction Date
+          nullable: true
+          example: "2022-08-09"
+        debitAmount:
+          type: number
+          format: double
+      additionalProperties: false
+      description: New Transaction response model for payout
+    TransactionsResponseModelPaginate:
+      type: object
+      properties:
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        pages:
+          type: integer
+          format: int32
+        count:
+          type: integer
+          format: int32
+        items:
+          type: array
+          items:
+            "$ref": "#/components/schemas/TransactionsResponseModel"
+          nullable: true
+        hasPrevious:
+          type: boolean
+          readOnly: true
+        hasNext:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    TransactionsResponseModelPaginateResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/TransactionsResponseModelPaginate"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TransactionsResponseModelResponseModel:
+      type: object
+      properties:
+        requestSuccessful:
+          type: boolean
+        responseData:
+          "$ref": "#/components/schemas/TransactionsResponseModel"
+        message:
+          type: string
+          nullable: true
+        responseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TransactionState:
+      enum:
+        - 0
+        - 10
+        - 20
+        - 21
+        - 22
+        - 23
+        - 26
+        - 27
+        - 28
+        - 29
+        - 30
+        - 40
+        - 41
+        - 60
+        - 100
+      type: integer
+      format: int32
+    TransactionStatus:
+      enum:
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    UpdateWalletRequest:
+      required:
+        - currency
+      type: object
+      properties:
+        currency:
+          maxLength: 3
+          pattern: "^[A-Za-z]+$"
+          type: string
+          description: Gets or sets currency
+          example: USD
+      additionalProperties: false
+      description: Update merchant default walllet request
+  securitySchemes:
+    Api-Key:
+      type: apiKey
+      description: "Api key needed to access the endpoints. Api-Key: My_API_Key"
+      name: Api-Key
+      in: header
+    Service:
+      type: apiKey
+      description: "Api key needed to access the endpoints. Authorization: Basic >"
+      name: Api-Key
+      in: header
+security:
+  - Api-Key: []
+  - ServiceAuth: []
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true
+  samples-enabled: true

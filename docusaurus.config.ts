@@ -67,19 +67,23 @@ const config: Config = {
     [
       "redocusaurus",
       {
+        // openapi: {
+        //   path: "openapi",
+        //   routeBasePath: "/api",
+        // },
         specs: [
           {
-            id: "va",
+            id: "virtual-accounts",
             route: "/api/va",
             spec: "api/va-yaml.yaml",
           },
           {
             id: "collect",
-            spec: "api/collect-yaml.yaml",
             route: "/api/collect",
+            spec: "api/collect-yaml.yaml",
           },
           {
-            id: "card",
+            id: "cards",
             route: "/api/card",
             spec: "api/card-yaml.yaml",
           },
@@ -87,6 +91,11 @@ const config: Config = {
             id: "kyc",
             route: "/api/kyc",
             spec: "api/kyc-yaml.yaml",
+          },
+          {
+            id: "payout",
+            route: "/api/payout",
+            spec: "api/payout-yaml.yaml",
           },
         ],
         // Theme Options for modifying how redoc renders them
