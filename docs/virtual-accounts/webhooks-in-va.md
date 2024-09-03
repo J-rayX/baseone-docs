@@ -1,10 +1,16 @@
-Webhooks in VA
+# 🔔 Webhooks in Virtual Accounts
 
-When you use our Virtual Accounts API, you will receive notifications when **external credit transactions** happen in your virtual accounts. However, take note of the following bits of information.
+When using our Virtual Accounts API, you'll receive notifications for **external credit transactions** in your virtual accounts. Here's what you need to know:
 
-- You need to register your webhook URL on your BaseOne dashboard. Follow the official guide on [how to register your webhook URL](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard)
+## 🚀 Getting Started
 
-- The event payload that you get will contain the event object which has the full details of the transaction that you're being notified of. The event object will look like the following: 
+1. 🖥️ Log into your BaseOne dashboard
+2. 🔗 Register your webhook URL
+   - Follow our guide on [how to register your webhook URL 🔗](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard)
+
+## 📦 Event Payload
+
+The event payload you receive will contain an `event` object with full transaction details. Here's what it looks like:
 
 ```text
 EventObject:
@@ -29,5 +35,5 @@ EventObject:
 ```
 
 > 📘 External Credit Transactions
-> 
+>
 > These are transactions between a static virtual account in BaseOne and another account domiciled in another financial institution such as commercial banks.

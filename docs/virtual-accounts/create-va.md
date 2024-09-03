@@ -1,23 +1,25 @@
-Create and Setup VA
+# 🏦 Create and Setup Virtual Accounts
 
-## Onboard on a virtual accounts provider
+## 🚀 Onboard a Virtual Accounts Provider
 
 Before creating and operating your virtual accounts, you need to onboard a provider bank on the BaseOne dashboard UI.
 
-Follow the following **steps to request to onboard a provider** bank for virtual accounts:
+### 📝 Steps to Request Provider Onboarding:
 
-1. Log in to your BaseOne dashboard or sign up for a new account for free [here](https://www.baseone.co/).
-2. Navigate to **Products > Account Service**. 
-3. Hover on **Virtual Accounts** and click **Open**.
-4. In the overview page of the Virtual Accounts, click the **Onboard** button to onboard your merchant account to a provider bank.
-5. Select your country to see the list of provider banks available.
-6. Select your preferred provider bank and click the **Onboard** button.
-7. You will get a feedback modal with _"your onboarding has been initiated."_ This implies that you have requested to onboard a provider bank.
-8. You will receive an email update on your request within two business days.
+1. 🔑 Log in to your BaseOne dashboard or [sign up for a free account](https://www.baseone.co/).
+2. 🧭 Navigate to **Products > Account Service**.
+3. 🖱️ Hover on **Virtual Accounts** and click **Open**.
+4. 👀 In the Virtual Accounts overview page, click the **Onboard** button.
+5. 🌍 Select your country to see available provider banks.
+6. ✅ Choose your preferred provider bank and click **Onboard**.
+7. 📨 You'll see a feedback modal: _"Your onboarding has been initiated."_
+8. ⏳ Expect an email update on your request within two business days.
 
-### Create a virtual account on the provider bank
+## 💳 Create a Virtual Account
 
-After onboarding a provider bank, you can make a `POST` request to the Virtual Accounts APIs to create a virtual account. See the following code snippet for an example.
+After onboarding a provider bank, you can use the Virtual Accounts API to create a virtual account.
+
+### 🖥️ API Request Example:
 
 ```curl Create virtual account
 curl --request POST \

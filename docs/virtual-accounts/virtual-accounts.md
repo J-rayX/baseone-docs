@@ -1,60 +1,70 @@
-# Virtual Accounts
+# 🏦 Virtual Accounts
 
-Virtual accounts enable you to offer your customers accounts with real account numbers to accept funds. They work like standard bank accounts. Therefore, you can use them for inward and outward transactions.
+Virtual accounts enable you to offer your customers accounts with real account numbers to accept funds. They work like standard bank accounts, allowing for both inward and outward transactions.
 
-## Types of Virtual Accounts
+## 🔢 Types of Virtual Accounts
 
-- **Dynamic accounts:** Dynamic virtual accounts enables you to create virtual account numbers that are only valid for a limited time — typically 30 minutes. They can't hold money. The funds collected by dynamic accounts are passed into a merchant settlement account that holds the funds.
+### 🔄 Dynamic accounts
 
-- **Static-collection accounts:** Static-collection virtual account types generate permanent account numbers. Unlike dynamic types, this won't expire, but like dynamic types, the funds collected will be passed into a virtual account collection pool account. You can use this type of virtual account when you have a ledger in your system that keeps the account balance of your customers, and you don't want the account to expire.
+- ⏳ Valid for a limited time (typically 30 minutes)
+- 💸 Can't hold money
+- 🏦 Funds are passed into a merchant settlement account
 
-- **Static accounts:**  BaseOne static virtual accounts is a powerful system that enables businesses to create permanent virtual account numbers mapped to BaseOne's account ledger. You can therefore use static accounts to leverage the robust ledger in BaseOne to keep the account balance for your customers without having to build your ledger. Unlike other types, funds collected into a static virtual account will not be pooled. The funds collected will reflect in the specific static account wallet. 
+### 📊 Static-collection accounts
 
-### Virtual Account Providers
+- 🔢 Generate permanent account numbers
+- 🏦 Funds are passed into a virtual account collection pool account
+- 💼 Ideal when you have your own ledger system
 
-The following table lists the virtual account providers available on BaseOne and the type of virtual accounts they support.
+### 💰 Static accounts
+
+- 🔢 Create permanent virtual account numbers
+- 📒 Mapped to BaseOne's account ledger
+- 💼 Leverage BaseOne's robust ledger for customer balances
+- 💰 Funds collected reflect in the specific static account wallet
+
+## 🏛️ Virtual Account Providers
 
 | Provider Bank | Dynamic | Static-collection | Static |
 | ------------- | ------- | ----------------- | ------ |
-| Providus      | ✅       | ✅                 | ✅      |
-| Sterling      | ✅       | ✅                 | ✅      |
+| Providus      | ✅      | ✅                | ✅     |
+| Sterling      | ✅      | ✅                | ✅     |
 
 > 🥇 Supported Countries
-> 
-> Currently, the BaseOne Virtual Accounts API is available in  <span>Nigeria 🇳🇬</span> 
+>
+> Currently, the BaseOne Virtual Accounts API is available in <span>Nigeria 🇳🇬</span>
 
-## Development Environments
+## 🛠️ Development Environments
 
-The sandbox allows you to test the features and APIs. You can carry out live implementations in the production environment. The sandbox API keys work with the sandbox environment. Use live keys only in production live mode. 
+### 🧪 Sandbox
 
-For the dashboard UI: 
+Test features and APIs in the sandbox environment.
 
-```text Sandbox UI
-https://sandbox-app.baseone.co/virtual-accounts
-```
-```text Live UI
-https://baseone.co/virtual-accounts
-```
+🖥️ Dashboard UI: `https://sandbox-app.baseone.co/virtual-accounts`
 
-For the API gateway:
+🌐 API Gateway: `https://sandbox.baseone.co/virtual-accounts`
 
-```text Sandbox Gateway
-https://sandbox.baseone.co/virtual-accounts
-```
-```text Live Gateway
-https://gateway.baseone.co/virtual-accounts
-```
+### 🚀 Production
 
-## Credit notification via webhooks
+Carry out live implementations in the production environment.
 
-You can configure your merchant integration to get notifications for credit events on virtual accounts. Take the following steps to set up webhooks:
+🖥️ Dashboard UI: `https://baseone.co/virtual-accounts`
 
-1. Log in to your BaseOne dashboard and go to the **Settings** section.
-2. Fill in your webhook URL and other details under the **Company Settings** 
-3. Click **Update**
+🌐 API Gateway: `https://gateway.baseone.co/virtual-accounts`
 
-Next, you can start to receive the notification payload via your webhook endpoint. Learn more about [Webhooks](doc:webhooks).
+> ⚠️ Use sandbox API keys for testing and live keys only in production mode.
 
-## [API Reference](https://developer.baseone.co/reference/create-virtual-account)
+## 📢 Credit notification via webhooks
 
-You can check out the details of the features provided by the Virtual Accounts API in the [API reference](https://developer.baseone.co/reference/create-virtual-account).
+To receive notifications for credit events on virtual accounts:
+
+1. 🔐 Log in to your BaseOne dashboard
+2. ⚙️ Go to the **Settings** section
+3. 🔗 Fill in your webhook URL under **Company Settings**
+4. 💾 Click **Update**
+
+Learn more about [Webhooks](doc:webhooks).
+
+## 📚 [API Reference](https://developer.baseone.co/reference/create-virtual-account)
+
+Check out the details of the Virtual Accounts API features in our [API reference 🔗](https://developer.baseone.co/reference/create-virtual-account).
