@@ -1,12 +1,18 @@
-Collect Notification Payload
+# 💰 Collect Notification Payload
 
-## Background Info on Webhook Events
+## 🔔 Background Info on Webhook Events
 
-When transactions happen, you receive notifications from BaseOne in the form of events. An event is delivered to you through your pre-configured webhook URL.
+When transactions occur, BaseOne sends notifications to your pre-configured webhook URL in the form of events.
 
-See the steps to [configure the webhook URL](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard) in your BaseOne dashboard **Developer** settings. 
+🔧 To set up your webhook URL:
 
-The payload body of an event received through a webhook URL looks like the following:
+1. Log into your BaseOne dashboard
+2. Navigate to **Developer** settings
+3. Follow the steps to [configure the webhook URL 🔗](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard)
+
+## 📦 Sample Event Payload
+
+The payload body of an event received through a webhook URL looks like this:
 
 ```text Sample event payload
 "payload": {
@@ -18,13 +24,15 @@ The payload body of an event received through a webhook URL looks like the follo
 }
 ```
 
-- Each event carries a similar payload structure, as shown above. 
-- The `NotificationData` field in the above code snippet is an object that carries full details about the event. 
-- The `NotificationData` field follows the JSON format to capture several data points about the event service. 
+> 📝 Note:
+>
+> - Each event carries a similar payload structure.
+> - The `NotificationData` field is a JSON object (as a string) with full event details.
+> - The `NotificationData` field uses JSON format to capture various data points about the event service.
 
-## Collect Notification Events
+## 💳 Collect Notification Events
 
-The following section describes the `NotificationData` data structure for **Collect** notification events.
+Here's the structure of the `NotificationData` object for **Collect** notification events:
 
 ```text Sample Collect Notification Data Object
 {

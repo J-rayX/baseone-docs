@@ -51,7 +51,7 @@ curl --request POST
   return (
     <Layout
       title={SITE_TITLE}
-      description="Description will go into a meta tag in <head />"
+      description="Learn how to start building with BaseOne fintech provider."
     >
       <div className=" font-sans flex flex-col bg">
         <Section

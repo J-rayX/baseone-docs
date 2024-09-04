@@ -1,14 +1,18 @@
-Payouts Notification Payload
+# 💸 Payouts Notification Payload
 
-## Background Info on Webhook Events
+## 🔔 Background Info on Webhook Events
 
-When transactions happen, you receive notifications from BaseOne in the form of events. An event is delivered to you through the pre-configured webhook URL you set in your BaseOne dashboard's **Developer** settings. 
+When transactions occur, BaseOne sends notifications to your pre-configured webhook URL in the form of events.
 
-Follow the [steps to configure your Webhook URL](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard) in your developer dashboard.
+🔧 To set up your webhook URL:
 
-## Notification Payload
+1. Log into your BaseOne dashboard
+2. Navigate to **Developer** settings
+3. Follow the steps to [configure your Webhook URL 🔗](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard)
 
-The payload body of a Payouts transaction event that you will receive through a webhook URL looks like the following:
+## 📦 Notification Payload
+
+The payload body of a Payouts transaction event received through a webhook URL looks like this:
 
 ```text Sample event payload
 "payload": {
@@ -20,13 +24,15 @@ The payload body of a Payouts transaction event that you will receive through a 
 }
 ```
 
-- Each event carries a similar payload structure, as shown above. 
-- The `NotificationData` field in the above code snippet is an object that carries full details about the event. 
-- The `NotificationData` field follows the JSON format to capture several data points about the event service. 
+> 📝 Note:
+>
+> - Each event carries a similar payload structure.
+> - The `NotificationData` field is a JSON object (as a string) with full event details.
+> - The `NotificationData` field uses JSON format to capture various data points about the event service.
 
-## Payout Notification Events
+## 💰 Payout Notification Events
 
-The following section describes the `NotificationData` data structure for Payouts notification events.
+Here's the structure of the `NotificationData` object for **Payouts** notification events:
 
 ```text Sample Payout Notification Data Object
 {

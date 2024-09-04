@@ -168,19 +168,14 @@ ol ol ul {
 /* Style for all links */
 .markdown a {
   color: #0077b6;
-  /* A distinct blue color */
   text-decoration: underline;
-  /* Adds an underline */
   transition: color 0.3s ease;
-  /* Smooth color transition on hover */
 }
 
 /* Hover effect */
 .markdown a:hover {
   color: #023e8a;
-  /* Darker blue on hover */
   text-decoration: none;
-  /* Removes underline on hover */
 }
 
 /* Visited link color */

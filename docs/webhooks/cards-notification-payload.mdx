@@ -1,12 +1,18 @@
-Cards Notification Payload
+# 💳 Cards Notification Payload
 
-## Background Info on Webhook Events
+## 🔔 Background Info on Webhook Events
 
-When transactions happen, event notifications are delivered to you through your pre-configured webhook URL.
+When transactions occur, event notifications are delivered to your pre-configured webhook URL.
 
-You can follow the steps on how to [configure the webhook URL](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard) in your BaseOne dashboard **Developer** settings. 
+🔧 To set up your webhook URL:
 
-The payload body of an event received through a webhook URL looks like the following:
+1. Log into your BaseOne dashboard
+2. Navigate to **Developer** settings
+3. Follow the steps to [configure the webhook URL 🔗](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard)
+
+## 📦 Sample Event Payload
+
+The payload body of an event received through a webhook URL looks like this:
 
 ```text Sample event payload
 "payload": {
@@ -18,9 +24,9 @@ The payload body of an event received through a webhook URL looks like the follo
 }
 ```
 
-- Each event carries a similar payload structure, as shown above. 
-- The `NotificationData` field in the above code snippet is an object that carries full details about the event. 
-- The `NotificationData` field follows the JSON format to capture several data points about the event service. 
+- Each event carries a similar payload structure, as shown above.
+- The `NotificationData` field in the above code snippet is an object that carries full details about the event.
+- The `NotificationData` field follows the JSON format to capture several data points about the event service.
 
 ## Cards Notification Events
 
