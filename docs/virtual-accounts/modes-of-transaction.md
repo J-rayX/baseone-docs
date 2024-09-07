@@ -2,7 +2,7 @@
 
 ## 🔄 Virtual Account Transfers
 
-This section explains the types of fund transfers possible with [Virtual Accounts](https://developer.baseone.co/docs/virtualaccounts).
+This section explains the types of fund transfers possible with [Virtual Accounts](/docs/virtual-accounts).
 
 ### 🏦 Intra-wallet Account Transfer
 

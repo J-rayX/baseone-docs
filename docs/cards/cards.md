@@ -13,7 +13,7 @@ Once issued, your customers can manage and control their cards, and when they lo
 3. Click the **Open** button to go to the onboarding page.
 4. Click the **Onboard** button to initiate an onboarding request. We will assess your service compliance and notify you via email within 2 business days regarding the approval status.
 5. After receiving a successful onboarding email, navigate to **Settings > Developers** to generate your API key pair. You will need the **_secret key_** to make API requests.
-6. After generating the keys, use the [Card API](https://developer.baseone.co/reference/create-card) to create a card, passing the **_secret key_** as `api-key` in your API request.
+6. After generating the keys, use the [Card API](/api/api-cards) to create a card, passing the **_secret key_** as `api-key` in your API request.
 
 ## 💳 Card Ledger Types
 
@@ -30,7 +30,7 @@ There are three possible sources of value for your card ledger:
 
 ## 🧪 Testing Cards
 
-You can test Cards in sandbox mode without incurring live transactions. Start testing by [creating a BaseOne account](https://sandbox-app.baseone.co/signup) in the **sandbox dashboard** and following the steps outlined in [how to issue Cards](https://developer.baseone.co/docs/cards#how-to-issue-cards).
+You can test Cards in sandbox mode without incurring live transactions. Start testing by [creating a BaseOne account](https://sandbox-app.baseone.co/signup) in the **sandbox dashboard** and following the steps outlined in [how to issue Cards](/docs/cards/#-how-to-issue-cards).
 
 - **Sandbox dashboard:**  
   `https://sandbox-app.baseone.co/card`
@@ -48,6 +48,6 @@ When you're ready to go live or perform production transactions, carry out the i
 - **Live API baseURL:**  
   `https://gateway.baseone.co/card/v1`
 
-## 📚 [API Reference](https://developer.baseone.co/reference/create-card)
+## 📚 [API Reference](/api/api-cards)
 
-Check out the [API reference](https://developer.baseone.co/reference/create-card) for detailed information on the features provided by the Card API.
+Check out the [API reference](/api/api-cards) for detailed information on the features provided by the Card API.

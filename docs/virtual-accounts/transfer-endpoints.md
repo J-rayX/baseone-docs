@@ -2,7 +2,7 @@
 
 ## 🔍 Overview
 
-The Virtual Accounts Transfer API enables you to make inter-bank transfers between multiple virtual accounts and bank accounts outside the BaseOne ecosystem. This powerful tool streamlines fund movement within your merchant integration.
+The Virtual Accounts [Transfer endpoints](/api/api-va#tag/Transfer) enables you to make inter-bank transfers between multiple virtual accounts and bank accounts outside the BaseOne ecosystem. This powerful tool streamlines fund movement within your merchant integration.
 
 ## 🚀 Key Features
 
@@ -24,7 +24,7 @@ The Virtual Accounts Transfer API enables you to make inter-bank transfers betwe
 
 ## 📚 API Reference
 
-For detailed information on available endpoints, request parameters, and response formats, please consult our comprehensive [Virtual Accounts Transfer API](https://developer.baseone.co/reference/intra-account-transfer) documentation.
+For detailed information on available endpoints, request parameters, and response formats, please consult our comprehensive [Virtual Accounts Transfer API](/api/api-va#tag/Transfer) documentation.
 
 ## 🛠️ Getting Started
 

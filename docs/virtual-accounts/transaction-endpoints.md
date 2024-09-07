@@ -2,7 +2,7 @@
 
 ## 🔍 Overview
 
-The Transaction API provides powerful tools to view and manage transactions made with virtual accounts in your merchant integration. This versatile API offers benefits for both you and your customers.
+The [Transaction API](/api/api-va#tag/Transaction) provides powerful tools to view and manage transactions made with virtual accounts in your merchant integration. This versatile API offers benefits for both you and your customers.
 
 ## 🚀 Key Features
 
@@ -28,7 +28,7 @@ With the Transaction API, you can:
 
 ## 📚 API Reference
 
-For comprehensive information on available endpoints, request parameters, and response formats, please refer to our [Virtual Accounts Transaction API](https://developer.baseone.co/reference/list-transactions-all-accounts) documentation.
+For comprehensive information on available endpoints, request parameters, and response formats, please refer to our [Virtual Accounts Transaction API](/api/api-va#tag/Transaction) documentation.
 
 ## 💡 Getting Started
 

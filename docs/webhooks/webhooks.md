@@ -2,10 +2,9 @@
 sidebar_position: 4
 ---
 
-
 # Webhooks (Notification)
 
-Webhooks work like SMS notifications, sending automated messages when an event occurs. BaseOne uses webhooks to deliver real-time notifications about transactions that occur when you use our APIs. 
+Webhooks work like SMS notifications, sending automated messages when an event occurs. BaseOne uses webhooks to deliver real-time notifications about transactions that occur when you use our APIs.
 
 **Webhook event:** an action that occurs in your BaseOne integration, and you are notified of it. In virtual accounts, you get notified of external credit transactions.
 
@@ -16,7 +15,7 @@ Webhooks work like SMS notifications, sending automated messages when an event o
 To use webhooks in BaseOne, you need to register your webhook URL on your BaseOne dashboard to receive webhook events. Your webhook URL should be an endpoint you have created to accept notification payload through `POST` requests. You will then receive notifications when external credit transactions occur in a virtual account in your merchant integration.
 
 > 📘 External Credit Transactions
-> 
+>
 > These are transactions between a static virtual account in BaseOne and another account domiciled in another financial institution, such as commercial banks.
 
 ## Why use Webhooks?
@@ -29,10 +28,10 @@ Webhooks enable you to do the following action in your application:
 
 ## How to register your webhook URL on the BaseOne dashboard
 
-1. Create a webhook URL and make it publicly available. 
+1. Create a webhook URL and make it publicly available.
 2. Log in to your BaseOne dashboard or create a new account for free if you don't have one yet.
-3. Navigate to **Settings > Developers** 
-4. Scroll down to the  **Webhook URL** section.
+3. Navigate to **Settings > Developers**
+4. Scroll down to the **Webhook URL** section.
 5. Supply your webhook URL in the **Webhook URL** field.
 6. Finally, click the **Update** button.
 

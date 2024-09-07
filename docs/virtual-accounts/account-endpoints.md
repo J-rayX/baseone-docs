@@ -2,7 +2,7 @@
 
 ## 🔍 Overview
 
-The Virtual Accounts API empowers you to create and manage virtual accounts within your merchant integration. This powerful tool offers a range of capabilities for both you and your customers.
+The Virtual Accounts [Account endpoints](/api/api-va#tag/Account) empowers you to create and manage virtual accounts within your merchant integration. This powerful tool offers a range of capabilities for both you and your customers.
 
 ## 🚀 Key Features
 
@@ -19,7 +19,7 @@ The Virtual Accounts API empowers you to create and manage virtual accounts with
 
 ## 📚 API Reference
 
-For detailed information on available endpoints and request/response formats, please consult our comprehensive [Virtual Accounts Account API](https://developer.baseone.co/reference/create-virtual-account).
+For detailed information on available endpoints and request/response formats, please consult our comprehensive [Virtual Accounts Account API](/api/api-va#tag/Transfer).
 
 ## 💡 Getting Started
 

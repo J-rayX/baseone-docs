@@ -65,6 +65,6 @@ To receive notifications for credit events on virtual accounts:
 
 Learn more about [Webhooks](doc:webhooks).
 
-## 📚 [API Reference](https://developer.baseone.co/reference/create-virtual-account)
+## 📚 [API Reference](/api/api-va)
 
-Check out the details of the Virtual Accounts API features in our [API reference 🔗](https://developer.baseone.co/reference/create-virtual-account).
+Check out the details of the Virtual Accounts API features in our [API reference 🔗](/api/api-va).

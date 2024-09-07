@@ -6,7 +6,7 @@ When using our Virtual Accounts API, you'll receive notifications for **external
 
 1. 🖥️ Log into your BaseOne dashboard
 2. 🔗 Register your webhook URL
-   - Follow our guide on [how to register your webhook URL 🔗](https://developer.baseone.co/docs/webhooks#how-to-register-your-webhook-url-on-the-baseone-dashboard)
+   - Follow our guide on [how to register your webhook URL 🔗](/docs/webhooks/#how-to-register-your-webhook-url-on-the-baseone-dashboard)
 
 ## 📦 Event Payload
 
@@ -34,6 +34,6 @@ EventObject:
 }"
 ```
 
-> 📘 External Credit Transactions
+> ### 📘 External Credit Transactions
 >
 > These are transactions between a static virtual account in BaseOne and another account domiciled in another financial institution such as commercial banks.

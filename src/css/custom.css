@@ -27,18 +27,33 @@
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #669aff;
-  --ifm-color-primary-dark: #5b8ae6;
-  --ifm-color-primary-darker: #5380d4;
-  --ifm-color-primary-darkest: #4267ad;
-  --ifm-color-primary-light: #73a2ff;
-  --ifm-color-primary-lighter: #85adff;
-  --ifm-color-primary-lightest: #a3c1ff;
+  --ifm-color-primary: #4e8eff;
+  /* Brighter blue */
+  --ifm-color-primary-dark: #3a7aff;
+  --ifm-color-primary-darker: #2d70ff;
+  --ifm-color-primary-darkest: #0052ff;
+  --ifm-color-primary-light: #62a2ff;
+  --ifm-color-primary-lighter: #6facff;
+  --ifm-color-primary-lightest: #9dc6ff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-  --ifm-link-decoration: none;
+
+  /* Adjust these for better link visibility */
+  --ifm-link-color: var(--ifm-color-primary-lighter);
+  --ifm-link-hover-color: var(--ifm-color-primary-lightest);
+  --ifm-link-decoration: underline;
   --ifm-link-hover-decoration: none;
-  --ifm-link-hover-color: #0A2540;
 }
+
+/* You can add additional styles here if needed */
+[data-theme='dark'] .navbar__link {
+  color: var(--ifm-color-primary-lightest);
+}
+
+[data-theme='dark'] .footer__link-item {
+  color: var(--ifm-color-primary-lighter);
+}
+
+
 
 /* Ensure the footer itself is a flex container */
 .footer {
@@ -167,19 +182,38 @@ ol ol ul {
 
 /* Style for all links */
 .markdown a {
-  color: #0077b6;
+  color: #0640ab;
   text-decoration: underline;
   transition: color 0.3s ease;
 }
 
 /* Hover effect */
 .markdown a:hover {
-  color: #023e8a;
+  color: #001d42;
   text-decoration: none;
 }
 
 /* Visited link color */
 .markdown a:visited {
-  color: #6a4c93;
+  color: #5e3a91;
+  /* Purple for visited links */
+}
+
+[data-theme='dark'] .markdown a {
+  color: #c6d0ff;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect */
+[data-theme='dark'] .markdown a:hover {
+  color: #d9c5f4;
+  text-decoration: none;
+}
+
+/* Visited link color */
+[data-theme='dark'] .markdown a:visited {
+  color: #d9c5f4;
+  text-decoration: underline;
   /* Purple for visited links */
 }

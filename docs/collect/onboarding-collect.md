@@ -25,7 +25,7 @@ Before using the Collect API or widget, you must onboard Collect to your merchan
 3. **🖱️ Hover** over the **Collect** card and **click** the **Open** button. This will open the **Collect** overview page.
 4. **📄 On the Collect overview page**, **click** the **Onboard** button and follow the prompts to initiate the onboarding request.
    - We will reach out to you via email within two business days with the approval status of your request.
-5. **✅ After successfully onboarding Collect**, you can use the Collect widget from the dashboard or make requests to the [Collect API](https://developer.baseone.co/reference/collect-charge).
+5. **✅ After successfully onboarding Collect**, you can use the Collect widget from the dashboard or make requests to the [Collect API](/api/api-collect).
 
 ## 💼 Collection Settlement
 

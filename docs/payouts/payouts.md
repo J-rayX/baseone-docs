@@ -24,15 +24,15 @@ Before using the API, you must onboard Payouts on your merchant integration in t
 4. Hover over **Payouts** and click the **Open** button to go to the Payouts overview page.
 5. On the **Payouts** overview page, click **Onboard** and follow the prompts to initiate the onboarding request. We will notify you via email within two business days regarding the approval status.
 6. Once Payouts is successfully onboarded, you can make payouts from the Payouts dashboard.
-7. Alternatively, go to **Settings > Developers** on your dashboard to generate your API keys to integrate the [Payouts API](https://developer.baseone.co/reference/single-payout) into your application.
+7. Alternatively, go to **Settings > Developers** on your dashboard to generate your API keys to integrate the [Payouts API](/api/api-payout) into your application.
 
 ## 🔗 Payouts API
 
-Check out the [Payouts API Reference](https://developer.baseone.co/reference/single-payout) for the REST endpoints that you can use to interact with the Payouts API.
+Check out the [Payouts API Reference](/api/api-payout) for the REST endpoints that you can use to interact with the Payouts API.
 
 ## 🧪 Testing Payouts
 
-The sandbox allows you to test the features and APIs. Start testing by creating an account in the **sandbox dashboard** and following the steps outlined in [how to onboard Payouts](https://developer.baseone.co/docs/payouts#how-to-onboard-payouts).
+The sandbox allows you to test the features and APIs. Start testing by creating an account in the **sandbox dashboard** and following the steps outlined in [how to onboard Payouts](/docs/payouts/#-how-to-onboard-payouts).
 
 - **Sandbox dashboard:**  
   `https://sandbox-app.baseone.co/payouts`

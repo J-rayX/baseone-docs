@@ -31,4 +31,4 @@ curl --request POST \
 
 ### API Reference
 
-You can view the [API reference](https://developer.baseone.co/reference/create-virtual-account) for full details of the Virtual Accounts API. You also get code samples for all the endpoints in different languages, such as Node.js, PHP, Python, Ruby, and more.
+You can view the [API reference](/api/api-va) for full details of the Virtual Accounts API. You also get code samples for all the endpoints in different languages, such as Node.js, PHP, Python, Ruby, and more.
