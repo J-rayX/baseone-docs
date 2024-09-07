@@ -5,9 +5,9 @@ const HomepageProducts = ({ title, copyText, productIcon, href }) => {
   return (
     <Link
       href={href}
-      className="block max-md:w-full p-6 w-[25%] bg-[#F4F5F6] rounded-lg hover:bg-[#E8E9EA] hover:border hover:border-[#165FFF] shadow-sm hover:shadow-lg transition-all"
+      className="product-card  block max-md:w-full p-6 w-[25%] bg-[#F4F5F6] rounded-lg hover:bg-[#E8E9EA] hover:border hover:border-[#165FFF] shadow-sm hover:shadow-lg transition-all"
     >
-      <div className="max-md:w-full p- rounded-lg">
+      <div className=" max-md:w-full p- rounded-lg">
         <img
           src={productIcon}
           alt=""

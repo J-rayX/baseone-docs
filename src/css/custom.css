@@ -44,13 +44,25 @@
   --ifm-link-hover-decoration: none;
 }
 
-/* You can add additional styles here if needed */
-[data-theme='dark'] .navbar__link {
-  color: var(--ifm-color-primary-lightest);
+
+.footer {
+  background-color: #1e2734;
+  /* background-color: #2a2a2a; */
 }
 
-[data-theme='dark'] .footer__link-item {
-  color: var(--ifm-color-primary-lighter);
+/* You can add additional styles here if needed */
+[data-theme='dark'] {
+  .navbar {
+    background-color: #0A2540;
+  }
+
+  .navbar__link {
+    color: var(--ifm-color-primary-lightest);
+  }
+
+  .footer__link-item {
+    color: var(--ifm-color-primary-lighter);
+  }
 }
 
 
@@ -216,4 +228,91 @@ ol ol ul {
   color: #d9c5f4;
   text-decoration: underline;
   /* Purple for visited links */
+}
+
+
+/* Improve dark mode adjustments for the Index page */
+[data-theme='dark'] {
+  .hero {
+    background-color: #161620;
+  }
+
+  .hero h1 {
+    color: var(--ifm-font-color-base);
+  }
+
+  .hero h1 span {
+    color: var(--ifm-color-primary-lighter);
+  }
+
+  .hero p {
+    color: var(--ifm-color-primary-lightest);
+  }
+
+  .new-product-pill {
+    border-color: var(--ifm-color-primary-lighter);
+  }
+
+  .new-product-pill span {
+    color: var(--ifm-color-primary-lighter);
+  }
+
+  /* Adjust product cards */
+  .product-card {
+    background-color: var(--ifm-background-surface-color);
+    color: var(--ifm-color-primary-lightest);
+
+  }
+
+  /* Adjust product cards */
+  .product-card {
+    background-color: var(--ifm-background-surface-color);
+    color: #ffffff;
+    /* Change to white for better contrast */
+  }
+
+  .product-card:hover {
+    background-color: var(--ifm-color-primary-darkest);
+  }
+
+  .product-card h3 {
+    color: var(--ifm-color-primary-lightest);
+    /* Highlight titles */
+  }
+
+  .product-card p {
+    color: var(--ifm-color-primary-lightest);
+    /* Light gray for better readability */
+  }
+
+  .product-card p:hover {
+    color: var(--ifm-color-primary-lightest);
+    /* Light gray for better readability */
+  }
+
+
+  /* Adjust button styles */
+  .button--secondary {
+    background-color: var(--ifm-color-primary-darker);
+
+    border-color: var(--ifm-color-primary-darkest);
+  }
+
+  .button--secondary span {
+    color: #ffffff;
+  }
+
+  .button--secondary:hover {
+    background-color: var(--ifm-color-primary-darkest);
+  }
+
+  /* Improve code snippet contrast */
+  .code-snippet-container {
+    background-color: #1e1e1e;
+    /* Darker background */
+    color: #e0e0e0;
+    /* Light gray text for better contrast */
+    border: 1px solid #444;
+    /* Add a subtle border */
+  }
 }
