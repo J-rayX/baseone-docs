@@ -184,7 +184,7 @@ ol ol ul {
 
 .hero {
   /* background-color: #161620; */
-  /* background-color: #E9EFFF; */
+  background-color: #E9EFFF;
 
 }
 
@@ -200,6 +200,32 @@ ol ol ul {
   color: #0A2540;
 }
 
+/* Adjust button styles */
+.button--secondary {
+  background-color: #ffffff;
+  color: #4e8eff;
+  border: 2px solid #4e8eff;
+  border-radius: 14px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button--secondary:hover {
+  background-color: #f0f7ff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.button--secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 .footer {
   background-color: #1e2734;
@@ -363,6 +389,9 @@ ol ol ul {
     background-color: #2d70ff;
 
     border-color: #0052ff;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transform: translateY(0);
   }
 
   .button--secondary span {
@@ -371,6 +400,8 @@ ol ol ul {
 
   .button--secondary:hover {
     background-color: #0052ff;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
   }
 
   /* Improve code snippet contrast */
