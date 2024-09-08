@@ -182,13 +182,11 @@ ol ol ul {
 }
 
 
-.hero {
-  /* background-color: #161620; */
+.hero-content {
   background-color: #E9EFFF;
-
 }
 
-.hero-content {
+.hero {
   background-color: #E9EFFF;
 }
 
