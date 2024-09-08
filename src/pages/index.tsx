@@ -59,16 +59,7 @@ curl --request POST
           className="hero relative flex max-lg:flex-col gap-1 items-center px-40 max-lg:px-0 py-12 bg-[#E9EFFF] dark:text-white overflow-hidden"
           bg="transparent"
         >
-          <div
-            className=" absolute inset-0 z-0"
-            style={{
-              // backgroundImage: `url(${heroBg})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              opacity: 0.5,
-            }}
-          />
-          <div className="new-product-pill w-[50%] max-lg:w-full flex flex-col items-start max-lg:items-center max-lg:text-center md:w-[90%] sm:w-[90%] mx-auto relative z-1 mb-[4rem] max-lg:mb-[1rem] max-lg:p-2 md:mb-0 lg:mb-[rem] leading-7">
+          <div className="hero-content w-[50%] max-lg:w-full flex flex-col items-start max-lg:items-center max-lg:text-center md:w-[90%] sm:w-[90%] mx-auto relative z-1 mb-[4rem] max-lg:mb-[1rem] max-lg:p-2 md:mb-0 lg:mb-[rem] leading-7">
             <a href="" className="group mb-4">
               <div className="new-product-pill flex gap-2 justify-center items-center px-2 py-1 border border-[#175fff] rounded-full object-contain text-sm max-sm:text-xs group-hover:bg-[#175fff] transition-colors duration-200">
                 <span>

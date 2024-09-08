@@ -154,6 +154,10 @@ ol ol ul {
   border-bottom: 1px solid #00367d;
 }
 
+.navbar__link {
+  color: #000000;
+}
+
 .navbar__link--active {
   font-weight: bold;
   color: #00367d;
@@ -176,6 +180,26 @@ ol ol ul {
 .navbar__link:hover {
   color: #00367d;
 }
+
+
+.hero {
+  /* background-color: #161620; */
+  /* background-color: #E9EFFF; */
+
+}
+
+.hero h1 {
+  color: #0A2540;
+}
+
+.hero h1 span {
+  color: #175fff;
+}
+
+.hero p {
+  color: #0A2540;
+}
+
 
 .footer {
   background-color: #1e2734;
