@@ -56,7 +56,7 @@ curl --request POST
       <div className=" font-sans flex flex-col bg">
         <Section
           id="hero"
-          className="hero relative flex max-lg:flex-col gap-1 items-center px-40 max-lg:px-0 py-12 bg-[#E9EFFF] dark:text-white overflow-hidden"
+          className="hero relative flex max-lg:flex-col gap-1 items-center px-40 max-lg:px-0 py-12 overflow-hidden"
           bg="transparent"
         >
           <div className="hero-content w-[50%] max-lg:w-full flex flex-col items-start max-lg:items-center max-lg:text-center md:w-[90%] sm:w-[90%] mx-auto relative z-1 mb-[4rem] max-lg:mb-[1rem] max-lg:p-2 md:mb-0 lg:mb-[rem] leading-7">
