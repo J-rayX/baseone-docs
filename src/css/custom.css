@@ -44,114 +44,6 @@
   --ifm-link-hover-decoration: none;
 }
 
-.navbar {
-  border-bottom: 1px solid #00367d;
-}
-
-.navbar__link--active {
-  font-weight: bold;
-  color: #00367d;
-  position: relative;
-  padding-bottom: 3px;
-
-}
-
-.navbar__link--active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #00367d;
-  transition: width 0.3s ease-in-out;
-}
-
-.navbar__link:hover {
-  color: #00367d;
-}
-
-.footer {
-  background-color: #1e2734;
-  /* background-color: #2a2a2a; */
-}
-
-/* You can add additional styles here if needed */
-[data-theme='dark'] {
-  .navbar {
-    background-color: #0A2540;
-  }
-
-  .navbar__link {
-    color: var(--ifm-color-primary-lightest);
-  }
-
-  .navbar__link--active {
-    font-weight: bold;
-    color: #e6ecf9;
-  }
-
-  .navbar__link--active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #e6ecf9;
-    transition: width 0.3s ease-in-out;
-  }
-
-  .navbar__link:hover {
-    /* font-weight: bold; */
-    color: #bfd3ff;
-  }
-
-  .footer__link-item {
-    color: var(--ifm-color-primary-lighter);
-  }
-}
-
-
-
-/* Ensure the footer itself is a flex container */
-.footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-}
-
-/* Center the links within the footer */
-.footer__links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-  /* Add some space between links and copyright */
-}
-
-/* Ensure that individual link items are centered */
-.footer__links a {
-  margin: 0 10px;
-  /* Add spacing between links */
-  text-align: center;
-}
-
-/* Center the copyright text */
-.footer__copyright {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.footer__iconExternalLink {
-  margin-left: 0.3rem;
-  text-align: center;
-}
-
-
 /* Heading Styles */
 h1 {
   font-size: 3rem;
@@ -202,7 +94,6 @@ h6 {
 a {
   text-decoration: none;
 }
-
 
 ol {
   list-style-type: decimal;
@@ -258,28 +149,132 @@ ol ol ul {
   /* Purple for visited links */
 }
 
-[data-theme='dark'] .markdown a {
-  color: #c6d0ff;
-  text-decoration: underline;
-  transition: color 0.3s ease;
+
+.navbar {
+  border-bottom: 1px solid #00367d;
 }
 
-/* Hover effect */
-[data-theme='dark'] .markdown a:hover {
-  color: #d9c5f4;
-  text-decoration: none;
+.navbar__link--active {
+  font-weight: bold;
+  color: #00367d;
+  position: relative;
+  padding-bottom: 3px;
+
 }
 
-/* Visited link color */
-[data-theme='dark'] .markdown a:visited {
-  color: #d9c5f4;
-  text-decoration: underline;
-  /* Purple for visited links */
+.navbar__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #00367d;
+  transition: width 0.3s ease-in-out;
+}
+
+.navbar__link:hover {
+  color: #00367d;
+}
+
+.footer {
+  background-color: #1e2734;
+  /* background-color: #2a2a2a; */
+}
+
+/* Ensure the footer itself is a flex container */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* Center the links within the footer */
+.footer__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  /* Add some space between links and copyright */
+}
+
+/* Ensure that individual link items are centered */
+.footer__links a {
+  margin: 0 10px;
+  /* Add spacing between links */
+  text-align: center;
+}
+
+/* Center the copyright text */
+.footer__copyright {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.footer__iconExternalLink {
+  margin-left: 0.3rem;
+  text-align: center;
 }
 
 
 /* Improve dark mode adjustments for the Index page */
 [data-theme='dark'] {
+  .navbar {
+    background-color: #0A2540;
+  }
+
+  .navbar__link {
+    color: #9dc6ff;
+  }
+
+  .navbar__link--active {
+    font-weight: bold;
+    color: #e6ecf9;
+  }
+
+  .navbar__link--active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #e6ecf9;
+    transition: width 0.3s ease-in-out;
+  }
+
+  .navbar__link:hover {
+    /* font-weight: bold; */
+    color: #bfd3ff;
+  }
+
+  .footer__link-item {
+    color: #6facff;
+  }
+
+  .markdown a {
+    color: #c6d0ff;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  /* Hover effect */
+  .markdown a:hover {
+    color: #d9c5f4;
+    text-decoration: none;
+  }
+
+  /* Visited link color */
+  .markdown a:visited {
+    color: #d9c5f4;
+    text-decoration: underline;
+    /* Purple for visited links */
+  }
+
+
   .hero {
     background-color: #161620;
   }
@@ -289,29 +284,30 @@ ol ol ul {
   }
 
   .hero h1 span {
-    color: var(--ifm-color-primary-lighter);
+    color: #6facff;
   }
 
   .hero p {
-    color: var(--ifm-color-primary-lightest);
+    color: #9dc6ff;
   }
 
   .new-product-pill {
-    border-color: var(--ifm-color-primary-lighter);
+    border-color: #6facff;
+    ;
   }
 
   .new-product-pill span {
-    color: var(--ifm-color-primary-lighter);
+    color: #6facff;
   }
 
-  /* Adjust product cards */
+
+
   .product-card {
     background-color: var(--ifm-background-surface-color);
-    color: var(--ifm-color-primary-lightest);
+    color: #9dc6ff;
 
   }
 
-  /* Adjust product cards */
   .product-card {
     background-color: var(--ifm-background-surface-color);
     color: #ffffff;
@@ -319,30 +315,30 @@ ol ol ul {
   }
 
   .product-card:hover {
-    background-color: var(--ifm-color-primary-darkest);
+    background-color: #0052ff;
   }
 
   .product-card h3 {
-    color: var(--ifm-color-primary-lightest);
+    color: #9dc6ff;
     /* Highlight titles */
   }
 
   .product-card p {
-    color: var(--ifm-color-primary-lightest);
+    color: #bad7ff;
     /* Light gray for better readability */
   }
 
   .product-card p:hover {
-    color: var(--ifm-color-primary-lightest);
+    color: #bad7ff;
     /* Light gray for better readability */
   }
 
 
   /* Adjust button styles */
   .button--secondary {
-    background-color: var(--ifm-color-primary-darker);
+    background-color: #2d70ff;
 
-    border-color: var(--ifm-color-primary-darkest);
+    border-color: #0052ff;
   }
 
   .button--secondary span {
@@ -350,16 +346,14 @@ ol ol ul {
   }
 
   .button--secondary:hover {
-    background-color: var(--ifm-color-primary-darkest);
+    background-color: #0052ff;
   }
 
   /* Improve code snippet contrast */
   .code-snippet-container {
     background-color: #1e1e1e;
-    /* Darker background */
     color: #e0e0e0;
-    /* Light gray text for better contrast */
     border: 1px solid #444;
-    /* Add a subtle border */
+
   }
 }
