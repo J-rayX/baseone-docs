@@ -44,6 +44,32 @@
   --ifm-link-hover-decoration: none;
 }
 
+.navbar {
+  border-bottom: 1px solid #00367d;
+}
+
+.navbar__link--active {
+  font-weight: bold;
+  color: #00367d;
+  position: relative;
+  padding-bottom: 3px;
+
+}
+
+.navbar__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #00367d;
+  transition: width 0.3s ease-in-out;
+}
+
+.navbar__link:hover {
+  color: #00367d;
+}
 
 .footer {
   background-color: #1e2734;
@@ -58,6 +84,27 @@
 
   .navbar__link {
     color: var(--ifm-color-primary-lightest);
+  }
+
+  .navbar__link--active {
+    font-weight: bold;
+    color: #e6ecf9;
+  }
+
+  .navbar__link--active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #e6ecf9;
+    transition: width 0.3s ease-in-out;
+  }
+
+  .navbar__link:hover {
+    /* font-weight: bold; */
+    color: #bfd3ff;
   }
 
   .footer__link-item {
