@@ -8,7 +8,6 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #2c6eec;
   --ifm-color-primary-dark: #1e5ad8;
@@ -28,10 +27,8 @@
 
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
   --ifm-color-primary: #4e8eff;
-  /* Brighter blue */
   --ifm-color-primary-dark: #3a7aff;
   --ifm-color-primary-darker: #2d70ff;
   --ifm-color-primary-darkest: #0052ff;
@@ -40,14 +37,13 @@
   --ifm-color-primary-lightest: #9dc6ff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 
-  /* Adjust these for better link visibility */
   --ifm-link-color: var(--ifm-color-primary-lighter);
   --ifm-link-hover-color: var(--ifm-color-primary-lightest);
   --ifm-link-decoration: underline;
   --ifm-link-hover-decoration: none;
 }
 
-/* Heading Styles */
+
 h1 {
   font-size: 3rem;
   font-weight: bold;
@@ -108,7 +104,6 @@ ol li {
   margin-bottom: 0.5em;
 }
 
-/* Unordered List Styles */
 ul {
   list-style-type: disc;
   padding-left: 1.5em;
@@ -119,7 +114,6 @@ ul li {
   margin-bottom: 0.5em;
 }
 
-/* Nested list styles */
 ul ul,
 ol ul {
   list-style-type: circle;
@@ -133,21 +127,318 @@ ol ol ul {
   list-style-type: square;
 }
 
-/* Style for all links */
 .markdown a {
   color: #0640ab;
   text-decoration: underline;
   transition: color 0.3s ease;
 }
 
-/* Hover effect */
 .markdown a:hover {
   color: #001d42;
   text-decoration: none;
 }
 
-/* Visited link color */
 .markdown a:visited {
   color: #5e3a91;
   /* Purple for visited links */
+}
+
+/* ********************************************** */
+
+.navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar__items--right>div>button {
+  color: #ffffff;
+
+  border: #ffffff;
+  border-radius: 2px;
+  padding: 0px 2px;
+}
+
+.navbar__title {
+  color: #2d3748;
+  font-weight: bold;
+}
+
+.navbar__link {
+  color: #4a5568;
+}
+
+.navbar__link--active {
+  font-weight: bold;
+  color: #3182ce;
+}
+
+.navbar__link--active::after {
+  content: none;
+}
+
+.navbar__link:hover {
+  color: #3182ce;
+}
+
+.footer__link-item {
+  color: #4a5568;
+}
+
+.markdown a {
+  color: #3182ce;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.markdown a:hover {
+  color: #2c5282;
+  text-decoration: underline;
+}
+
+.markdown a:visited {
+  color: #3182ce;
+}
+
+.hero {
+  background-color: #ebf8ff;
+  padding: 4rem 8rem;
+}
+
+.hero h1 {
+  color: #2d3748;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.hero h1 span {
+  color: #3182ce;
+}
+
+.hero p {
+  color: #4a5568;
+  font-size: 1.25rem;
+}
+
+.new-product-pill {
+  border-color: #3182ce;
+  border-radius: 9999px;
+  padding: 4px 12px;
+  display: inline-block;
+}
+
+.new-product-pill span {
+  color: #3182ce;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.product-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  background-color: #ffffff;
+  transform: translateY(-4px);
+}
+
+.product-card h3 {
+  color: #2d3748;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.product-card p {
+  color: #4a5568;
+  font-size: 1rem;
+}
+
+.product-card p:hover {
+  color: #4a5568;
+}
+
+.button--secondary {
+  background-color: #3182ce;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.button--secondary span {
+  color: #ffffff;
+}
+
+.button--secondary:hover {
+  background-color: #2c5282;
+  transform: none;
+  box-shadow: none;
+}
+
+.code-snippet-container {
+  background-color: #f7fafc;
+  color: #2d3748;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* ********************************************** */
+
+
+
+[data-theme='dark'] {
+  .navbar {
+    background-color: #0A2540;
+  }
+
+  .navbar__items--right>div>button {
+    color: var(--ifm-color-primary-darkest);
+    background-color: white !important;
+    border: 1px solid var(--ifm-color-primary);
+
+  }
+
+  .navbar__title {
+    color: #E9EFFF;
+  }
+
+  .navbar__link {
+    color: #9dc6ff;
+  }
+
+  .navbar__link--active {
+    font-weight: bold;
+    color: #e6ecf9;
+  }
+
+  .navbar__link--active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #e6ecf9;
+    transition: width 0.3s ease-in-out;
+  }
+
+  .navbar__link:hover {
+    /* font-weight: bold; */
+    color: #bfd3ff;
+  }
+
+  .footer__link-item {
+    color: #6facff;
+  }
+
+  .markdown a {
+    color: #c6d0ff;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+
+  .markdown a:hover {
+    color: #d9c5f4;
+    text-decoration: none;
+  }
+
+
+  .markdown a:visited {
+    color: #d9c5f4;
+    text-decoration: underline;
+
+  }
+
+
+  .hero {
+    background-color: #161620;
+  }
+
+  .hero h1 {
+    color: #E9EFFF;
+  }
+
+  .hero h1 span {
+    color: #6facff;
+  }
+
+  .hero p {
+    color: #9dc6ff;
+  }
+
+  .new-product-pill {
+    border-color: #6facff;
+    ;
+  }
+
+  .new-product-pill span {
+    color: #6facff;
+  }
+
+
+
+  .product-card {
+    background-color: var(--ifm-background-surface-color);
+    color: #9dc6ff;
+
+  }
+
+  .product-card {
+    background-color: var(--ifm-background-surface-color);
+    color: #ffffff;
+  }
+
+  .product-card:hover {
+    background-color: #0052ff;
+  }
+
+  .product-card h3 {
+    color: #9dc6ff;
+
+  }
+
+  .product-card p {
+    color: #bad7ff;
+  }
+
+  .product-card p:hover {
+    color: #bad7ff;
+  }
+
+
+
+  .button--secondary {
+    background-color: #2d70ff;
+
+    border-color: #0052ff;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transform: translateY(0);
+  }
+
+  .button--secondary span {
+    color: #ffffff;
+  }
+
+  .button--secondary:hover {
+    background-color: #0052ff;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+  }
+
+
+  .code-snippet-container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #444;
+
+  }
 }
