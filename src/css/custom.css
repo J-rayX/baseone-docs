@@ -273,3 +273,144 @@ ol ol ul {
 
 
 /* Improve dark mode adjustments for the Index page */
+[data-theme='dark'] {
+  .navbar {
+    background-color: #0A2540;
+  }
+
+  .navbar__link {
+    color: #9dc6ff;
+  }
+
+  .navbar__link--active {
+    font-weight: bold;
+    color: #e6ecf9;
+  }
+
+  .navbar__link--active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #e6ecf9;
+    transition: width 0.3s ease-in-out;
+  }
+
+  .navbar__link:hover {
+    /* font-weight: bold; */
+    color: #bfd3ff;
+  }
+
+  .footer__link-item {
+    color: #6facff;
+  }
+
+  .markdown a {
+    color: #c6d0ff;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  /* Hover effect */
+  .markdown a:hover {
+    color: #d9c5f4;
+    text-decoration: none;
+  }
+
+  /* Visited link color */
+  .markdown a:visited {
+    color: #d9c5f4;
+    text-decoration: underline;
+    /* Purple for visited links */
+  }
+
+
+  .hero {
+    background-color: #161620;
+  }
+
+  .hero h1 {
+    color: var(--ifm-font-color-base);
+  }
+
+  .hero h1 span {
+    color: #6facff;
+  }
+
+  .hero p {
+    color: #9dc6ff;
+  }
+
+  .new-product-pill {
+    border-color: #6facff;
+    ;
+  }
+
+  .new-product-pill span {
+    color: #6facff;
+  }
+
+
+
+  .product-card {
+    background-color: var(--ifm-background-surface-color);
+    color: #9dc6ff;
+
+  }
+
+  .product-card {
+    background-color: var(--ifm-background-surface-color);
+    color: #ffffff;
+    /* Change to white for better contrast */
+  }
+
+  .product-card:hover {
+    background-color: #0052ff;
+  }
+
+  .product-card h3 {
+    color: #9dc6ff;
+    /* Highlight titles */
+  }
+
+  .product-card p {
+    color: #bad7ff;
+    /* Light gray for better readability */
+  }
+
+  .product-card p:hover {
+    color: #bad7ff;
+    /* Light gray for better readability */
+  }
+
+
+  /* Adjust button styles */
+  .button--secondary {
+    background-color: #2d70ff;
+
+    border-color: #0052ff;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transform: translateY(0);
+  }
+
+  .button--secondary span {
+    color: #ffffff;
+  }
+
+  .button--secondary:hover {
+    background-color: #0052ff;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+  }
+
+  /* Improve code snippet contrast */
+  .code-snippet-container {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #444;
+
+  }
+}
