@@ -56,35 +56,37 @@ curl --request POST
       <div className=" font-sans flex flex-col bg">
         <Section
           id="hero"
-          className="hero relative flex max-lg:flex-col gap-1 items-center px-40 max-lg:px-0 py-12 overflow-hidden"
+          className="hero relative flex max-lg:flex-col gap-1 items-center px-40 max-lg:px-0 py-12 bg-[#E9EFFF] dark:text-white overflow-hidden"
           bg="transparent"
         >
           <div className="hero-content w-[50%] max-lg:w-full flex flex-col items-start max-lg:items-center max-lg:text-center md:w-[90%] sm:w-[90%] mx-auto relative z-1 mb-[4rem] max-lg:mb-[1rem] max-lg:p-2 md:mb-0 lg:mb-[rem] leading-7">
             <a href="" className="group mb-4">
-              <div className="new-product-pill flex gap-2 justify-center items-center px-2 py-1 border  rounded-full object-contain text-sm max-sm:text-xs transition-colors duration-200">
+              <div className="new-product-pill flex gap-2 justify-center items-center px-2 py-1 border border-[#175fff] rounded-full object-contain text-sm max-sm:text-xs group-hover:bg-[#175fff] transition-colors duration-200">
                 <span>
                   <img src="" width="" alt="" />
                 </span>
-                <span className=" ">Reconciliation is coming! 🎉</span>
+                <span className="text-[#175fff] group-hover:text-white">
+                  Reconciliation is coming! 🎉
+                </span>
               </div>
             </a>
 
-            <h1 className="flex flex-col mb-6 text-5xl font-bold font-sans max-sm:text-4xl max-md:text-4xl  max-lg:text-4xl">
+            <h1 className="flex flex-col mb-6 text-5xl font-bold font-sans max-sm:text-4xl max-md:text-4xl text-[#0A2540] max-lg:text-4xl">
               BaseOne Docs:{" "}
-              <span className=" text-4xl max-lg:text-3xl">
+              <span className="text-[#175fff] text-4xl max-lg:text-3xl">
                 Your all-in-one fintech shop
               </span>
             </h1>
 
-            <p className="pb-6 max-lg:pb-3 text-xl font-semibold ">
+            <p className="pb-6 max-lg:pb-3 text-xl font-semibold text-[#0A2540]">
               Idea to Launch in Minutes
             </p>
 
             <div className="flex gap-4 text-lg font-bold">
               <a
                 href="/docs/intro"
-                className="button--secondary rounded-xl py-3 px-6 normal-case border-2 font-semibold 
-                   transition-all duration-300 ease-in-out
+                className="button--secondary rounded-xl py-3 px-6 normal-case border-2 border-[#175fff] text-[#175fff] font-semibold 
+                 hover:bg-[#175fff] hover:text-white transition-all duration-300 ease-in-out
                  shadow-md hover:shadow-lg 
                  flex items-center space-x-2
                  transform hover:-translate-y-0.5
@@ -97,8 +99,8 @@ curl --request POST
               </a>
               <a
                 href="/api"
-                className="button--secondary rounded-xl py-3 px-6 normal-case border-2 font-semibold 
-                  transition-all duration-300 ease-in-out
+                className="button--secondary rounded-xl py-3 px-6 normal-case border-2 border-[#175fff] text-[#175fff] font-semibold 
+                 hover:bg-[#175fff] hover:text-white transition-all duration-300 ease-in-out
                  shadow-md hover:shadow-lg 
                  flex items-center space-x-2
                  transform hover:-translate-y-0.5
@@ -111,12 +113,12 @@ curl --request POST
               </a>
             </div>
           </div>
-          <div className=" max-md:w-[100%] max:md:px-6 max-md:text-md max-sm:px-6 max-sm:text-xs  relative z-1">
+          <div className=" max-md:w-[100%] max:md:px-6 max-md:text-md max-sm:px-6 max-sm:text-xs dark:text-[#0A2540] relative z-1">
             <CodeSnippet code={code} />
           </div>
         </Section>
 
-        <section className="flex max-md:flex-col py-8 justify-center gap-4 px-28 max-lg:px-2 ">
+        <section className="flex max-md:flex-col py-8 justify-center gap-4 px-28 max-lg:px-2 text-white">
           {Object.values(PRODUCT_INFO).map(
             ({ title, copyText, productIcon, href }) => (
               <HomepageProducts
